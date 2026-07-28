@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
@@ -8,53 +9,76 @@ const fadeInUp = {
 };
 
 export default function Home() {
+  // =======================================================
+  // BÜLTEN (NEWSLETTER) İÇİN ÇALIŞAN FONKSİYONLAR VE DURUMLAR
+  // =======================================================
+  const [email, setEmail] = useState("");
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault(); // Sayfanın yenilenmesini engeller
+    if (!email) return;
+
+    setIsLoading(true);
+
+    // Backend (Sunucu) simülasyonu: 1.5 saniye bekle ve başarılı de
+    setTimeout(() => {
+      setIsLoading(false);
+      setIsSubscribed(true);
+      setEmail(""); // Kutuyu temizle
+      
+      // 4 saniye sonra başarı mesajını gizle
+      setTimeout(() => {
+        setIsSubscribed(false);
+      }, 4000);
+    }, 1500);
+  };
+
   return (
     <main className="w-full min-h-screen bg-gray-50 overflow-x-hidden relative">
-      
       
       {/* ======================================================= */}
       {/* 2. SAĞ ALT: GERÇEK WHATSAPP BUTONU                        */}
       {/* ======================================================= */}
       <a href="https://wa.me/905555555555" target="_blank" rel="noopener noreferrer" className="fixed bottom-6 right-6 z-[60] bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 flex items-center justify-center group">
-        {/* Hafif ping animasyonu dikkat çeker */}
         <span className="absolute w-full h-full rounded-full bg-[#25D366] opacity-50 animate-ping"></span>
-        
-        {/* Gerçek WhatsApp SVG İkonu (Instagram silindi) */}
         <svg className="w-8 h-8 relative z-10" fill="currentColor" viewBox="0 0 24 24">
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.012c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
         </svg>
-
-        {/* Üzerine gelince açılan metin kutusu (Sağa Yaslı Olduğu İçin Solunda Çıkar) */}
         <span className="absolute right-16 bg-white text-gray-900 text-xs font-bold px-4 py-2 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap shadow-lg pointer-events-none">
           Questions? Chat with us! 👋
         </span>
       </a>
 
-
-      {/* 3. HERO (VİDEOLU GİRİŞ) - BURADAN İTİBAREN AŞAĞISI HİÇ DEĞİŞMEDİ */}
+      {/* 3. HERO (VİDEOLU GİRİŞ) */}
       <div className="relative h-screen w-full overflow-hidden bg-gray-900">
         <div className="absolute inset-0 bg-black/50 z-10"></div>
         <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover z-0">
           <source src="/video.mp4" type="video/mp4" />
         </video>
-        {/* ... KODUN GERİ KALANI AYNI ŞEKİLDE DEVAM EDİYOR ... */}
 
-        <div className="relative z-20 flex flex-col items-center justify-center h-full text-center text-white px-4">
+        <div className="relative z-20 flex flex-col items-center justify-center h-full text-center text-white px-4 pt-24 md:pt-32">
+          
           <motion.h1 
             initial={{ opacity: 0, y: 50 }} 
             animate={{ opacity: 1, y: 0 }} 
             transition={{ duration: 1.2, ease: "easeOut" }}
-            className="text-5xl md:text-7xl font-extrabold mb-6 drop-shadow-2xl"
+            className="flex flex-col items-center mb-6"
           >
-            Discover Cappadocia
-            <span className="block text-yellow-500 mt-2">Like Never Before.</span>
+            <span className="text-4xl md:text-6xl font-light tracking-[0.15em] drop-shadow-2xl uppercase mb-2">
+              Discover Cappadocia
+            </span>
+            <span className="text-5xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-yellow-500 to-yellow-600 drop-shadow-[0_5px_15px_rgba(0,0,0,0.8)] mt-2">
+              Like Never Before.
+            </span>
           </motion.h1>
           
           <motion.p 
             initial={{ opacity: 0, y: 30 }} 
             animate={{ opacity: 1, y: 0 }} 
             transition={{ duration: 1.2, delay: 0.4, ease: "easeOut" }}
-            className="text-lg md:text-2xl mb-10 max-w-3xl drop-shadow-md font-light text-gray-200"
+            className="text-lg md:text-2xl mb-12 max-w-3xl drop-shadow-md font-light text-gray-200 tracking-wide"
           >
             Ödüllü turlar, VIP transferler ve unutulmaz deneyimler.
           </motion.p>
@@ -65,13 +89,10 @@ export default function Home() {
             transition={{ duration: 1, delay: 0.7, ease: "easeOut" }}
             className="w-full max-w-3xl flex flex-col items-center"
           >
-        {/* ======================================================= */}
-          {/* ESKİ ARAMA ÇUBUĞU YERİNE - YENİ İKİLİ ÇAĞRI BUTONLARI   */}
-          {/* ======================================================= */}
-          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 relative z-20">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-5 relative z-20 w-full sm:w-auto">
             <Link 
               href="/book" 
-              className="w-full sm:w-auto bg-yellow-500 text-black px-10 py-4 rounded-full font-extrabold text-lg hover:bg-yellow-400 transition-transform hover:-translate-y-1 shadow-lg shadow-yellow-500/30 flex items-center justify-center gap-2"
+              className="w-full sm:w-auto bg-gradient-to-r from-yellow-400 to-yellow-600 text-black px-12 py-4 rounded-full font-black text-[15px] tracking-widest uppercase hover:shadow-[0_0_30px_rgba(234,179,8,0.5)] hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3"
             >
               Book Now
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
@@ -79,23 +100,22 @@ export default function Home() {
             
             <Link 
               href="/itineraries" 
-              className="w-full sm:w-auto bg-white/10 backdrop-blur-md text-white border-2 border-white/30 px-10 py-4 rounded-full font-bold text-lg hover:bg-white/20 hover:border-white/50 transition-all flex items-center justify-center gap-2"
+              className="w-full sm:w-auto bg-black/30 backdrop-blur-md text-white border border-white/40 px-12 py-4 rounded-full font-bold text-[15px] tracking-widest uppercase hover:bg-white/20 hover:border-white/80 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3"
             >
               Ready Travel Plans
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" /></svg>
             </Link>
           </div>
             
-            {/* SATIŞ TETİKLEYİCİ: Hızlı Yönlendirme Linkleri (Quick Links) */}
-            <div className="flex flex-wrap justify-center gap-3 mt-6">
-              <span className="text-gray-300 text-sm font-medium self-center mr-2 hidden md:block">Popular Searches:</span>
-              <Link href="/tours/balloon" className="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white text-sm px-4 py-1.5 rounded-full transition-colors flex items-center gap-1.5 shadow-sm">
+            <div className="flex flex-wrap justify-center gap-3 mt-8">
+              <span className="text-gray-300 text-xs font-bold uppercase tracking-widest self-center mr-2 hidden md:block">Popular Searches:</span>
+              <Link href="/tours/balloon" className="bg-black/40 hover:bg-black/60 backdrop-blur-md border border-white/10 text-white text-xs font-bold tracking-wider px-5 py-2 rounded-full transition-all flex items-center gap-2 hover:border-yellow-500/50">
                 🔥 Hot Air Balloon
               </Link>
-              <Link href="/tours/atv-safari" className="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white text-sm px-4 py-1.5 rounded-full transition-colors flex items-center gap-1.5 shadow-sm">
+              <Link href="/tours/atv-safari" className="bg-black/40 hover:bg-black/60 backdrop-blur-md border border-white/10 text-white text-xs font-bold tracking-wider px-5 py-2 rounded-full transition-all flex items-center gap-2 hover:border-yellow-500/50">
                 🚙 Sunset ATV
               </Link>
-              <Link href="/packages" className="bg-white/10 hover:bg-yellow-500/20 backdrop-blur-md border border-yellow-500/50 text-yellow-400 hover:text-yellow-300 text-sm px-4 py-1.5 rounded-full transition-colors flex items-center gap-1.5 shadow-sm">
+              <Link href="/packages" className="bg-yellow-500/10 hover:bg-yellow-500/20 backdrop-blur-md border border-yellow-500/30 text-yellow-400 hover:text-yellow-300 text-xs font-bold tracking-wider px-5 py-2 rounded-full transition-all flex items-center gap-2">
                 ✨ VIP Packages
               </Link>
             </div>
@@ -103,7 +123,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* 3. GÜVEN BARI (Animasyonlu) */}
+      {/* 3. GÜVEN BARI */}
       <motion.div 
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -135,7 +155,7 @@ export default function Home() {
         </div>
       </motion.div>
 
-      {/* 4. POPÜLER BÖLGELER (Animasyonlu ve Şık) */}
+      {/* 4. POPÜLER BÖLGELER */}
       <motion.div 
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -185,9 +205,7 @@ export default function Home() {
         </div>
       </motion.div>
 
-   {/* ======================================================= */}
-      {/* 5. POPULAR TOURS (SATIŞ ODAKLI DÖNÜŞÜM YAPILDI) */}
-      {/* ======================================================= */}
+      {/* 5. POPULAR TOURS */}
       <div className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
@@ -207,8 +225,7 @@ export default function Home() {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            
-            {/* 1. KART: Balon Turu */}
+            {/* 1. KART */}
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -218,7 +235,6 @@ export default function Home() {
             >
               <div className="h-64 bg-gray-300 relative overflow-hidden">
                 <div className="absolute inset-0 bg-blue-900/20 group-hover:scale-110 transition-transform duration-500"></div>
-                {/* SATIŞ TETİKLEYİCİ: Aciliyet Rozeti (Selling Fast) */}
                 <div className="absolute top-4 right-4 bg-red-600 text-white text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-widest animate-pulse shadow-lg">
                   🔥 Selling Fast
                 </div>
@@ -226,7 +242,6 @@ export default function Home() {
               <div className="p-6 flex flex-col flex-1">
                 <div className="flex justify-between items-center mb-3">
                   <span className="text-yellow-600 font-bold text-sm tracking-wider uppercase">Activity</span>
-                  {/* SATIŞ TETİKLEYİCİ: Fiyat Çapası (İndirim Psikolojisi) */}
                   <div>
                     <span className="text-gray-400 line-through text-sm mr-2">€180</span>
                     <span className="text-gray-900 font-extrabold text-xl">€150</span>
@@ -234,14 +249,11 @@ export default function Home() {
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">Hot Air Balloon Flight</h3>
                 <p className="text-gray-600 mb-6 line-clamp-2 flex-1">Float above the fairy chimneys at sunrise and witness the magical landscape of Cappadocia from the sky.</p>
-                
-                {/* SATIŞ TETİKLEYİCİ: Mikro-Kopya (Güven) ve Güçlü CTA */}
                 <div className="mt-auto">
                   <div className="text-center mb-3 flex items-center justify-center gap-1.5 text-green-600">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
                     <span className="text-xs font-bold">Free Cancellation</span>
                   </div>
-                  {/* BUTTON YERİNE LINK EKLENDİ */}
                   <Link href="/book" className="block text-center w-full bg-yellow-500 text-black py-3.5 rounded-xl font-bold text-sm uppercase tracking-widest hover:bg-yellow-400 transition-colors shadow-lg">
                     Check Availability
                   </Link>
@@ -249,7 +261,7 @@ export default function Home() {
               </div>
             </motion.div>
 
-            {/* 2. KART: ATV Turu */}
+            {/* 2. KART */}
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -273,13 +285,11 @@ export default function Home() {
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">Sunset ATV Tour</h3>
                 <p className="text-gray-600 mb-6 line-clamp-2 flex-1">Ride through the dusty trails of Sword, Love, and Rose Valleys as the sun sets over the unique rock formations.</p>
-                
                 <div className="mt-auto">
                   <div className="text-center mb-3 flex items-center justify-center gap-1.5 text-green-600">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
                     <span className="text-xs font-bold">Pay Later</span>
                   </div>
-                  {/* BUTTON YERİNE LINK EKLENDİ */}
                   <Link href="/book" className="block text-center w-full bg-slate-900 text-white py-3.5 rounded-xl font-bold text-sm uppercase tracking-widest hover:bg-slate-800 transition-colors shadow-lg">
                     Reserve Now
                   </Link>
@@ -287,7 +297,7 @@ export default function Home() {
               </div>
             </motion.div>
 
-            {/* 3. KART: Kırmızı Tur */}
+            {/* 3. KART */}
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -311,13 +321,11 @@ export default function Home() {
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">Cappadocia Red Tour</h3>
                 <p className="text-gray-600 mb-6 line-clamp-2 flex-1">Explore the Göreme Open Air Museum, Uçhisar Castle, and the pottery town of Avanos in a single day.</p>
-                
                 <div className="mt-auto">
                   <div className="text-center mb-3 flex items-center justify-center gap-1.5 text-green-600">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
                     <span className="text-xs font-bold">Museum Tickets Included</span>
                   </div>
-                  {/* BUTTON YERİNE LINK EKLENDİ */}
                   <Link href="/book" className="block text-center w-full bg-slate-900 text-white py-3.5 rounded-xl font-bold text-sm uppercase tracking-widest hover:bg-slate-800 transition-colors shadow-lg">
                     Reserve Now
                   </Link>
@@ -328,23 +336,21 @@ export default function Home() {
           </div>
         </div>
       </div>
-{/* ======================================================= */}
-          {/* TÜM TURLARI GÖR BUTONU */}
-          {/* ======================================================= */}
-          <div className="mt-16 text-center">
-            <Link 
-              href="/tours" 
-              className="inline-flex items-center justify-center gap-3 bg-white border-2 border-gray-900 text-gray-900 px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-900 hover:text-white transition-all duration-300 shadow-lg"
-            >
-              View All Tours & Activities
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </Link>
-          </div>
-{/* ======================================================= */}
-      {/* 6. READY TRAVEL PLANS (HAZIR ROTALAR) BÖLÜMÜ */}
-      {/* ======================================================= */}
+
+      {/* TÜM TURLARI GÖR BUTONU */}
+      <div className="mt-16 text-center">
+        <Link 
+          href="/tours" 
+          className="inline-flex items-center justify-center gap-3 bg-white border-2 border-gray-900 text-gray-900 px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-900 hover:text-white transition-all duration-300 shadow-lg"
+        >
+          View All Tours & Activities
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </Link>
+      </div>
+
+      {/* 6. READY TRAVEL PLANS */}
       <div className="py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
@@ -360,13 +366,11 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             
-            {/* KART 1: 1 Günlük Plan */}
+            {/* KART 1 */}
             <div className="bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all hover:-translate-y-2 group flex flex-col border border-gray-100">
               <div className="h-56 relative overflow-hidden bg-gray-300">
                 <img src="https://images.unsplash.com/photo-1641128324972-af3212f0f6bd?q=80&w=800" alt="1 Day Itinerary" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-gray-900 font-black px-4 py-2 rounded-xl shadow-lg">
-                  1 DAY
-                </div>
+                <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-gray-900 font-black px-4 py-2 rounded-xl shadow-lg">1 DAY</div>
               </div>
               <div className="p-8 flex flex-col flex-1">
                 <h3 className="text-2xl font-bold text-gray-900 mb-3">The Express Explorer</h3>
@@ -377,16 +381,12 @@ export default function Home() {
               </div>
             </div>
 
-            {/* KART 2: 2 Günlük Plan (VURGULANMIŞ) */}
+            {/* KART 2 */}
             <div className="bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all hover:-translate-y-2 group flex flex-col border-2 border-yellow-500 relative">
-              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-yellow-500 text-black px-6 py-1.5 rounded-full font-bold text-xs uppercase tracking-widest z-10 shadow-lg">
-                Most Popular
-              </div>
+              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-yellow-500 text-black px-6 py-1.5 rounded-full font-bold text-xs uppercase tracking-widest z-10 shadow-lg">Most Popular</div>
               <div className="h-56 relative overflow-hidden bg-gray-300">
                 <img src="https://images.unsplash.com/photo-1574347775984-b003666d9255?q=80&w=800" alt="2 Day Itinerary" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-gray-900 font-black px-4 py-2 rounded-xl shadow-lg">
-                  2 DAYS
-                </div>
+                <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-gray-900 font-black px-4 py-2 rounded-xl shadow-lg">2 DAYS</div>
               </div>
               <div className="p-8 flex flex-col flex-1">
                 <h3 className="text-2xl font-bold text-gray-900 mb-3">The Classic Weekend</h3>
@@ -397,13 +397,11 @@ export default function Home() {
               </div>
             </div>
 
-            {/* KART 3: 3 Günlük Plan */}
+            {/* KART 3 */}
             <div className="bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all hover:-translate-y-2 group flex flex-col border border-gray-100">
               <div className="h-56 relative overflow-hidden bg-gray-300">
                 <img src="https://images.unsplash.com/photo-1527838832700-5059252407fa?q=80&w=800" alt="3 Day Itinerary" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-gray-900 font-black px-4 py-2 rounded-xl shadow-lg">
-                  3+ DAYS
-                </div>
+                <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-gray-900 font-black px-4 py-2 rounded-xl shadow-lg">3+ DAYS</div>
               </div>
               <div className="p-8 flex flex-col flex-1">
                 <h3 className="text-2xl font-bold text-gray-900 mb-3">Deep Cappadocia</h3>
@@ -416,19 +414,15 @@ export default function Home() {
 
           </div>
           
-          {/* Tüm Planları Gör Butonu */}
           <div className="mt-12 text-center">
             <Link href="/itineraries" className="inline-flex items-center gap-2 text-gray-900 font-bold hover:text-yellow-600 transition-colors">
               See All Ready Plans <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
             </Link>
           </div>
-
         </div>
       </div>
 
-    {/* ======================================================= */}
       {/* 7. WORKSHOPLAR VE AKTİVİTELER */}
-      {/* ======================================================= */}
       <div className="py-20 px-8 max-w-7xl mx-auto">
         <motion.div 
           initial="hidden"
@@ -451,7 +445,6 @@ export default function Home() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="relative h-72 rounded-2xl overflow-hidden group shadow-lg"
           >
-            {/* LINK DÜZELTİLDİ: "pottery" */}
             <Link href="/book?package=pottery" className="block w-full h-full relative">
               <img src="https://images.unsplash.com/photo-1516738778643-41ea3f60f089?q=80&w=600" className="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Pottery" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition duration-500"></div>
@@ -472,7 +465,6 @@ export default function Home() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="relative h-72 rounded-2xl overflow-hidden group shadow-lg"
           >
-            {/* LINK DÜZELTİLDİ: "carpet" */}
             <Link href="/book?package=carpet" className="block w-full h-full relative">
               <img src="https://images.unsplash.com/photo-1602934445884-da0fa1c9d3b3?q=80&w=600" className="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Carpet" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition duration-500"></div>
@@ -493,7 +485,6 @@ export default function Home() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="relative h-72 rounded-2xl overflow-hidden group shadow-lg"
           >
-            {/* LINK DÜZELTİLDİ: "cooking" */}
             <Link href="/book?package=cooking" className="block w-full h-full relative">
               <img src="https://images.unsplash.com/photo-1541534407338-02422e6f43e3?q=80&w=600" className="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Cooking" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition duration-500"></div>
@@ -514,7 +505,6 @@ export default function Home() {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="relative h-72 rounded-2xl overflow-hidden group shadow-lg"
           >
-            {/* LINK DÜZELTİLDİ: "wine" */}
             <Link href="/book?package=wine" className="block w-full h-full relative">
               <img src="https://images.unsplash.com/photo-1522850959516-58f958d88aca?q=80&w=600" className="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Wine" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition duration-500"></div>
@@ -530,9 +520,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ======================================================= */}
       {/* 8. FOTOĞRAF GALERİSİ (CAPTURED MOMENTS) */}
-      {/* ======================================================= */}
       <div className="py-24 bg-white relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-12 relative z-10">
           <span className="text-yellow-500 font-bold uppercase tracking-widest text-sm">Captured Moments</span>
@@ -542,10 +530,8 @@ export default function Home() {
           </p>
         </div>
 
-        {/* Galeri Grid - Yan yana 4'lü, mobilde 2'li şık tasarım */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
           
-          {/* Fotoğraf 1 */}
           <div className="relative h-64 md:h-80 rounded-2xl overflow-hidden group shadow-md cursor-pointer">
             <img src="https://images.unsplash.com/photo-1528291151377-165fdb10ea7a?q=80&w=800" className="w-full h-full object-cover group-hover:scale-110 group-hover:rotate-1 transition duration-700" alt="Cappadocia Balloons" />
             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition duration-300 flex items-center justify-center">
@@ -553,7 +539,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Fotoğraf 2 */}
           <div className="relative h-64 md:h-80 rounded-2xl overflow-hidden group shadow-md cursor-pointer">
             <img src="https://images.unsplash.com/photo-1600255821058-c4f89958d700?q=80&w=800" className="w-full h-full object-cover group-hover:scale-110 group-hover:rotate-1 transition duration-700" alt="Fairy Chimneys" />
             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition duration-300 flex items-center justify-center">
@@ -561,7 +546,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Fotoğraf 3 */}
           <div className="relative h-64 md:h-80 rounded-2xl overflow-hidden group shadow-md cursor-pointer">
             <img src="https://images.unsplash.com/photo-1527668752968-14ce70a34c1b?q=80&w=800" className="w-full h-full object-cover group-hover:scale-110 group-hover:rotate-1 transition duration-700" alt="Valleys" />
             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition duration-300 flex items-center justify-center">
@@ -569,7 +553,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Fotoğraf 4 */}
           <div className="relative h-64 md:h-80 rounded-2xl overflow-hidden group shadow-md cursor-pointer">
             <img src="https://images.unsplash.com/photo-1535747682970-137a28cb0f80?q=80&w=800" className="w-full h-full object-cover group-hover:scale-110 group-hover:rotate-1 transition duration-700" alt="Cave Hotel" />
             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition duration-300 flex items-center justify-center">
@@ -578,7 +561,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Aksiyon Butonu */}
         <div className="text-center mt-12 relative z-10">
           <Link href="https://instagram.com" target="_blank" className="inline-flex items-center gap-3 bg-gray-900 text-white px-8 py-4 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-yellow-500 hover:text-black transition-colors shadow-lg hover:-translate-y-1">
             Follow Us on Instagram
@@ -587,7 +569,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* 9. WHY CHOOSE US (Neden Biz?) */}
+      {/* 9. WHY CHOOSE US */}
       <div className="py-20 bg-slate-900 text-white">
         <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>
@@ -689,7 +671,7 @@ export default function Home() {
       </div>
 
       {/* ======================================================= */}
-      {/* 9. SIKÇA SORULAN SORULAR (FAQ) */}
+      {/* 11. SIKÇA SORULAN SORULAR (FAQ) */}
       {/* ======================================================= */}
       <div className="py-24 px-8 max-w-4xl mx-auto">
         <div className="text-center mb-16">
@@ -701,8 +683,6 @@ export default function Home() {
         </div>
 
         <div className="space-y-6">
-          
-          {/* Soru 1 */}
           <details className="group bg-white border border-gray-200 rounded-2xl p-6 open:shadow-lg open:border-yellow-500 transition-all cursor-pointer">
             <summary className="flex justify-between items-center font-bold text-lg text-gray-900 outline-none list-none">
               When is the best time to visit Cappadocia?
@@ -715,7 +695,6 @@ export default function Home() {
             </p>
           </details>
 
-          {/* Soru 2 */}
           <details className="group bg-white border border-gray-200 rounded-2xl p-6 open:shadow-lg open:border-yellow-500 transition-all cursor-pointer">
             <summary className="flex justify-between items-center font-bold text-lg text-gray-900 outline-none list-none">
               Are hot air balloon flights guaranteed?
@@ -728,7 +707,6 @@ export default function Home() {
             </p>
           </details>
 
-          {/* Soru 3 */}
           <details className="group bg-white border border-gray-200 rounded-2xl p-6 open:shadow-lg open:border-yellow-500 transition-all cursor-pointer">
             <summary className="flex justify-between items-center font-bold text-lg text-gray-900 outline-none list-none">
               What is the difference between the Red Tour and Green Tour?
@@ -742,7 +720,6 @@ export default function Home() {
             </p>
           </details>
 
-          {/* Soru 4 */}
           <details className="group bg-white border border-gray-200 rounded-2xl p-6 open:shadow-lg open:border-yellow-500 transition-all cursor-pointer">
             <summary className="flex justify-between items-center font-bold text-lg text-gray-900 outline-none list-none">
               Do I need to book in advance?
@@ -755,7 +732,6 @@ export default function Home() {
             </p>
           </details>
 
-          {/* Soru 5 */}
           <details className="group bg-white border border-gray-200 rounded-2xl p-6 open:shadow-lg open:border-yellow-500 transition-all cursor-pointer">
             <summary className="flex justify-between items-center font-bold text-lg text-gray-900 outline-none list-none">
               How does the booking and payment process work?
@@ -767,7 +743,6 @@ export default function Home() {
               It’s very simple. You choose your desired package or tour from our website and send a request via WhatsApp. Our local experts will confirm availability and finalize the details with you instantly. Payments can be made safely upon arrival or via secure online link.
             </p>
           </details>
-
         </div>
       </div>
 
@@ -812,15 +787,55 @@ export default function Home() {
         </div>
       </div>
 
-      {/* 14. BÜLTEN (NEWSLETTER) */}
+      {/* ======================================================= */}
+      {/* 14. BÜLTEN (NEWSLETTER) - ARTIK ÇALIŞIYOR! */}
+      {/* ======================================================= */}
       <div className="bg-yellow-500 py-16">
         <div className="max-w-3xl mx-auto px-6 text-center">
           <h2 className="text-3xl font-extrabold text-black mb-4">Kapadokya Fırsatlarını Kaçırmayın!</h2>
           <p className="text-slate-900 mb-8 font-medium">Özel indirimler, yeni turlar ve Kapadokya ipuçları için bültenimize katılın.</p>
-          <div className="flex bg-white p-2 rounded-full shadow-lg">
-            <input type="email" placeholder="E-posta adresiniz..." className="flex-1 px-6 rounded-l-full outline-none text-black bg-transparent" />
-            <button className="bg-slate-900 text-white px-8 py-3 rounded-full font-bold hover:bg-slate-800 transition">Subscribe</button>
-          </div>
+          
+          <form onSubmit={handleSubscribe} className="relative max-w-lg mx-auto">
+            <div className="flex bg-white p-2 rounded-full shadow-lg">
+              <input 
+                type="email" 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="E-posta adresiniz..." 
+                className="flex-1 px-4 md:px-6 rounded-l-full outline-none text-black bg-transparent placeholder-gray-500"
+                required 
+                disabled={isLoading || isSubscribed}
+              />
+              <button 
+                type="submit" 
+                disabled={isLoading || isSubscribed}
+                className="bg-slate-900 text-white px-6 md:px-8 py-3 rounded-full font-bold hover:bg-slate-800 transition disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center min-w-[120px] md:min-w-[140px]"
+              >
+                {isLoading ? (
+                  <svg className="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                ) : isSubscribed ? (
+                  "Katıldınız ✓"
+                ) : (
+                  "Subscribe"
+                )}
+              </button>
+            </div>
+            
+            {/* Başarı Mesajı Animasyonu */}
+            {isSubscribed && (
+              <motion.p 
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="absolute -bottom-10 left-0 w-full text-green-900 font-bold text-sm"
+              >
+                Harika! E-posta bültenimize başarıyla katıldınız. 🎉
+              </motion.p>
+            )}
+          </form>
+
         </div>
       </div>
 

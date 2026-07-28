@@ -50,11 +50,9 @@ const menuKategorileri = [
 ];
 
 export default function Header() {
-  // HATA BURADAN KAYNAKLANIYORDU: React kuralı gereği bütün state'ler ana fonksiyonun içinde olmalıdır!
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
   
-  // YENİ EKLENEN STATE'LER İÇERİ ALINDI
   const [language, setLanguage] = useState("EN");
   const [currency, setCurrency] = useState("EUR");
   const [openDropdown, setOpenDropdown] = useState<"lang" | "curr" | null>(null);
@@ -66,29 +64,29 @@ export default function Header() {
   return (
     <>
       {/* ========================================= */}
-      {/* 1. ŞEFFAF ÜST BAR */}
+      {/* 1. ŞEFFAF ÜST BAR (Mobilde inceltildi: h-16) */}
       {/* ========================================= */}
-      <header className="fixed top-0 left-0 w-full z-40 bg-black/20 backdrop-blur-md border-b border-white/10 h-20">
-        <div className="w-full px-6 md:px-12 lg:px-20 h-full grid grid-cols-3 items-center">
+      <header className="fixed top-0 left-0 w-full z-40 bg-black/20 backdrop-blur-md border-b border-white/10 h-16 md:h-20">
+        {/* Izgara(Grid) yerine Flex kullandık, böylece logo sıkışmayacak */}
+        <div className="w-full px-4 md:px-12 lg:px-20 h-full flex justify-between items-center">
           
-          {/* SOL: Yazı */}
-          <Link href="/" className="flex items-center justify-start text-3xl font-bold">
-            <span className="text-white">Cappa</span>
-            <span className="text-yellow-500">Viva</span>
-          </Link>
-
-          {/* ORTA: Logo */}
-          <div className="flex justify-center">
-            <div className="relative w-12 h-12">
+          {/* SOL: LOGO VE YAZI YAN YANA */}
+          <Link href="/" className="flex items-center gap-2 md:gap-3">
+            {/* Logo artık yazının yanında ve sabit boyutta */}
+            <div className="relative w-9 h-9 md:w-12 md:h-12 flex-shrink-0">
               <Image src="/logo.png" alt="CappaViva Logo" fill className="object-contain" unoptimized priority />
             </div>
-          </div>
+            <div className="text-2xl md:text-3xl font-bold">
+              <span className="text-white">Cappa</span>
+              <span className="text-yellow-500">Viva</span>
+            </div>
+          </Link>
 
           {/* SAĞ: Dil, Local Guide (Pusula) ve Menü */}
-          <div className="flex items-center justify-end w-full relative z-50">
+          <div className="flex items-center justify-end relative z-50">
             
             {/* ========================================= */}
-            {/* YENİ NESİL DİL & PARA BİRİMİ SEÇİCİ */}
+            {/* MASAÜSTÜ (BİLGİSAYAR) DİL & PARA BİRİMİ   */}
             {/* ========================================= */}
             <div className="hidden md:flex items-center gap-1 mr-4 relative z-50">
               
@@ -103,21 +101,13 @@ export default function Header() {
                   <svg className={`w-3.5 h-3.5 transition-transform duration-300 ${openDropdown === 'lang' ? 'rotate-180 text-yellow-500' : 'text-gray-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" /></svg>
                 </button>
                 
-                {/* DİL AÇILIR MENÜSÜ */}
                 <div className={`absolute top-full left-0 mt-3 w-36 bg-black/95 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl py-2 overflow-hidden transition-all duration-300 origin-top-left ${openDropdown === 'lang' ? 'scale-100 opacity-100 visible' : 'scale-95 opacity-0 invisible'}`}>
-                  <button onClick={() => {setLanguage("EN"); setOpenDropdown(null)}} className="w-full text-left px-4 py-2.5 hover:bg-white/10 hover:text-yellow-500 transition flex items-center gap-3 text-sm text-gray-200 font-medium">
-                    <span className="text-lg">🇬🇧</span> English
-                  </button>
-                  <button onClick={() => {setLanguage("TR"); setOpenDropdown(null)}} className="w-full text-left px-4 py-2.5 hover:bg-white/10 hover:text-yellow-500 transition flex items-center gap-3 text-sm text-gray-200 font-medium">
-                    <span className="text-lg">🇹🇷</span> Türkçe
-                  </button>
-                  <button onClick={() => {setLanguage("ES"); setOpenDropdown(null)}} className="w-full text-left px-4 py-2.5 hover:bg-white/10 hover:text-yellow-500 transition flex items-center gap-3 text-sm text-gray-200 font-medium">
-                    <span className="text-lg">🇪🇸</span> Español
-                  </button>
+                  <button onClick={() => {setLanguage("EN"); setOpenDropdown(null)}} className="w-full text-left px-4 py-2.5 hover:bg-white/10 hover:text-yellow-500 transition flex items-center gap-3 text-sm text-gray-200 font-medium"><span className="text-lg">🇬🇧</span> English</button>
+                  <button onClick={() => {setLanguage("TR"); setOpenDropdown(null)}} className="w-full text-left px-4 py-2.5 hover:bg-white/10 hover:text-yellow-500 transition flex items-center gap-3 text-sm text-gray-200 font-medium"><span className="text-lg">🇹🇷</span> Türkçe</button>
+                  <button onClick={() => {setLanguage("ES"); setOpenDropdown(null)}} className="w-full text-left px-4 py-2.5 hover:bg-white/10 hover:text-yellow-500 transition flex items-center gap-3 text-sm text-gray-200 font-medium"><span className="text-lg">🇪🇸</span> Español</button>
                 </div>
               </div>
 
-              {/* Araya İnce Şık Bir Çizgi */}
               <div className="h-5 w-px bg-white/20 mx-1"></div>
 
               {/* 2. PARA BİRİMİ SEÇİCİ BUTON */}
@@ -131,40 +121,25 @@ export default function Header() {
                   <svg className={`w-3.5 h-3.5 transition-transform duration-300 ${openDropdown === 'curr' ? 'rotate-180 text-yellow-500' : 'text-gray-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" /></svg>
                 </button>
                 
-                {/* PARA BİRİMİ AÇILIR MENÜSÜ */}
                 <div className={`absolute top-full right-0 mt-3 w-28 bg-black/95 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl py-2 overflow-hidden transition-all duration-300 origin-top-right ${openDropdown === 'curr' ? 'scale-100 opacity-100 visible' : 'scale-95 opacity-0 invisible'}`}>
-                  <button onClick={() => {setCurrency("EUR"); setOpenDropdown(null)}} className="w-full text-left px-4 py-2.5 hover:bg-white/10 hover:text-yellow-500 transition flex items-center gap-3 text-sm text-gray-200 font-medium">
-                    <span className="text-yellow-500 font-bold text-base w-4 text-center">€</span> EUR
-                  </button>
-                  <button onClick={() => {setCurrency("USD"); setOpenDropdown(null)}} className="w-full text-left px-4 py-2.5 hover:bg-white/10 hover:text-yellow-500 transition flex items-center gap-3 text-sm text-gray-200 font-medium">
-                    <span className="text-yellow-500 font-bold text-base w-4 text-center">$</span> USD
-                  </button>
-                  <button onClick={() => {setCurrency("GBP"); setOpenDropdown(null)}} className="w-full text-left px-4 py-2.5 hover:bg-white/10 hover:text-yellow-500 transition flex items-center gap-3 text-sm text-gray-200 font-medium">
-                    <span className="text-yellow-500 font-bold text-base w-4 text-center">£</span> GBP
-                  </button>
-                  <button onClick={() => {setCurrency("TRY"); setOpenDropdown(null)}} className="w-full text-left px-4 py-2.5 hover:bg-white/10 hover:text-yellow-500 transition flex items-center gap-3 text-sm text-gray-200 font-medium">
-                    <span className="text-yellow-500 font-bold text-base w-4 text-center">₺</span> TRY
-                  </button>
+                  <button onClick={() => {setCurrency("EUR"); setOpenDropdown(null)}} className="w-full text-left px-4 py-2.5 hover:bg-white/10 hover:text-yellow-500 transition flex items-center gap-3 text-sm text-gray-200 font-medium"><span className="text-yellow-500 font-bold text-base w-4 text-center">€</span> EUR</button>
+                  <button onClick={() => {setCurrency("USD"); setOpenDropdown(null)}} className="w-full text-left px-4 py-2.5 hover:bg-white/10 hover:text-yellow-500 transition flex items-center gap-3 text-sm text-gray-200 font-medium"><span className="text-yellow-500 font-bold text-base w-4 text-center">$</span> USD</button>
+                  <button onClick={() => {setCurrency("GBP"); setOpenDropdown(null)}} className="w-full text-left px-4 py-2.5 hover:bg-white/10 hover:text-yellow-500 transition flex items-center gap-3 text-sm text-gray-200 font-medium"><span className="text-yellow-500 font-bold text-base w-4 text-center">£</span> GBP</button>
+                  <button onClick={() => {setCurrency("TRY"); setOpenDropdown(null)}} className="w-full text-left px-4 py-2.5 hover:bg-white/10 hover:text-yellow-500 transition flex items-center gap-3 text-sm text-gray-200 font-medium"><span className="text-yellow-500 font-bold text-base w-4 text-center">₺</span> TRY</button>
                 </div>
               </div>
-              
             </div>
 
-            {/* YENİ ÇALIŞAN LOCAL GUIDE LINKI */}
+            {/* MASAÜSTÜ (BİLGİSAYAR) LOCAL GUIDE LINKI */}
             <Link href="/local-guide" className="hidden md:flex items-center gap-2 bg-white/10 hover:bg-white/20 px-4 py-2 rounded-full border border-white/20 transition-all text-white backdrop-blur-sm group mr-4 cursor-pointer">
-              <svg className="w-5 h-5 text-yellow-500 group-hover:rotate-45 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.121 14.121L19 5l-9.121 4.879L5 19l9.121-4.879z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 12v.01" />
-                <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth={1.5} />
-              </svg>
+              <svg className="w-5 h-5 text-yellow-500 group-hover:rotate-45 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.121 14.121L19 5l-9.121 4.879L5 19l9.121-4.879z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 12v.01" /><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth={1.5} /></svg>
               <span className="text-sm font-bold tracking-widest uppercase">Local Guide</span>
             </Link>
 
-            <button onClick={() => setIsMenuOpen(true)} className="text-white hover:text-yellow-500 transition-colors py-2 pl-2 flex items-center gap-3 group">
-              <span className="hidden sm:block font-bold tracking-widest uppercase text-sm group-hover:text-yellow-500 transition-colors">Menu</span>
-              <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 7h16M4 12h16M8 17h12" />
-              </svg>
+            {/* HER EKRANDA GÖRÜNEN MENÜ BUTONU */}
+            <button onClick={() => setIsMenuOpen(true)} className="text-white hover:text-yellow-500 transition-colors p-2 flex items-center gap-2 group">
+              <span className="hidden md:block font-bold tracking-widest uppercase text-sm group-hover:text-yellow-500 transition-colors">Menu</span>
+              <svg className="w-7 h-7 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>
             </button>
           </div>
 
@@ -180,7 +155,7 @@ export default function Header() {
         
         <div className={`absolute top-0 right-0 h-full w-[85vw] sm:w-[450px] bg-black/70 backdrop-blur-3xl text-white flex flex-col transform transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${isMenuOpen ? "translate-x-0" : "translate-x-full"} border-l border-white/10 shadow-2xl`}>
           
-          {/* Menü Üst */}
+          {/* Menü Üst (Kapatma Butonu ve Logo) */}
           <div className="p-5 md:p-6 border-b border-white/10 flex justify-between items-center bg-white/5">
             <Link href="/" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3">
               <Image src="/logo.png" alt="Logo" width={40} height={40} className="object-contain" unoptimized />
@@ -191,6 +166,56 @@ export default function Header() {
             <button onClick={() => setIsMenuOpen(false)} className="text-gray-400 hover:text-yellow-500 transition-transform hover:rotate-90 duration-300 bg-white/10 p-2 rounded-full">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
             </button>
+          </div>
+
+          {/* ======================================================= */}
+          {/* YENİ: MOBİL İÇİN DİL, PARA BİRİMİ VE LOCAL GUIDE PANELİ */}
+          {/* ======================================================= */}
+          <div className="md:hidden p-5 border-b border-white/5 space-y-4 bg-black/40">
+            <div className="grid grid-cols-2 gap-3">
+              {/* Mobil Dil Seçici */}
+              <select 
+                value={language} 
+                onChange={(e) => setLanguage(e.target.value)}
+                className="bg-white/10 border border-white/20 text-white text-sm font-semibold rounded-xl block w-full p-3 outline-none focus:border-yellow-500 appearance-none shadow-inner"
+              >
+                <option value="EN" className="bg-slate-900 text-white">🇬🇧 English</option>
+                <option value="TR" className="bg-slate-900 text-white">🇹🇷 Türkçe</option>
+                <option value="ES" className="bg-slate-900 text-white">🇪🇸 Español</option>
+              </select>
+
+              {/* Mobil Para Birimi Seçici */}
+              <select 
+                value={currency} 
+                onChange={(e) => setCurrency(e.target.value)}
+                className="bg-white/10 border border-white/20 text-white text-sm font-semibold rounded-xl block w-full p-3 outline-none focus:border-yellow-500 appearance-none shadow-inner"
+              >
+                <option value="EUR" className="bg-slate-900 text-white">€ EUR</option>
+                <option value="USD" className="bg-slate-900 text-white">$ USD</option>
+                <option value="GBP" className="bg-slate-900 text-white">£ GBP</option>
+                <option value="TRY" className="bg-slate-900 text-white">₺ TRY</option>
+              </select>
+            </div>
+            
+            {/* 🌟 YENİ, DİKKAT ÇEKİCİ PREMIUM LOCAL GUIDE BUTONU 🌟 */}
+            <Link href="/local-guide" onClick={() => setIsMenuOpen(false)} className="relative flex items-center justify-between px-5 py-3.5 w-full rounded-xl bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 text-black shadow-[0_0_15px_rgba(234,179,8,0.4)] hover:shadow-[0_0_25px_rgba(234,179,8,0.6)] group overflow-hidden transition-all duration-300 active:scale-95">
+              
+              {/* Arkada çok hafif parlayan hover efekti */}
+              <div className="absolute inset-0 w-full h-full bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+              <div className="flex items-center gap-3 relative z-10">
+                <svg className="w-6 h-6 group-hover:rotate-45 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.121 14.121L19 5l-9.121 4.879L5 19l9.121-4.879z" />
+                  <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth={2} />
+                </svg>
+                <span className="text-[13px] font-black tracking-widest uppercase mt-0.5">Your Local Guide</span>
+              </div>
+              
+              <div className="bg-black/80 px-2.5 py-1 rounded-lg text-yellow-400 text-xs font-bold tracking-widest relative z-10 shadow-inner flex items-center gap-1 border border-yellow-500/30">
+                VIP <span className="text-sm">✨</span>
+              </div>
+            </Link>
+
           </div>
           
           {/* Kaydırılabilir İçerik Alanı */}
@@ -251,7 +276,7 @@ export default function Header() {
             <Link href="/gallery" onClick={() => setIsMenuOpen(false)} className="block py-2.5 text-lg font-medium border-b border-white/5 hover:text-yellow-500 transition-colors">Gallery</Link>
             
             {/* ================================================== */}
-            {/* YENİ EKLENEN HAZIR PLANLAR (ITINERARIES) KARTI     */}
+            {/* HAZIR PLANLAR (ITINERARIES) KARTI */}
             {/* ================================================== */}
             <div className="py-4 border-b border-white/5">
               <Link href="/itineraries" onClick={() => setIsMenuOpen(false)} className="block bg-white/5 border border-white/10 rounded-xl p-4 hover:border-yellow-500 hover:bg-white/10 transition-all group">
