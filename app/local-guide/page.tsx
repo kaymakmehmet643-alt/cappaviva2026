@@ -1,10 +1,9 @@
 "use client";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image";
 
 // Apple Tarzı Kusursuz Animasyon Geçişi
-const appleEase = [0.16, 1, 0.3, 1];
+const appleEase = "easeOut";
 
 export default function LocalGuide() {
   const { scrollY } = useScroll();
@@ -47,7 +46,7 @@ export default function LocalGuide() {
               Kapadokya <br/> <span className="text-gray-500 font-light">Şehir Rehberi.</span>
             </motion.h1>
             <motion.p variants={fadeInUp} className="text-lg md:text-xl text-gray-400 font-light max-w-2xl mx-auto leading-relaxed">
-              Seyahatinizi planlarken ihtiyaç duyacağınız tüm detaylar, mekanlar, ulaşım bilgileri ve yerel tavsiyeler. Kapadokya'yı bir uzmanın rehberliğinde keşfedin.
+              Seyahatinizi planlarken ihtiyaç duyacağınız tüm detaylar, mekanlar, ulaşım bilgileri ve yerel tavsiyeler. Kapadokya&apos;yı bir uzmanın rehberliğinde keşfedin.
             </motion.p>
           </motion.div>
         </div>
@@ -73,13 +72,13 @@ export default function LocalGuide() {
             <h3 className="text-2xl font-extrabold text-white mb-2 tracking-tight">Merhaba, Ben Mehmet 👋</h3>
             <p className="text-yellow-500 text-sm font-bold tracking-widest uppercase mb-6">CappaViva Kurucusu & Yerel Rehber</p>
             <p className="text-gray-400 text-base md:text-lg leading-relaxed mb-6">
-              Kapadokya benim doğup büyüdüğüm, sokaklarını ve vadilerini avucumun içi gibi bildiğim evim. Turizm sektöründeki yıllara dayanan tecrübemle CappaViva'yı kurarken en büyük amacım; misafirlerimize standart bir seyahatin ötesinde, bölgenin gerçek ruhunu yansıtan <strong className="text-white">prestijli ve güvenilir bir deneyim</strong> sunmaktı.
+              Kapadokya benim doğup büyüdüğüm, sokaklarını ve vadilerini avucumun içi gibi bildiğim evim. Turizm sektöründeki yıllara dayanan tecrübemle CappaViva&apos;yı kurarken en büyük amacım; misafirlerimize standart bir seyahatin ötesinde, bölgenin gerçek ruhunu yansıtan <strong className="text-white">prestijli ve güvenilir bir deneyim</strong> sunmaktı.
               <br/><br/>
               Aşağıda hazırladığım bu rehber, tatiliniz boyunca hayatınızı kolaylaştıracak adresleri ve ipuçlarını içeriyor. Harika bir tatil geçirmenizi dilerim. Planlama, turlar veya ulaşım konusunda profesyonel desteğe ihtiyaç duyduğunuz her an, bir mesaj uzağınızdayım.
             </p>
             {/* WHATSAPP BUTONU (Doğrudan sana gelir) */}
             <Link href="https://wa.me/905354322782" target="_blank" className="inline-flex items-center gap-2 text-yellow-500 font-bold hover:text-yellow-400 transition-colors">
-              WhatsApp'tan Ulaşın <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+              WhatsApp&apos;tan Ulaşın <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
             </Link>
           </div>
         </motion.div>
@@ -117,7 +116,7 @@ export default function LocalGuide() {
             <span className="text-yellow-500 font-bold uppercase tracking-widest text-sm">City Directory</span>
             <h2 className="text-4xl md:text-5xl font-extrabold text-white mt-2">Bölge Rehberi</h2>
           </div>
-          <p className="text-gray-500 mt-4 md:mt-0 max-w-md">Kapadokya'da aradığınız her mekanı puanları, harita konumları ve kendi profesyonel yorumlarımla inceleyin.</p>
+          <p className="text-gray-500 mt-4 md:mt-0 max-w-md">Kapadokya&apos;da aradığınız her mekanı puanları, harita konumları ve kendi profesyonel yorumlarımla inceleyin.</p>
         </motion.div>
 
         <motion.div 
@@ -203,7 +202,7 @@ export default function LocalGuide() {
               <Link href="/guide/faq" className="block bg-black border border-white/10 rounded-3xl p-8 hover:border-yellow-500/50 transition-all duration-500 group">
                 <div className="text-4xl mb-6">❓</div>
                 <h3 className="text-xl font-bold text-white mb-3">Sık Sorulanlar</h3>
-                <p className="text-gray-400 text-sm leading-relaxed mb-6">Çocuklar balona binebilir mi? Hamileler ATV'ye binebilir mi? En çok merak ettiğiniz soruların net cevapları.</p>
+                <p className="text-gray-400 text-sm leading-relaxed mb-6">Çocuklar balona binebilir mi? Hamileler ATV&apos;ye binebilir mi? En çok merak ettiğiniz soruların net cevapları.</p>
                 <span className="text-yellow-500 text-sm font-bold tracking-widest uppercase group-hover:translate-x-2 transition-transform inline-block">İncele →</span>
               </Link>
             </motion.div>
@@ -227,9 +226,9 @@ export default function LocalGuide() {
           </div>
           <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-6 tracking-tight">CappaViva ile Kusursuz Seyahat</h2>
           <p className="text-gray-300 mb-10 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto font-light">
-            Kapadokya'yı kendi başınıza keşfetmek harika bir macera. Rehberimizdeki bilgilerle rotanızı kolayca oluşturabilirsiniz. 
+            Kapadokya&apos;yı kendi başınıza keşfetmek harika bir macera. Rehberimizdeki bilgilerle rotanızı kolayca oluşturabilirsiniz. 
             <br/><br/>
-            <strong className="text-white font-bold">Ancak zaman kazanmak, stressiz bir tatil yaşamak ve "sadece en iyi hizmeti" almak isterseniz;</strong> yerel bir acente olarak sıcak hava balonu, lüks transferler ve özel günlük turlarınızda size kusursuz bir operasyonla hizmet vermekten onur duyarız.
+            <strong className="text-white font-bold">Ancak zaman kazanmak, stressiz bir tatil yaşamak ve sadece en iyi hizmeti almak isterseniz;</strong> yerel bir acente olarak sıcak hava balonu, lüks transferler ve özel günlük turlarınızda size kusursuz bir operasyonla hizmet vermekten onur duyarız.
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -244,7 +243,7 @@ export default function LocalGuide() {
               target="_blank"
               className="w-full sm:w-auto bg-transparent border-2 border-white/30 text-white px-10 py-4 rounded-full font-bold text-sm md:text-base uppercase tracking-widest hover:bg-white/10 hover:border-white/50 transition-all duration-300"
             >
-              Bize Ulaşın
+              WhatsApp&apos;tan Ulaşın
             </Link>
           </div>
         </motion.div>
