@@ -34,7 +34,7 @@ export default function Footer() {
           <h4 className="text-white font-bold mb-6 tracking-wider uppercase text-sm">Contact Us</h4>
           <ul className="space-y-3 text-sm text-gray-400">
             <li className="flex items-center gap-2"><span>📍</span> Göreme, Cappadocia / Türkiye</li>
-            <li className="flex items-center gap-2"><span>📞</span> +90 555 123 45 67</li>
+            <li className="flex items-center gap-2"><span>📞</span> +90 535 432 2782</li>
             <li className="flex items-center gap-2"><span>✉️</span> info@cappaviva.com</li>
           </ul>
         </div>

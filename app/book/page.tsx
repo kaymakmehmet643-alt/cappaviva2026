@@ -40,7 +40,7 @@ function BookingFormContent() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const phoneNumber = "905555555555"; // Kendi numaranı yazmayı unutma
+    const phoneNumber = "905354322782"; // Kendi numaranı yazmayı unutma
     const message = `🌟 *Yeni Rezervasyon Talebi (CappaViva)* 🌟\n\n👤 *Ad Soyad:* ${formData.name}\n📱 *İletişim:* ${formData.phone}\n🎒 *Seçilen Tur/Hizmet:* ${formData.service}\n📅 *Tarih:* ${formData.date}\n👥 *Kişi Sayısı:* ${formData.guests}\n📝 *Özel Notlar:* ${formData.notes ? formData.notes : "Yok"}\n\nMerhaba, web siteniz üzerinden bu rezervasyonla ilgili bilgi almak istiyorum.`;
     window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, "_blank");
   };

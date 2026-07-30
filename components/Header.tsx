@@ -309,7 +309,7 @@ export default function Header() {
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-               <Link href="https://wa.me/905555555555" target="_blank" className="flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1ebe57] text-white py-3 rounded-xl font-bold text-sm transition-transform hover:-translate-y-1 shadow-lg">
+               <Link href="https://wa.me/905354322782" target="_blank" className="flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1ebe57] text-white py-3 rounded-xl font-bold text-sm transition-transform hover:-translate-y-1 shadow-lg">
                  WhatsApp
                </Link>
                <Link href="/book" onClick={() => setIsMenuOpen(false)} className="flex items-center justify-center gap-2 bg-yellow-500 hover:bg-yellow-400 text-black py-3 rounded-xl font-bold text-sm transition-transform hover:-translate-y-1 shadow-lg shadow-yellow-500/20">
