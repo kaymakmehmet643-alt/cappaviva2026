@@ -1,6 +1,7 @@
 "use client";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
+import LocalGuideWidgets from "@/components/LocalGuideWidgets";
 
 export default function LocalGuide() {
   const { scrollY } = useScroll();
@@ -77,9 +78,16 @@ export default function LocalGuide() {
       </div>
 
       {/* ======================================================= */}
-      {/* CANLI BALON DURUMU */}
+      {/* YENİ CANLI WIDGET'LAR (Balon, Güneş Saatleri, Mehmet'in Önerisi) */}
       {/* ======================================================= */}
-      <div className="px-6 max-w-7xl mx-auto -mt-10 mb-20 relative z-20">
+      <div className="px-6 max-w-7xl mx-auto mb-16 relative z-20">
+        <LocalGuideWidgets />
+      </div>
+
+      {/* ======================================================= */}
+      {/* CANLI BALON DURUMU (Eski Şerit) */}
+      {/* ======================================================= */}
+      <div className="px-6 max-w-7xl mx-auto mb-20 relative z-20">
         <motion.div 
           initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1, ease: "easeOut" }}
           className="bg-gradient-to-r from-blue-900/40 to-black border border-blue-500/30 rounded-3xl p-6 flex flex-col md:flex-row items-center justify-between shadow-2xl"
@@ -91,7 +99,7 @@ export default function LocalGuide() {
               <p className="text-blue-300 text-sm">Sivil Havacılık Kurumu (SHGM) Güncel Verisi</p>
             </div>
           </div>
-          <div className="flex items-center gap-3 bg-green-500/20 border border-green-500/50 px-6 py-3 rounded-full">
+          <div className="flex items-center gap-3 bg-green-500/20 border border-green-500/50 px-6 py-3 rounded-full relative">
             <div className="w-3 h-3 bg-green-500 rounded-full animate-ping absolute"></div>
             <div className="w-3 h-3 bg-green-500 rounded-full relative z-10"></div>
             <span className="text-green-400 font-bold tracking-wider uppercase text-sm">Uçuşlar Onaylandı (Yeşil Bayrak)</span>
