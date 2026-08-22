@@ -3,14 +3,15 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 
 // ========================================================
+// 🌟 YENİ EKLENEN: MERKEZİ HAFIZA (DİL VE CANLI KUR İÇİN)
+// ========================================================
+import { SiteProvider } from "./context/SiteContext";
+
+// ========================================================
 // BİLEŞENLERİ İÇERİ ALMA (IMPORT)
 // ========================================================
-
-// 1. Yeni Eklenenler (Tüm sayfalarda en üstte kalacak menü ve sağ alt WhatsApp)
 import Header from "../components/Header";
 import WhatsAppButton from "../components/WhatsAppButton";
-
-// 2. Eskiden Kalan ve Korunanlar (Tüm sayfalarda en altta kalacak Footer ve AI Bot)
 import AiChatbot from "../components/AiChatbot";
 import Footer from "../components/Footer";
 
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
 // ANA İSKELET (LAYOUT) BİLEŞENİ
 // ========================================================
 export default function RootLayout({
-  children, // Bu 'children' parametresi, gezdiğiniz sayfaların (page.tsx) içeriğini buraya getirecek
+  children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
@@ -38,25 +39,29 @@ export default function RootLayout({
       <body className={`${inter.className} bg-slate-900 text-gray-100 flex flex-col min-h-screen`}>
         
         {/* ========================================================
-            TÜM SAYFALARDA GÖRÜNECEK SABİT BİLEŞENLER
+            TÜM SİTEYİ "CANLI HAFIZA" (SiteProvider) İLE SARIYORUZ!
+            Artık Header'da dil değişince, Footer da anında görecek.
             ======================================================== */}
+        <SiteProvider>
+          
+          {/* 1. Yeni Premium Şeffaf Üst Menümüz */}
+          <Header />
+          
+          {/* 2. Sayfaların Kendi İçerik Alanı (children buraya dolacak) */}
+          <main className="flex-1 w-full">
+            {children}
+          </main>
+          
+          {/* 3. En Alt Bilgi Alanı (Footer) */}
+          <Footer />
 
-        {/* 1. Yeni Premium Şeffaf Üst Menümüz */}
-        <Header />
-        
-        {/* 2. Sayfaların Kendi İçerik Alanı (children buraya dolacak) */}
-        <main className="flex-1 w-full">
-          {children}
-        </main>
-        
-        {/* 3. En Alt Bilgi Alanı (Footer) */}
-        <Footer />
+          {/* 4. AI Canlı Destek Botumuz */}
+          <AiChatbot />
 
-        {/* 4. AI Canlı Destek Botumuz (Eski dosya ama layout'a sabitlendi) */}
-        <AiChatbot />
-
-        {/* 5. WhatsApp Butonu (Yeni dosya ve layout'a sabitlendi) */}
-        <WhatsAppButton />
+          {/* 5. WhatsApp Butonu */}
+          <WhatsAppButton />
+          
+        </SiteProvider>
         
       </body>
     </html>
