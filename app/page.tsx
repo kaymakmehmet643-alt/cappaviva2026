@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Instagram from "../components/instagram"; 
@@ -105,7 +105,29 @@ const SOZLUK: any = {
     nlPlace: "Your email address...",
     nlBtn: "Subscribe",
     nlJoined: "Subscribed ✓",
-    nlSuccess: "Awesome! You have successfully subscribed to our newsletter. 🎉"
+    nlSuccess: "Awesome! You have successfully subscribed to our newsletter. 🎉",
+    blogSub: "Travel Guide",
+    blogTitle: "Cappadocia Blog & Tips",
+    blogDesc: "Everything you need to know before visiting. Read our local guides to make the most out of your trip.",
+    readMore: "Read Article",
+    blog1Title: "10 Things to Know Before Riding a Hot Air Balloon",
+    blog1Date: "April 12, 2024",
+    blog1Category: "Guide",
+    blog2Title: "Best Cave Hotels in Cappadocia: Our Top Picks",
+    blog2Date: "May 05, 2024",
+    blog2Category: "Accommodation",
+    blog3Title: "A Complete Guide to Underground Cities",
+    blog3Date: "June 20, 2024",
+    blog3Category: "History",
+    blog4Title: "What to Pack for Cappadocia in Winter?",
+    blog4Date: "October 15, 2024",
+    blog4Category: "Tips",
+    blog5Title: "Top 5 Valleys for Sunset Hiking",
+    blog5Date: "November 02, 2024",
+    blog5Category: "Nature",
+    blog6Title: "Local Food Guide: What to Eat in Göreme?",
+    blog6Date: "December 10, 2024",
+    blog6Category: "Food"
   },
   tr: {
     chatWUs: "Sorularınız mı var? Bize yazın! 👋",
@@ -202,7 +224,29 @@ const SOZLUK: any = {
     nlPlace: "E-posta adresiniz...",
     nlBtn: "Abone Ol",
     nlJoined: "Katıldınız ✓",
-    nlSuccess: "Harika! E-posta bültenimize başarıyla katıldınız. 🎉"
+    nlSuccess: "Harika! E-posta bültenimize başarıyla katıldınız. 🎉",
+    blogSub: "Seyahat Rehberi",
+    blogTitle: "Kapadokya Blog & İpuçları",
+    blogDesc: "Gezinizden önce bilmeniz gereken her şey. Seyahatinizi kusursuzlaştırmak için yerel rehberlerimizin yazılarını okuyun.",
+    readMore: "Yazıyı Oku",
+    blog1Title: "Balon Turuna Çıkmadan Önce Bilmeniz Gereken 10 Şey",
+    blog1Date: "12 Nisan 2024",
+    blog1Category: "Rehber",
+    blog2Title: "Kapadokya'nın En İyi Mağara Otelleri: Favorilerimiz",
+    blog2Date: "05 Mayıs 2024",
+    blog2Category: "Konaklama",
+    blog3Title: "Yeraltı Şehirleri İçin Kapsamlı Keşif Rehberi",
+    blog3Date: "20 Haziran 2024",
+    blog3Category: "Tarih",
+    blog4Title: "Kışın Kapadokya'ya Giderken Bavula Neler Konmalı?",
+    blog4Date: "15 Ekim 2024",
+    blog4Category: "İpuçları",
+    blog5Title: "Günbatımı Yürüyüşü İçin En İyi 5 Vadi",
+    blog5Date: "02 Kasım 2024",
+    blog5Category: "Doğa",
+    blog6Title: "Yerel Lezzetler: Göreme'de Ne Yenir?",
+    blog6Date: "10 Aralık 2024",
+    blog6Category: "Yemek"
   },
   es: {
     chatWUs: "¡Chatea con nosotros! 👋",
@@ -299,7 +343,29 @@ const SOZLUK: any = {
     nlPlace: "Tu dirección de correo...",
     nlBtn: "Suscribirse",
     nlJoined: "Suscrito ✓",
-    nlSuccess: "¡Genial! Te has suscrito con éxito a nuestro boletín. 🎉"
+    nlSuccess: "¡Genial! Te has suscrito con éxito a nuestro boletín. 🎉",
+    blogSub: "Guía de Viaje",
+    blogTitle: "Blog y Consejos de Capadocia",
+    blogDesc: "Todo lo que necesitas saber antes de visitar. Lee nuestras guías locales para aprovechar al máximo tu viaje.",
+    readMore: "Leer Artículo",
+    blog1Title: "10 Cosas que Saber Antes de Volar en Globo",
+    blog1Date: "12 Abril 2024",
+    blog1Category: "Guía",
+    blog2Title: "Los Mejores Hoteles Cueva en Capadocia",
+    blog2Date: "05 Mayo 2024",
+    blog2Category: "Alojamiento",
+    blog3Title: "Una Guía Completa de Ciudades Subterráneas",
+    blog3Date: "20 Junio 2024",
+    blog3Category: "Historia",
+    blog4Title: "¿Qué Empacar para Capadocia en Invierno?",
+    blog4Date: "15 Octubre 2024",
+    blog4Category: "Consejos",
+    blog5Title: "Los 5 Mejores Valles para Caminar al Atardecer",
+    blog5Date: "02 Noviembre 2024",
+    blog5Category: "Naturaleza",
+    blog6Title: "Guía de Comida Local: ¿Qué Comer en Göreme?",
+    blog6Date: "10 Diciembre 2024",
+    blog6Category: "Comida"
   }
 };
 
@@ -310,6 +376,15 @@ const fadeInUp = {
 };
 
 export default function Home() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  
+  const scrollLeft = () => {
+    if (scrollRef.current) scrollRef.current.scrollBy({ left: -320, behavior: "smooth" });
+  };
+  const scrollRight = () => {
+    if (scrollRef.current) scrollRef.current.scrollBy({ left: 320, behavior: "smooth" });
+  };
+
   const [email, setEmail] = useState("");
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -637,6 +712,130 @@ export default function Home() {
           <Instagram />
         </div>
       </div>
+
+      {/* ======================================================= */}
+      {/* 🌟 YENİ: OKLU, KÜÇÜK KARTLI YATAY KAYDIRMALI BLOG BÖLÜMÜ */}
+      {/* ======================================================= */}
+      <div className="py-20 bg-white overflow-hidden border-t border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          {/* Başlık ve Yön Okları */}
+          <div className="flex justify-between items-end mb-10">
+            <div>
+              <span className="text-yellow-500 font-bold uppercase tracking-widest text-sm">Seyahat Rehberi</span>
+              <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mt-2">Kapadokya Blog</h2>
+              <p className="text-gray-500 mt-3 max-w-xl text-lg">Seyahatinizi planlamadan önce yerel rehberlerimizin sizin için hazırladığı ipuçlarına göz atın.</p>
+            </div>
+            
+            {/* Şık Yön Okları (Sadece bilgisayarda gözükür, mobilde elle kaydırılır) */}
+            <div className="hidden md:flex gap-3 mb-2">
+              <button onClick={scrollLeft} className="w-12 h-12 rounded-full border-2 border-gray-200 flex items-center justify-center text-gray-500 hover:bg-yellow-500 hover:text-white hover:border-yellow-500 transition-all duration-300 shadow-sm">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" /></svg>
+              </button>
+              <button onClick={scrollRight} className="w-12 h-12 rounded-full border-2 border-gray-200 flex items-center justify-center text-gray-500 hover:bg-yellow-500 hover:text-white hover:border-yellow-500 transition-all duration-300 shadow-sm">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" /></svg>
+              </button>
+            </div>
+          </div>
+
+          {/* Fare ve Oklarla Kaydırılabilir Alan (Slider) */}
+          <div ref={scrollRef} className="flex overflow-x-auto gap-5 pb-10 snap-x snap-mandatory cursor-grab active:cursor-grabbing [&::-webkit-scrollbar]:hidden -mx-4 px-4 sm:mx-0 sm:px-0">
+            
+            {/* KART 1: Balon */}
+            <Link href="/blog/balloon-tips" className="min-w-[280px] max-w-[280px] bg-gray-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 snap-start group border border-gray-200">
+              <div className="h-44 overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1643208589889-0735ad621810?q=80&w=600" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Balon Turu" />
+                <div className="absolute top-3 left-3 bg-white/90 backdrop-blur text-slate-900 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">İpucu</div>
+              </div>
+              <div className="p-5">
+                <h3 className="text-lg font-bold text-slate-900 mb-2 line-clamp-2 group-hover:text-yellow-600 transition-colors">Balon Turuna Çıkmadan Önce Bilmeniz Gereken 10 Şey</h3>
+                <p className="text-sm text-gray-500 line-clamp-2 mb-4">Uçuş saatleri, ne giyilmeli ve sepet düzeni hakkında tüm gerçekler.</p>
+                <span className="text-yellow-600 text-xs font-bold uppercase tracking-widest flex items-center gap-1 group-hover:translate-x-2 transition-transform">Devamını Oku &rarr;</span>
+              </div>
+            </Link>
+
+            {/* KART 2: Otel */}
+            <Link href="/blog/cave-hotels" className="min-w-[280px] max-w-[280px] bg-gray-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 snap-start group border border-gray-200">
+              <div className="h-44 overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1574347775984-b003666d9255?q=80&w=600" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Mağara Oteller" />
+                <div className="absolute top-3 left-3 bg-white/90 backdrop-blur text-slate-900 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Konaklama</div>
+              </div>
+              <div className="p-5">
+                <h3 className="text-lg font-bold text-slate-900 mb-2 line-clamp-2 group-hover:text-yellow-600 transition-colors">En İyi Mağara Otelleri: Uzman Seçimleri</h3>
+                <p className="text-sm text-gray-500 line-clamp-2 mb-4">Göreme ve Uçhisar'da manzarasıyla büyüleyen en otantik mağara konaklamaları.</p>
+                <span className="text-yellow-600 text-xs font-bold uppercase tracking-widest flex items-center gap-1 group-hover:translate-x-2 transition-transform">Devamını Oku &rarr;</span>
+              </div>
+            </Link>
+
+            {/* KART 3: Yeraltı Şehri */}
+            <Link href="/blog/underground" className="min-w-[280px] max-w-[280px] bg-gray-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 snap-start group border border-gray-200">
+              <div className="h-44 overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1569429593410-b498b3fb3387?q=80&w=600" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Yeraltı Şehirleri" />
+                <div className="absolute top-3 left-3 bg-white/90 backdrop-blur text-slate-900 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Tarih</div>
+              </div>
+              <div className="p-5">
+                <h3 className="text-lg font-bold text-slate-900 mb-2 line-clamp-2 group-hover:text-yellow-600 transition-colors">Derinkuyu Yeraltı Şehrinin Gizemli Katmanları</h3>
+                <p className="text-sm text-gray-500 line-clamp-2 mb-4">Binlerce yıl önce inşa edilen bu devasa şehrin bilinmeyen tarihi gerçekleri.</p>
+                <span className="text-yellow-600 text-xs font-bold uppercase tracking-widest flex items-center gap-1 group-hover:translate-x-2 transition-transform">Devamını Oku &rarr;</span>
+              </div>
+            </Link>
+
+            {/* KART 4: Günbatımı */}
+            <Link href="/blog/sunset" className="min-w-[280px] max-w-[280px] bg-gray-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 snap-start group border border-gray-200">
+              <div className="h-44 overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1518182170546-076616fd61fd?q=80&w=600" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Günbatımı Noktaları" />
+                <div className="absolute top-3 left-3 bg-white/90 backdrop-blur text-slate-900 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Doğa</div>
+              </div>
+              <div className="p-5">
+                <h3 className="text-lg font-bold text-slate-900 mb-2 line-clamp-2 group-hover:text-yellow-600 transition-colors">Kızılçukur Vadisi'nde Kusursuz Bir Günbatımı</h3>
+                <p className="text-sm text-gray-500 line-clamp-2 mb-4">Yanınıza şarabınızı alın ve Kapadokya'nın en meşhur kızıl vadisinde güneşi batırın.</p>
+                <span className="text-yellow-600 text-xs font-bold uppercase tracking-widest flex items-center gap-1 group-hover:translate-x-2 transition-transform">Devamını Oku &rarr;</span>
+              </div>
+            </Link>
+
+            {/* KART 5: Yemek */}
+            <Link href="/blog/food" className="min-w-[280px] max-w-[280px] bg-gray-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 snap-start group border border-gray-200">
+              <div className="h-44 overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1541534407338-02422e6f43e3?q=80&w=600" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Testi Kebabı" />
+                <div className="absolute top-3 left-3 bg-white/90 backdrop-blur text-slate-900 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Lezzet</div>
+              </div>
+              <div className="p-5">
+                <h3 className="text-lg font-bold text-slate-900 mb-2 line-clamp-2 group-hover:text-yellow-600 transition-colors">Orijinal Testi Kebabı Göreme'de Nerede Yenir?</h3>
+                <p className="text-sm text-gray-500 line-clamp-2 mb-4">Ateşin üzerinde kırılarak servis edilen bu meşhur lezzeti denemeden dönmeyin.</p>
+                <span className="text-yellow-600 text-xs font-bold uppercase tracking-widest flex items-center gap-1 group-hover:translate-x-2 transition-transform">Devamını Oku &rarr;</span>
+              </div>
+            </Link>
+
+            {/* KART 6: Avanos Çömlek */}
+            <Link href="/blog/pottery" className="min-w-[280px] max-w-[280px] bg-gray-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 snap-start group border border-gray-200">
+              <div className="h-44 overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1516738778643-41ea3f60f089?q=80&w=600" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Avanos Çömlek" />
+                <div className="absolute top-3 left-3 bg-white/90 backdrop-blur text-slate-900 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Sanat</div>
+              </div>
+              <div className="p-5">
+                <h3 className="text-lg font-bold text-slate-900 mb-2 line-clamp-2 group-hover:text-yellow-600 transition-colors">Kızılırmak Çamuruyla Kendi Çömleğinizi Yapın</h3>
+                <p className="text-sm text-gray-500 line-clamp-2 mb-4">Avanos'un tarihi atölyelerinde ustalarla birlikte çarkın başına geçme deneyimi.</p>
+                <span className="text-yellow-600 text-xs font-bold uppercase tracking-widest flex items-center gap-1 group-hover:translate-x-2 transition-transform">Devamını Oku &rarr;</span>
+              </div>
+            </Link>
+
+            {/* KART 7: Ihlara Vadisi */}
+            <Link href="/blog/ihlara" className="min-w-[280px] max-w-[280px] bg-gray-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 snap-start group border border-gray-200">
+              <div className="h-44 overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1527838832700-5059252407fa?q=80&w=600" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Ihlara Vadisi" />
+                <div className="absolute top-3 left-3 bg-white/90 backdrop-blur text-slate-900 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Yürüyüş</div>
+              </div>
+              <div className="p-5">
+                <h3 className="text-lg font-bold text-slate-900 mb-2 line-clamp-2 group-hover:text-yellow-600 transition-colors">Ihlara Vadisi'nde Gizli Kiliseler ve Yürüyüş Rotaları</h3>
+                <p className="text-sm text-gray-500 line-clamp-2 mb-4">Melendiz Çayı'nın serinliğinde 14 kilometrelik doğa ve tarih yolculuğu.</p>
+                <span className="text-yellow-600 text-xs font-bold uppercase tracking-widest flex items-center gap-1 group-hover:translate-x-2 transition-transform">Devamını Oku &rarr;</span>
+              </div>
+            </Link>
+
+          </div>
+        </div>
+      </div>
+      {/* ======================================================= */}
 
       {/* WHY CHOOSE US */}
       <div className="py-20 bg-slate-900 text-white">

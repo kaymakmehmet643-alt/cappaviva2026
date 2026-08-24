@@ -3,12 +3,10 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-// ========================================================
-// 🌟 YENİ: SİTENİN HAFIZASINI (BEYNİNİ) İÇERİ ALIYORUZ
-// ========================================================
+// SİTENİN HAFIZASI
 import { useSite } from "../app/context/SiteContext";
 
-// SENİN ÖZEL HAZIRLADIĞIN YENİ MENÜ LİSTESİ
+// MOBİL İÇİN KULLANILAN ORİJİNAL LİSTE
 const menuKategorileri = [
   {
     id: "destinations", title: "Destinations", icon: "🌍",
@@ -59,9 +57,7 @@ export default function Header() {
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
   const [openDropdown, setOpenDropdown] = useState<"lang" | "curr" | null>(null);
 
-  // ========================================================
-  // 🌟 YENİ: YEREL DEĞİŞKENLERİ SİLDİK, BEYİNDEN ÇEKİYORUZ!
-  // ========================================================
+  // BEYİNDEN GELEN VERİLER
   const { dil, setDil, paraBirimi, setParaBirimi } = useSite();
 
   const toggleCategory = (id: string) => {
@@ -71,20 +67,105 @@ export default function Header() {
   return (
     <>
       <header className="fixed top-0 left-0 w-full z-40 bg-black/20 backdrop-blur-md border-b border-white/10 h-16 md:h-20">
-        <div className="w-full px-4 md:px-12 lg:px-20 h-full flex justify-between items-center">
+        {/* LÜKS YERLEŞİM: px değerlerini azaltarak Logoyu sola çektik */}
+        <div className="w-full px-4 md:px-6 lg:px-8 xl:px-12 h-full flex justify-between items-center">
           
-          {/* SOL: LOGO VE YAZI */}
-          <Link href="/" className="flex items-center gap-2 md:gap-3">
-            <div className="relative w-9 h-9 md:w-12 md:h-12 flex-shrink-0">
-              <Image src="/logo.png" alt="CappaViva Logo" fill className="object-contain" unoptimized priority />
-            </div>
-            <div className="text-2xl md:text-3xl font-bold">
-              <span className="text-white">Cappa</span>
-              <span className="text-yellow-500">Viva</span>
-            </div>
-          </Link>
+          <div className="flex items-center gap-6 lg:gap-10 h-full">
+            
+            {/* 1. MOBİL GÖRÜNÜM: Logo ve Yazı Birlikte */}
+            <Link href="/" className="flex md:hidden items-center gap-2 flex-shrink-0">
+              <div className="relative w-9 h-9 flex-shrink-0">
+                <Image src="/logo.png" alt="CappaViva Logo" fill className="object-contain" unoptimized priority />
+              </div>
+              <div className="text-2xl font-bold">
+                <span className="text-white">Cappa</span>
+                <span className="text-yellow-500">Viva</span>
+              </div>
+            </Link>
 
-          {/* SAĞ: Dil, Local Guide ve Menü */}
+            {/* 2. MASAÜSTÜ GÖRÜNÜM: Sadece Yazı */}
+            <div className="hidden md:flex items-center h-full">
+              <Link href="/" className="text-3xl font-bold flex-shrink-0 tracking-wide mr-4">
+                <span className="text-white">Cappa</span>
+                <span className="text-yellow-500">Viva</span>
+              </Link>
+
+              {/* MASAÜSTÜ LİNKLERİ VE AÇILIR MENÜLERİ (Ultra Animasyonlu) */}
+              <nav className="hidden lg:flex items-center h-full gap-2 xl:gap-4">
+                
+                {/* HOME */}
+                <div className="relative group h-full flex items-center px-3">
+                  <Link href="/" className="relative z-10 text-gray-200 font-bold text-[13px] tracking-[0.15em] uppercase group-hover:text-yellow-400 transition-colors duration-300">
+                    Home
+                    <span className="absolute -bottom-2 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-yellow-500 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-center"></span>
+                  </Link>
+                </div>
+
+                {/* TOURS & DROPDOWN */}
+                <div className="relative group h-full flex items-center px-3">
+                  <Link href="/tours" className="relative z-10 text-gray-200 font-bold text-[13px] tracking-[0.15em] uppercase group-hover:text-yellow-400 transition-colors duration-300">
+                    Tours
+                    <span className="absolute -bottom-2 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-yellow-500 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-center"></span>
+                  </Link>
+                  {/* Açılır Menü (Tours) */}
+                  <div className="absolute top-full left-0 w-56 bg-black/95 backdrop-blur-xl border border-white/10 rounded-b-xl shadow-2xl py-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                    <Link href="/tours/red-tour" className="block px-5 py-2.5 text-sm text-gray-300 hover:text-yellow-400 hover:bg-white/5 transition-colors">Red Tour</Link>
+                    <Link href="/tours/green-tour" className="block px-5 py-2.5 text-sm text-gray-300 hover:text-yellow-400 hover:bg-white/5 transition-colors">Green Tour</Link>
+                    <Link href="/tours/atv" className="block px-5 py-2.5 text-sm text-gray-300 hover:text-yellow-400 hover:bg-white/5 transition-colors">ATV Safari</Link>
+                    <Link href="/tours/horse" className="block px-5 py-2.5 text-sm text-gray-300 hover:text-yellow-400 hover:bg-white/5 transition-colors">Horse Riding</Link>
+                    <Link href="/tours/classic-car" className="block px-5 py-2.5 text-sm text-gray-300 hover:text-yellow-400 hover:bg-white/5 transition-colors">Classic Car</Link>
+                  </div>
+                </div>
+
+                {/* DESTINATIONS & DROPDOWN */}
+                <div className="relative group h-full flex items-center px-3">
+                  <Link href="/destinations" className="relative z-10 text-gray-200 font-bold text-[13px] tracking-[0.15em] uppercase group-hover:text-yellow-400 transition-colors duration-300">
+                    Destinations
+                    <span className="absolute -bottom-2 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-yellow-500 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-center"></span>
+                  </Link>
+                  {/* Açılır Menü (Destinations) */}
+                  <div className="absolute top-full left-0 w-56 bg-black/95 backdrop-blur-xl border border-white/10 rounded-b-xl shadow-2xl py-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                    <Link href="/destinations/goreme" className="block px-5 py-2.5 text-sm text-gray-300 hover:text-yellow-400 hover:bg-white/5 transition-colors">Göreme</Link>
+                    <Link href="/destinations/uchisar" className="block px-5 py-2.5 text-sm text-gray-300 hover:text-yellow-400 hover:bg-white/5 transition-colors">Uçhisar</Link>
+                    <Link href="/destinations/urgup" className="block px-5 py-2.5 text-sm text-gray-300 hover:text-yellow-400 hover:bg-white/5 transition-colors">Ürgüp</Link>
+                    <Link href="/destinations/avanos" className="block px-5 py-2.5 text-sm text-gray-300 hover:text-yellow-400 hover:bg-white/5 transition-colors">Avanos</Link>
+                    <Link href="/destinations/ihlara" className="block px-5 py-2.5 text-sm text-gray-300 hover:text-yellow-400 hover:bg-white/5 transition-colors">Ihlara Valley</Link>
+                  </div>
+                </div>
+
+                {/* TRANSFER & DROPDOWN */}
+                <div className="relative group h-full flex items-center px-3">
+                  <Link href="/transfer" className="relative z-10 text-gray-200 font-bold text-[13px] tracking-[0.15em] uppercase group-hover:text-yellow-400 transition-colors duration-300">
+                    Transfer
+                    <span className="absolute -bottom-2 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-yellow-500 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-center"></span>
+                  </Link>
+                  {/* Açılır Menü (Transfer) */}
+                  <div className="absolute top-full left-0 w-56 bg-black/95 backdrop-blur-xl border border-white/10 rounded-b-xl shadow-2xl py-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                    <Link href="/transfer/24-7" className="block px-5 py-2.5 text-sm text-gray-300 hover:text-yellow-400 hover:bg-white/5 transition-colors">7/24 Airport Transfer</Link>
+                    <Link href="/transfer/vip" className="block px-5 py-2.5 text-sm text-gray-300 hover:text-yellow-400 hover:bg-white/5 transition-colors">VIP Transfer</Link>
+                    <Link href="/transfer/shuttle" className="block px-5 py-2.5 text-sm text-gray-300 hover:text-yellow-400 hover:bg-white/5 transition-colors">Shuttle Bus</Link>
+                  </div>
+                </div>
+
+                {/* BALLOON & DROPDOWN */}
+                <div className="relative group h-full flex items-center px-3">
+                  <Link href="/tours/balloon" className="relative z-10 text-gray-200 font-bold text-[13px] tracking-[0.15em] uppercase group-hover:text-yellow-400 transition-colors duration-300">
+                    Balloon
+                    <span className="absolute -bottom-2 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-yellow-500 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-center"></span>
+                  </Link>
+                  {/* Açılır Menü (Balloon) */}
+                  <div className="absolute top-full left-0 w-56 bg-black/95 backdrop-blur-xl border border-white/10 rounded-b-xl shadow-2xl py-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                    <Link href="/tours/balloon-standard" className="block px-5 py-2.5 text-sm text-gray-300 hover:text-yellow-400 hover:bg-white/5 transition-colors">Standard Flight</Link>
+                    <Link href="/tours/balloon-comfort" className="block px-5 py-2.5 text-sm text-gray-300 hover:text-yellow-400 hover:bg-white/5 transition-colors">Comfort Flight</Link>
+                    <Link href="/tours/balloon-private" className="block px-5 py-2.5 text-sm text-gray-300 hover:text-yellow-400 hover:bg-white/5 transition-colors">Private VIP Flight</Link>
+                  </div>
+                </div>
+
+              </nav>
+            </div>
+          </div>
+
+          {/* SAĞ: Dil, Para, Local Guide ve Menü (HER İKİSİ İÇİN DE ORİJİNAL - BOZULMADI) */}
           <div className="flex items-center justify-end relative z-50">
             
             <div className="hidden md:flex items-center gap-1 mr-4 relative z-50">
@@ -146,7 +227,7 @@ export default function Header() {
       </header>
 
       {/* ========================================= */}
-      {/* 2. ŞEFFAF SAĞ AÇILIR MENÜ */}
+      {/* 2. ŞEFFAF SAĞ AÇILIR MENÜ (SABİT) */}
       {/* ========================================= */}
       <div className={`fixed inset-0 z-50 transition-opacity duration-500 ${isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"}`}>
         
