@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -35,7 +36,7 @@ const menuKategorileri = [
   {
     id: "museums", title: "Müzeler", icon: "🏛️",
     items: [
-      { name: "Göreme Açık Hava Müzesi", href: "/museums/goreme" }, { name: "Zelve Açık Hava Müzesi", href: "/museums/zelve" }, { name: "Karanlık Kilise", href: "/museums/karanlik-kilise" }, { name: "Tokalı Kilise", href: "/museums/tokali-kilise" }, { name: "El Nazar Kilisesi", href: "/museums/el-nazar" }, { name: "Çarıklı Kilise", href: "/museums/carikli" }, { name: "Aziz Barbara Kilisesi", href: "/museums/aziz-barbara" }, { name: "Nevşehir Müzesi", href: "/museums/nevsehir" }, { name: "Güray Müze (Yer Altı Seramik)", href: "/museums/guray" }, { name: "Hacıbektaş Müzesi", href: "/museums/hacibektas" }, { name: "Saç Müzesi (Chez Galip)", href: "/museums/hair-museum" }, { name: "Kapadokya Sanat ve Tarih Müzesi", href: "/museums/art-history" }, { name: "Açık Saray Ören Yeri", href: "/museums/acik-saray" }, { name: "Selime Manastırı", href: "/museums/selime" }, { name: "Sobesos Antik Kenti ve Mozaik Alanı", href: "/museums/sobesos" }
+      { name: "Göreme Açık Hava Mü Müzesi", href: "/museums/goreme" }, { name: "Zelve Açık Hava Müzesi", href: "/museums/zelve" }, { name: "Karanlık Kilise", href: "/museums/karanlik-kilise" }, { name: "Tokalı Kilise", href: "/museums/tokali-kilise" }, { name: "El Nazar Kilisesi", href: "/museums/el-nazar" }, { name: "Çarıklı Kilise", href: "/museums/carikli" }, { name: "Aziz Barbara Kilisesi", href: "/museums/aziz-barbara" }, { name: "Nevşehir Müzesi", href: "/museums/nevsehir" }, { name: "Güray Müze (Yer Altı Seramik)", href: "/museums/guray" }, { name: "Hacıbektaş Müzesi", href: "/museums/hacibektas" }, { name: "Saç Müzesi (Chez Galip)", href: "/museums/hair-museum" }, { name: "Kapadokya Sanat ve Tarih Müzesi", href: "/museums/art-history" }, { name: "Açık Saray Ören Yeri", href: "/museums/acik-saray" }, { name: "Selime Manastırı", href: "/museums/selime" }, { name: "Sobesos Antik Kenti ve Mozaik Alanı", href: "/museums/sobesos" }
     ]
   },
   {
@@ -67,7 +68,6 @@ export default function Header() {
   return (
     <>
       <header className="fixed top-0 left-0 w-full z-40 bg-black/20 backdrop-blur-md border-b border-white/10 h-16 md:h-20">
-        {/* LÜKS YERLEŞİM: px değerlerini azaltarak Logoyu sola çektik */}
         <div className="w-full px-4 md:px-6 lg:px-8 xl:px-12 h-full flex justify-between items-center">
           
           <div className="flex items-center gap-6 lg:gap-10 h-full">
@@ -107,13 +107,18 @@ export default function Header() {
                     Tours
                     <span className="absolute -bottom-2 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-yellow-500 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-center"></span>
                   </Link>
-                  {/* Açılır Menü (Tours) */}
-                  <div className="absolute top-full left-0 w-56 bg-black/95 backdrop-blur-xl border border-white/10 rounded-b-xl shadow-2xl py-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                  <div className="absolute top-full left-0 w-56 bg-black/95 backdrop-blur-xl border border-white/10 rounded-b-xl shadow-2xl pt-3 pb-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 flex flex-col overflow-hidden">
                     <Link href="/tours/red-tour" className="block px-5 py-2.5 text-sm text-gray-300 hover:text-yellow-400 hover:bg-white/5 transition-colors">Red Tour</Link>
                     <Link href="/tours/green-tour" className="block px-5 py-2.5 text-sm text-gray-300 hover:text-yellow-400 hover:bg-white/5 transition-colors">Green Tour</Link>
                     <Link href="/tours/atv" className="block px-5 py-2.5 text-sm text-gray-300 hover:text-yellow-400 hover:bg-white/5 transition-colors">ATV Safari</Link>
                     <Link href="/tours/horse" className="block px-5 py-2.5 text-sm text-gray-300 hover:text-yellow-400 hover:bg-white/5 transition-colors">Horse Riding</Link>
                     <Link href="/tours/classic-car" className="block px-5 py-2.5 text-sm text-gray-300 hover:text-yellow-400 hover:bg-white/5 transition-colors">Classic Car</Link>
+                    {/* View All Button */}
+                    <div className="border-t border-white/10 mt-2">
+                      <Link href="/tours" className="block px-5 py-3 text-[11px] font-black text-yellow-500 hover:text-yellow-400 hover:bg-white/5 transition-colors text-center uppercase tracking-[0.2em]">
+                        View All Tours &rarr;
+                      </Link>
+                    </div>
                   </div>
                 </div>
 
@@ -123,13 +128,18 @@ export default function Header() {
                     Destinations
                     <span className="absolute -bottom-2 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-yellow-500 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-center"></span>
                   </Link>
-                  {/* Açılır Menü (Destinations) */}
-                  <div className="absolute top-full left-0 w-56 bg-black/95 backdrop-blur-xl border border-white/10 rounded-b-xl shadow-2xl py-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                  <div className="absolute top-full left-0 w-56 bg-black/95 backdrop-blur-xl border border-white/10 rounded-b-xl shadow-2xl pt-3 pb-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 flex flex-col overflow-hidden">
                     <Link href="/destinations/goreme" className="block px-5 py-2.5 text-sm text-gray-300 hover:text-yellow-400 hover:bg-white/5 transition-colors">Göreme</Link>
                     <Link href="/destinations/uchisar" className="block px-5 py-2.5 text-sm text-gray-300 hover:text-yellow-400 hover:bg-white/5 transition-colors">Uçhisar</Link>
                     <Link href="/destinations/urgup" className="block px-5 py-2.5 text-sm text-gray-300 hover:text-yellow-400 hover:bg-white/5 transition-colors">Ürgüp</Link>
                     <Link href="/destinations/avanos" className="block px-5 py-2.5 text-sm text-gray-300 hover:text-yellow-400 hover:bg-white/5 transition-colors">Avanos</Link>
                     <Link href="/destinations/ihlara" className="block px-5 py-2.5 text-sm text-gray-300 hover:text-yellow-400 hover:bg-white/5 transition-colors">Ihlara Valley</Link>
+                    {/* View All Button */}
+                    <div className="border-t border-white/10 mt-2">
+                      <Link href="/destinations" className="block px-5 py-3 text-[11px] font-black text-yellow-500 hover:text-yellow-400 hover:bg-white/5 transition-colors text-center uppercase tracking-[0.2em]">
+                        View All Regions &rarr;
+                      </Link>
+                    </div>
                   </div>
                 </div>
 
@@ -139,11 +149,16 @@ export default function Header() {
                     Transfer
                     <span className="absolute -bottom-2 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-yellow-500 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-center"></span>
                   </Link>
-                  {/* Açılır Menü (Transfer) */}
-                  <div className="absolute top-full left-0 w-56 bg-black/95 backdrop-blur-xl border border-white/10 rounded-b-xl shadow-2xl py-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                  <div className="absolute top-full left-0 w-56 bg-black/95 backdrop-blur-xl border border-white/10 rounded-b-xl shadow-2xl pt-3 pb-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 flex flex-col overflow-hidden">
                     <Link href="/transfer/24-7" className="block px-5 py-2.5 text-sm text-gray-300 hover:text-yellow-400 hover:bg-white/5 transition-colors">7/24 Airport Transfer</Link>
                     <Link href="/transfer/vip" className="block px-5 py-2.5 text-sm text-gray-300 hover:text-yellow-400 hover:bg-white/5 transition-colors">VIP Transfer</Link>
                     <Link href="/transfer/shuttle" className="block px-5 py-2.5 text-sm text-gray-300 hover:text-yellow-400 hover:bg-white/5 transition-colors">Shuttle Bus</Link>
+                    {/* View All Button */}
+                    <div className="border-t border-white/10 mt-2">
+                      <Link href="/transfer" className="block px-5 py-3 text-[11px] font-black text-yellow-500 hover:text-yellow-400 hover:bg-white/5 transition-colors text-center uppercase tracking-[0.2em]">
+                        View All Transfers &rarr;
+                      </Link>
+                    </div>
                   </div>
                 </div>
 
@@ -153,11 +168,16 @@ export default function Header() {
                     Balloon
                     <span className="absolute -bottom-2 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-yellow-500 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-center"></span>
                   </Link>
-                  {/* Açılır Menü (Balloon) */}
-                  <div className="absolute top-full left-0 w-56 bg-black/95 backdrop-blur-xl border border-white/10 rounded-b-xl shadow-2xl py-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                  <div className="absolute top-full left-0 w-56 bg-black/95 backdrop-blur-xl border border-white/10 rounded-b-xl shadow-2xl pt-3 pb-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 flex flex-col overflow-hidden">
                     <Link href="/tours/balloon-standard" className="block px-5 py-2.5 text-sm text-gray-300 hover:text-yellow-400 hover:bg-white/5 transition-colors">Standard Flight</Link>
                     <Link href="/tours/balloon-comfort" className="block px-5 py-2.5 text-sm text-gray-300 hover:text-yellow-400 hover:bg-white/5 transition-colors">Comfort Flight</Link>
                     <Link href="/tours/balloon-private" className="block px-5 py-2.5 text-sm text-gray-300 hover:text-yellow-400 hover:bg-white/5 transition-colors">Private VIP Flight</Link>
+                    {/* View All Button */}
+                    <div className="border-t border-white/10 mt-2">
+                      <Link href="/tours/balloon" className="block px-5 py-3 text-[11px] font-black text-yellow-500 hover:text-yellow-400 hover:bg-white/5 transition-colors text-center uppercase tracking-[0.2em]">
+                        View All Flights &rarr;
+                      </Link>
+                    </div>
                   </div>
                 </div>
 
@@ -165,7 +185,7 @@ export default function Header() {
             </div>
           </div>
 
-          {/* SAĞ: Dil, Para, Local Guide ve Menü (HER İKİSİ İÇİN DE ORİJİNAL - BOZULMADI) */}
+          {/* SAĞ: Dil, Para, Local Guide ve Menü */}
           <div className="flex items-center justify-end relative z-50">
             
             <div className="hidden md:flex items-center gap-1 mr-4 relative z-50">
