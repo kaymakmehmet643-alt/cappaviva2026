@@ -372,9 +372,10 @@ const SOZLUK: any = {
 // 🌟 Ultra Premium Animasyon Eğrileri
 const customEase = [0.16, 1, 0.3, 1]; // Pürüzsüz Apple tarzı yaylanma
 
+// 🌟 DÜZELTİLMİŞ ANİMASYON TANIMLARI
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: customEase } }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeInOut" } }
 };
 
 const staggerContainer = {
