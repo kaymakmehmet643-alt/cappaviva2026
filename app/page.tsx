@@ -369,10 +369,20 @@ const SOZLUK: any = {
   }
 };
 
-// 🌟 İŞTE UNUTTUĞUM ANİMASYON KODU BURADA:
+// 🌟 Ultra Premium Animasyon Eğrileri
+const customEase = [0.16, 1, 0.3, 1]; // Pürüzsüz Apple tarzı yaylanma
+
 const fadeInUp = {
-  hidden: { opacity: 0, y: 50 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8 } }
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: customEase } }
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15 }
+  }
 };
 
 export default function Home() {
@@ -389,7 +399,6 @@ export default function Home() {
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  // 🌟 SEÇİLİ DİLİ BEYİNDEN ALIYORUZ VE KÜÇÜK HARFE ÇEVİRİYORUZ
   const { dil } = useSite();
   const aktifDil = dil ? String(dil).toLowerCase() : 'en';
   const t = SOZLUK[aktifDil] || SOZLUK['en'];
@@ -407,70 +416,77 @@ export default function Home() {
   };
 
   return (
-    <main className="w-full min-h-screen bg-gray-50 overflow-x-hidden relative">
+    <main className="w-full min-h-screen bg-[#F8FAFC] overflow-x-hidden relative font-sans selection:bg-yellow-500 selection:text-white">
       
-      {/* WHATSAPP BUTONU */}
-      <a href="https://wa.me/905354322782" target="_blank" rel="noopener noreferrer" className="fixed bottom-6 right-6 z-[60] bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 flex items-center justify-center group">
-        <span className="absolute w-full h-full rounded-full bg-[#25D366] opacity-50 animate-ping"></span>
+      {/* WHATSAPP BUTONU (Premium Pulse & Shadow) */}
+      <a href="https://wa.me/905354322782" target="_blank" rel="noopener noreferrer" className="fixed bottom-6 right-6 z-[60] bg-[#25D366] text-white p-4 rounded-full shadow-[0_8px_30px_rgba(37,211,102,0.4)] hover:scale-110 hover:shadow-[0_8px_40px_rgba(37,211,102,0.6)] transition-all duration-500 flex items-center justify-center group">
+        <span className="absolute w-full h-full rounded-full bg-[#25D366] opacity-40 animate-ping"></span>
         <svg className="w-8 h-8 relative z-10" fill="currentColor" viewBox="0 0 24 24">
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.012c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
         </svg>
-        <span className="absolute right-16 bg-white text-gray-900 text-xs font-bold px-4 py-2 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap shadow-lg pointer-events-none">
+        <span className="absolute right-16 bg-white/90 backdrop-blur-md text-gray-900 text-xs font-bold px-4 py-2 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap shadow-lg pointer-events-none transform group-hover:-translate-x-2">
           {t.chatWUs}
         </span>
       </a>
 
-      {/* HERO */}
-      <div className="relative h-screen w-full overflow-hidden bg-gray-900">
-        <div className="absolute inset-0 bg-black/50 z-10"></div>
-        <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover z-0">
+      {/* HERO (Sophisticated Overlays & Typography) */}
+      <div className="relative h-screen w-full overflow-hidden bg-slate-900">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-slate-900 z-10"></div>
+        <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover z-0 scale-105 motion-safe:animate-[slowZoom_20s_ease-in-out_infinite_alternate]">
           <source src="/video.mp4" type="video/mp4" />
         </video>
 
         <div className="relative z-20 flex flex-col items-center justify-center h-full text-center text-white px-4 pt-24 md:pt-32">
-          <motion.h1 initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2, ease: "easeOut" }} className="flex flex-col items-center mb-6">
-            <span className="text-4xl md:text-6xl font-light tracking-[0.15em] drop-shadow-2xl uppercase mb-2">{t.heroTitle1}</span>
-            <span className="text-5xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-yellow-500 to-yellow-600 drop-shadow-[0_5px_15px_rgba(0,0,0,0.8)] mt-2">{t.heroTitle2}</span>
-          </motion.h1>
-          <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2, delay: 0.4, ease: "easeOut" }} className="text-lg md:text-2xl mb-12 max-w-3xl drop-shadow-md font-light text-gray-200 tracking-wide">
-            {t.heroDesc}
-          </motion.p>
-          <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, delay: 0.7, ease: "easeOut" }} className="w-full max-w-3xl flex flex-col items-center">
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-5 relative z-20 w-full sm:w-auto">
-              <Link href="/book" className="w-full sm:w-auto bg-gradient-to-r from-yellow-400 to-yellow-600 text-black px-12 py-4 rounded-full font-black text-[15px] tracking-widest uppercase hover:shadow-[0_0_30px_rgba(234,179,8,0.5)] hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3">
-                {t.bookBtn} <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-              </Link>
-              <Link href="/itineraries" className="w-full sm:w-auto bg-black/30 backdrop-blur-md text-white border border-white/40 px-12 py-4 rounded-full font-bold text-[15px] tracking-widest uppercase hover:bg-white/20 hover:border-white/80 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3">
-                {t.planBtn} <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" /></svg>
-              </Link>
-            </div>
-            <div className="flex flex-wrap justify-center gap-3 mt-8">
-              <span className="text-gray-300 text-xs font-bold uppercase tracking-widest self-center mr-2 hidden md:block">{t.popularSearch}</span>
-              <Link href="/tours/balloon" className="bg-black/40 hover:bg-black/60 backdrop-blur-md border border-white/10 text-white text-xs font-bold tracking-wider px-5 py-2 rounded-full transition-all flex items-center gap-2 hover:border-yellow-500/50">🔥 Hot Air Balloon</Link>
-              <Link href="/tours/atv-safari" className="bg-black/40 hover:bg-black/60 backdrop-blur-md border border-white/10 text-white text-xs font-bold tracking-wider px-5 py-2 rounded-full transition-all flex items-center gap-2 hover:border-yellow-500/50">🚙 Sunset ATV</Link>
-              <Link href="/packages" className="bg-yellow-500/10 hover:bg-yellow-500/20 backdrop-blur-md border border-yellow-500/30 text-yellow-400 hover:text-yellow-300 text-xs font-bold tracking-wider px-5 py-2 rounded-full transition-all flex items-center gap-2">✨ VIP Packages</Link>
-            </div>
+          <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="flex flex-col items-center">
+            <motion.span variants={fadeInUp} className="text-3xl md:text-5xl font-light tracking-[0.2em] drop-shadow-xl uppercase mb-3">
+              {t.heroTitle1}
+            </motion.span>
+            <motion.h1 variants={fadeInUp} className="text-5xl md:text-[5.5rem] font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)] leading-tight tracking-tighter">
+              {t.heroTitle2}
+            </motion.h1>
+            
+            <motion.p variants={fadeInUp} className="text-lg md:text-2xl mt-8 mb-12 max-w-3xl drop-shadow-md font-light text-gray-200 tracking-wide">
+              {t.heroDesc}
+            </motion.p>
+            
+            <motion.div variants={fadeInUp} className="w-full max-w-3xl flex flex-col items-center">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-5 relative w-full sm:w-auto">
+                <Link href="/book" className="w-full sm:w-auto bg-gradient-to-r from-yellow-400 to-amber-500 text-slate-900 px-12 py-4 rounded-full font-black text-sm tracking-widest uppercase hover:shadow-[0_8px_30px_rgba(234,179,8,0.4)] hover:-translate-y-1 transition-all duration-500 flex items-center justify-center gap-3">
+                  {t.bookBtn} <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                </Link>
+                <Link href="/itineraries" className="w-full sm:w-auto bg-white/10 backdrop-blur-lg text-white border border-white/30 px-12 py-4 rounded-full font-bold text-sm tracking-widest uppercase hover:bg-white/20 hover:border-white/60 hover:-translate-y-1 transition-all duration-500 flex items-center justify-center gap-3">
+                  {t.planBtn} <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" /></svg>
+                </Link>
+              </div>
+              
+              <div className="flex flex-wrap justify-center gap-3 mt-10">
+                <span className="text-gray-300 text-xs font-bold uppercase tracking-widest self-center mr-2 hidden md:block opacity-70">{t.popularSearch}</span>
+                <Link href="/tours/balloon" className="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white text-xs font-bold tracking-wider px-5 py-2.5 rounded-full transition-all duration-300 flex items-center gap-2 hover:border-yellow-400/50">🔥 Hot Air Balloon</Link>
+                <Link href="/tours/atv-safari" className="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white text-xs font-bold tracking-wider px-5 py-2.5 rounded-full transition-all duration-300 flex items-center gap-2 hover:border-yellow-400/50">🚙 Sunset ATV</Link>
+                <Link href="/packages" className="bg-yellow-500/10 hover:bg-yellow-500/20 backdrop-blur-md border border-yellow-500/40 text-yellow-300 hover:text-yellow-200 text-xs font-bold tracking-wider px-5 py-2.5 rounded-full transition-all duration-300 flex items-center gap-2">✨ VIP Packages</Link>
+              </div>
+            </motion.div>
           </motion.div>
         </div>
       </div>
 
-      {/* TRUST BAR */}
-      <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: "easeOut" }} className="bg-slate-900 border-b-4 border-yellow-500 py-6">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-x divide-gray-700">
-          <div className="px-4"><div className="text-3xl mb-1">🏆</div><div className="text-white font-bold text-lg">TripAdvisor</div><div className="text-gray-400 text-xs">{t.trust1}</div></div>
-          <div className="px-4"><div className="text-3xl mb-1">⭐</div><div className="text-white font-bold text-lg">4.9/5 Rating</div><div className="text-gray-400 text-xs">{t.trust2}</div></div>
-          <div className="px-4"><div className="text-3xl mb-1">👥</div><div className="text-white font-bold text-lg">15,000+</div><div className="text-gray-400 text-xs">{t.trust3}</div></div>
-          <div className="px-4"><div className="text-3xl mb-1">🤝</div><div className="text-white font-bold text-lg">TÜRSAB</div><div className="text-gray-400 text-xs">{t.trust4}</div></div>
-        </div>
-      </motion.div>
+      {/* TRUST BAR (Overlapping Glassmorphism) */}
+      <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 md:-mt-16">
+        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: customEase }} className="bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl py-6 md:py-8 px-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-x divide-white/10">
+          <div className="px-4"><div className="text-3xl mb-2">🏆</div><div className="text-white font-black text-lg tracking-wide">TripAdvisor</div><div className="text-gray-400 text-xs font-medium mt-1">{t.trust1}</div></div>
+          <div className="px-4"><div className="text-3xl mb-2">⭐</div><div className="text-white font-black text-lg tracking-wide">4.9/5 Rating</div><div className="text-gray-400 text-xs font-medium mt-1">{t.trust2}</div></div>
+          <div className="px-4"><div className="text-3xl mb-2">👥</div><div className="text-white font-black text-lg tracking-wide">15,000+</div><div className="text-gray-400 text-xs font-medium mt-1">{t.trust3}</div></div>
+          <div className="px-4"><div className="text-3xl mb-2">🤝</div><div className="text-white font-black text-lg tracking-wide">TÜRSAB</div><div className="text-gray-400 text-xs font-medium mt-1">{t.trust4}</div></div>
+        </motion.div>
+      </div>
 
       {/* DESTINATIONS */}
-      <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: "easeOut" }} className="py-24 bg-white text-slate-900 border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-8">
+      <section className="pt-32 pb-24 bg-[#F8FAFC] text-slate-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <span className="text-yellow-500 font-bold uppercase tracking-widest text-sm">{t.regionTitle}</span>
-            <h2 className="text-4xl md:text-5xl font-extrabold mt-2 text-slate-900">{t.regionSub}</h2>
-            <p className="text-gray-600 mt-4 max-w-2xl mx-auto">{t.regionDesc}</p>
+            <span className="text-amber-500 font-bold uppercase tracking-widest text-sm">{t.regionTitle}</span>
+            <h2 className="text-4xl md:text-5xl font-black mt-3 text-slate-900 tracking-tight">{t.regionSub}</h2>
+            <p className="text-slate-500 mt-5 max-w-2xl mx-auto text-lg">{t.regionDesc}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {[
@@ -479,520 +495,422 @@ export default function Home() {
               { id: 3, title: "Love Valley", span: "md:col-span-4 lg:col-span-2", img: "https://images.unsplash.com/photo-1518182170546-076616fd61fd?q=80&w=800" },
               { id: 4, title: "Derinkuyu", span: "md:col-span-4 lg:col-span-2", img: "https://images.unsplash.com/photo-1569429593410-b498b3fb3387?q=80&w=800" }
             ].map((dest, index) => (
-              <motion.div key={dest.id} initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: index * 0.1 }} className={`relative h-64 rounded-3xl overflow-hidden group cursor-pointer shadow-lg ${dest.span}`}>
-                <img src={dest.img} alt={dest.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-700" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
-                <div className="absolute bottom-6 left-6">
-                  <h3 className="text-2xl font-bold text-white">{dest.title}</h3>
-                  <Link href={`/destinations/${dest.id}`} className="text-yellow-400 text-sm font-bold mt-2 inline-block group-hover:translate-x-2 transition-transform">Explore →</Link>
+              <motion.div key={dest.id} initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: index * 0.1, ease: customEase }} className={`relative h-72 rounded-[2rem] overflow-hidden group cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500 ${dest.span}`}>
+                <img src={dest.img} alt={dest.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1.5s] ease-out" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500"></div>
+                <div className="absolute bottom-8 left-8">
+                  <h3 className="text-3xl font-bold text-white drop-shadow-md">{dest.title}</h3>
+                  <Link href={`/destinations/${dest.id}`} className="text-amber-400 text-sm font-bold mt-3 inline-flex items-center gap-2 uppercase tracking-widest group-hover:translate-x-2 transition-transform duration-300">Explore <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg></Link>
                 </div>
               </motion.div>
             ))}
           </div>
-          <div className="text-center mt-12">
-            <Link href="/destinations">
-              <button className="bg-transparent border-2 border-slate-900 text-slate-900 px-8 py-4 rounded-xl font-bold hover:bg-slate-900 hover:text-white transition duration-300">{t.viewAllDest}</button>
+          <div className="text-center mt-16">
+            <Link href="/destinations" className="inline-flex items-center gap-3 bg-transparent border-2 border-slate-900 text-slate-900 px-10 py-4 rounded-full font-bold uppercase tracking-widest hover:bg-slate-900 hover:text-white transition-all duration-300">
+              {t.viewAllDest}
             </Link>
           </div>
         </div>
-      </motion.div>
+      </section>
 
-      {/* TOURS */}
-      <div className="py-24 bg-white">
+      {/* TOURS (Premium Cards) */}
+      <section className="py-32 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={fadeInUp} className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">{t.toursTitle}</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">{t.toursDesc}</p>
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={fadeInUp} className="text-center mb-20">
+            <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-5 tracking-tight">{t.toursTitle}</h2>
+            <p className="text-lg text-slate-500 max-w-2xl mx-auto leading-relaxed">{t.toursDesc}</p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {/* Kart 1 */}
-            <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.6, delay: 0.1 }} className="bg-gray-50 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow group flex flex-col">
-              <div className="h-64 bg-gray-300 relative overflow-hidden">
-                <div className="absolute inset-0 bg-blue-900/20 group-hover:scale-110 transition-transform duration-500"></div>
-                <div className="absolute top-4 right-4 bg-red-600 text-white text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-widest animate-pulse shadow-lg">{t.sellingFast}</div>
+            <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.8, delay: 0.1, ease: customEase }} className="bg-white rounded-[2rem] overflow-hidden border border-slate-100 shadow-xl hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)] hover:-translate-y-2 transition-all duration-500 group flex flex-col">
+              <div className="h-64 relative overflow-hidden bg-slate-100">
+                <div className="absolute inset-0 bg-sky-900/10 z-10 group-hover:bg-transparent transition-colors duration-500"></div>
+                <img src="https://images.unsplash.com/photo-1643208589889-0735ad621810?q=80&w=800" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out" alt="Balloon" />
+                <div className="absolute top-5 right-5 bg-rose-500 text-white text-[10px] font-black px-4 py-2 rounded-full uppercase tracking-widest z-20 shadow-lg animate-pulse">{t.sellingFast}</div>
               </div>
-              <div className="p-6 flex flex-col flex-1">
-                <div className="flex justify-between items-center mb-3">
-                  <span className="text-yellow-600 font-bold text-sm tracking-wider uppercase">{t.activity}</span>
-                  <div>
-                    <Price eur={180} className="text-gray-400 line-through text-sm mr-2" />
-                    <Price eur={150} className="text-gray-900 font-extrabold text-xl" />
+              <div className="p-8 flex flex-col flex-1">
+                <div className="flex justify-between items-end mb-4">
+                  <span className="text-amber-500 font-black text-xs tracking-widest uppercase">{t.activity}</span>
+                  <div className="text-right">
+                    <Price eur={180} className="text-slate-400 line-through text-xs mr-2 block" />
+                    <Price eur={150} className="text-slate-900 font-black text-2xl leading-none" />
                   </div>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">{t.hotAirTitle}</h3>
-                <p className="text-gray-600 mb-6 line-clamp-2 flex-1">{t.hotAirDesc}</p>
+                <h3 className="text-2xl font-black text-slate-900 mb-3">{t.hotAirTitle}</h3>
+                <p className="text-slate-500 mb-8 line-clamp-2 flex-1 text-sm leading-relaxed">{t.hotAirDesc}</p>
                 <div className="mt-auto">
-                  <div className="text-center mb-3 flex items-center justify-center gap-1.5 text-green-600">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
-                    <span className="text-xs font-bold">{t.freeCancel}</span>
+                  <div className="mb-4 flex items-center gap-2 text-emerald-600">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                    <span className="text-xs font-bold uppercase tracking-wider">{t.freeCancel}</span>
                   </div>
-                  <Link href="/book" className="block text-center w-full bg-yellow-500 text-black py-3.5 rounded-xl font-bold text-sm uppercase tracking-widest hover:bg-yellow-400 transition-colors shadow-lg">{t.checkAvail}</Link>
+                  <Link href="/book" className="flex items-center justify-center w-full bg-amber-400 text-slate-900 py-4 rounded-xl font-black text-sm uppercase tracking-widest hover:bg-amber-500 transition-colors shadow-md">{t.checkAvail}</Link>
                 </div>
               </div>
             </motion.div>
 
             {/* Kart 2 */}
-            <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.6, delay: 0.3 }} className="bg-gray-50 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow group flex flex-col">
-              <div className="h-64 bg-gray-300 relative overflow-hidden">
-                <div className="absolute inset-0 bg-red-900/20 group-hover:scale-110 transition-transform duration-500"></div>
-                <div className="absolute top-4 right-4 bg-gray-900 text-white text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-widest shadow-lg">{t.popular}</div>
+            <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.8, delay: 0.2, ease: customEase }} className="bg-white rounded-[2rem] overflow-hidden border border-slate-100 shadow-xl hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)] hover:-translate-y-2 transition-all duration-500 group flex flex-col">
+              <div className="h-64 relative overflow-hidden bg-slate-100">
+                <div className="absolute inset-0 bg-orange-900/10 z-10 group-hover:bg-transparent transition-colors duration-500"></div>
+                <img src="https://images.unsplash.com/photo-1518182170546-076616fd61fd?q=80&w=800" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out" alt="ATV" />
+                <div className="absolute top-5 right-5 bg-slate-900 text-white text-[10px] font-black px-4 py-2 rounded-full uppercase tracking-widest z-20 shadow-lg">{t.popular}</div>
               </div>
-              <div className="p-6 flex flex-col flex-1">
-                <div className="flex justify-between items-center mb-3">
-                  <span className="text-yellow-600 font-bold text-sm tracking-wider uppercase">{t.adventure}</span>
-                  <div>
-                    <Price eur={45} className="text-gray-400 line-through text-sm mr-2" />
-                    <Price eur={35} className="text-gray-900 font-extrabold text-xl" />
+              <div className="p-8 flex flex-col flex-1">
+                <div className="flex justify-between items-end mb-4">
+                  <span className="text-orange-500 font-black text-xs tracking-widest uppercase">{t.adventure}</span>
+                  <div className="text-right">
+                    <Price eur={45} className="text-slate-400 line-through text-xs mr-2 block" />
+                    <Price eur={35} className="text-slate-900 font-black text-2xl leading-none" />
                   </div>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">{t.atvTitle}</h3>
-                <p className="text-gray-600 mb-6 line-clamp-2 flex-1">{t.atvDesc}</p>
+                <h3 className="text-2xl font-black text-slate-900 mb-3">{t.atvTitle}</h3>
+                <p className="text-slate-500 mb-8 line-clamp-2 flex-1 text-sm leading-relaxed">{t.atvDesc}</p>
                 <div className="mt-auto">
-                  <div className="text-center mb-3 flex items-center justify-center gap-1.5 text-green-600">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
-                    <span className="text-xs font-bold">{t.payLater}</span>
+                  <div className="mb-4 flex items-center gap-2 text-emerald-600">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                    <span className="text-xs font-bold uppercase tracking-wider">{t.payLater}</span>
                   </div>
-                  <Link href="/book" className="block text-center w-full bg-slate-900 text-white py-3.5 rounded-xl font-bold text-sm uppercase tracking-widest hover:bg-slate-800 transition-colors shadow-lg">{t.reserveNow}</Link>
+                  <Link href="/book" className="flex items-center justify-center w-full bg-slate-900 text-white py-4 rounded-xl font-black text-sm uppercase tracking-widest hover:bg-slate-800 transition-colors shadow-md">{t.reserveNow}</Link>
                 </div>
               </div>
             </motion.div>
 
             {/* Kart 3 */}
-            <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.6, delay: 0.5 }} className="bg-gray-50 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow group flex flex-col">
-              <div className="h-64 bg-gray-300 relative overflow-hidden">
-                <div className="absolute inset-0 bg-green-900/20 group-hover:scale-110 transition-transform duration-500"></div>
-                <div className="absolute top-4 right-4 bg-gray-900 text-white text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-widest shadow-lg">{t.bestValue}</div>
+            <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.8, delay: 0.3, ease: customEase }} className="bg-white rounded-[2rem] overflow-hidden border border-slate-100 shadow-xl hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)] hover:-translate-y-2 transition-all duration-500 group flex flex-col">
+              <div className="h-64 relative overflow-hidden bg-slate-100">
+                <div className="absolute inset-0 bg-emerald-900/10 z-10 group-hover:bg-transparent transition-colors duration-500"></div>
+                <img src="https://images.unsplash.com/photo-1579607142168-3e4b7b252033?q=80&w=800" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out" alt="Red Tour" />
+                <div className="absolute top-5 right-5 bg-emerald-500 text-white text-[10px] font-black px-4 py-2 rounded-full uppercase tracking-widest z-20 shadow-lg">{t.bestValue}</div>
               </div>
-              <div className="p-6 flex flex-col flex-1">
-                <div className="flex justify-between items-center mb-3">
-                  <span className="text-yellow-600 font-bold text-sm tracking-wider uppercase">{t.dailyTour}</span>
-                  <div>
-                    <Price eur={75} className="text-gray-400 line-through text-sm mr-2" />
-                    <Price eur={60} className="text-gray-900 font-extrabold text-xl" />
+              <div className="p-8 flex flex-col flex-1">
+                <div className="flex justify-between items-end mb-4">
+                  <span className="text-emerald-500 font-black text-xs tracking-widest uppercase">{t.dailyTour}</span>
+                  <div className="text-right">
+                    <Price eur={75} className="text-slate-400 line-through text-xs mr-2 block" />
+                    <Price eur={60} className="text-slate-900 font-black text-2xl leading-none" />
                   </div>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">{t.redTitle}</h3>
-                <p className="text-gray-600 mb-6 line-clamp-2 flex-1">{t.redDesc}</p>
+                <h3 className="text-2xl font-black text-slate-900 mb-3">{t.redTitle}</h3>
+                <p className="text-slate-500 mb-8 line-clamp-2 flex-1 text-sm leading-relaxed">{t.redDesc}</p>
                 <div className="mt-auto">
-                  <div className="text-center mb-3 flex items-center justify-center gap-1.5 text-green-600">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
-                    <span className="text-xs font-bold">{t.museumInc}</span>
+                  <div className="mb-4 flex items-center gap-2 text-emerald-600">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                    <span className="text-xs font-bold uppercase tracking-wider">{t.museumInc}</span>
                   </div>
-                  <Link href="/book" className="block text-center w-full bg-slate-900 text-white py-3.5 rounded-xl font-bold text-sm uppercase tracking-widest hover:bg-slate-800 transition-colors shadow-lg">{t.reserveNow}</Link>
+                  <Link href="/book" className="flex items-center justify-center w-full bg-slate-900 text-white py-4 rounded-xl font-black text-sm uppercase tracking-widest hover:bg-slate-800 transition-colors shadow-md">{t.reserveNow}</Link>
                 </div>
               </div>
             </motion.div>
           </div>
-        </div>
-      </div>
 
-      <div className="mt-16 text-center">
-        <Link href="/tours" className="inline-flex items-center justify-center gap-3 bg-white border-2 border-gray-900 text-gray-900 px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-900 hover:text-white transition-all duration-300 shadow-lg">
-          {t.viewAllTours} <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-        </Link>
-      </div>
+          <div className="mt-20 text-center">
+            <Link href="/tours" className="inline-flex items-center justify-center gap-3 bg-white border-2 border-slate-900 text-slate-900 px-10 py-4 rounded-full font-bold text-sm tracking-widest uppercase hover:bg-slate-900 hover:text-white transition-all duration-300 shadow-lg">
+              {t.viewAllTours} <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+            </Link>
+          </div>
+        </div>
+      </section>
 
       {/* ITINERARIES */}
-      <div className="py-24 bg-gray-50">
+      <section className="py-32 bg-slate-50 border-y border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <span className="text-yellow-600 font-bold tracking-widest uppercase mb-2 block">{t.planSub}</span>
-            <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">{t.planTitle}</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">{t.planDesc}</p>
+          <div className="text-center mb-20">
+            <span className="text-amber-500 font-bold tracking-widest uppercase mb-3 block text-sm">{t.planSub}</span>
+            <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-5 tracking-tight">{t.planTitle}</h2>
+            <p className="text-lg text-slate-500 max-w-2xl mx-auto">{t.planDesc}</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all hover:-translate-y-2 group flex flex-col border border-gray-100">
-              <div className="h-56 relative overflow-hidden bg-gray-300">
-                <img src="https://images.unsplash.com/photo-1641128324972-af3212f0f6bd?q=80&w=800" alt="1 Day" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-gray-900 font-black px-4 py-2 rounded-xl shadow-lg">{t.plan1Day}</div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+            <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.1, ease: customEase }} className="bg-white rounded-[2rem] overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 group flex flex-col border border-slate-100">
+              <div className="h-60 relative overflow-hidden bg-slate-300">
+                <img src="https://images.unsplash.com/photo-1641128324972-af3212f0f6bd?q=80&w=800" alt="1 Day" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out" />
+                <div className="absolute top-5 left-5 bg-white/90 backdrop-blur-md text-slate-900 font-black px-4 py-2 rounded-xl shadow-lg">{t.plan1Day}</div>
               </div>
               <div className="p-8 flex flex-col flex-1">
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">{t.plan1Title}</h3>
-                <p className="text-gray-600 mb-6 flex-1">{t.plan1Desc}</p>
-                <Link href="/itineraries/1-day" className="flex items-center justify-center gap-2 w-full bg-gray-50 hover:bg-yellow-500 hover:text-black text-gray-900 py-4 rounded-xl font-bold text-sm uppercase tracking-widest transition-all border border-gray-200 hover:border-transparent">
-                  {t.viewItinerary} <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                <h3 className="text-2xl font-black text-slate-900 mb-3">{t.plan1Title}</h3>
+                <p className="text-slate-500 mb-8 flex-1 text-sm leading-relaxed">{t.plan1Desc}</p>
+                <Link href="/itineraries/1-day" className="flex items-center justify-center gap-2 w-full bg-[#F8FAFC] hover:bg-amber-400 hover:text-slate-900 text-slate-700 py-4 rounded-xl font-black text-xs uppercase tracking-widest transition-all duration-300 border border-slate-200 hover:border-transparent">
+                  {t.viewItinerary} <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" /></svg>
                 </Link>
               </div>
-            </div>
-            <div className="bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all hover:-translate-y-2 group flex flex-col border-2 border-yellow-500 relative">
-              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-yellow-500 text-black px-6 py-1.5 rounded-full font-bold text-xs uppercase tracking-widest z-10 shadow-lg">{t.popular}</div>
-              <div className="h-56 relative overflow-hidden bg-gray-300">
-                <img src="https://images.unsplash.com/photo-1574347775984-b003666d9255?q=80&w=800" alt="2 Days" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-gray-900 font-black px-4 py-2 rounded-xl shadow-lg">{t.plan2Day}</div>
+            </motion.div>
+            
+            <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.2, ease: customEase }} className="bg-white rounded-[2rem] overflow-hidden shadow-2xl hover:shadow-[0_20px_50px_rgba(245,158,11,0.2)] transition-all duration-500 hover:-translate-y-2 group flex flex-col border-2 border-amber-400 relative">
+              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-amber-400 text-slate-900 px-6 py-1.5 rounded-full font-black text-[10px] uppercase tracking-widest z-10 shadow-lg">{t.popular}</div>
+              <div className="h-60 relative overflow-hidden bg-slate-300">
+                <img src="https://images.unsplash.com/photo-1574347775984-b003666d9255?q=80&w=800" alt="2 Days" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out" />
+                <div className="absolute top-5 left-5 bg-white/90 backdrop-blur-md text-slate-900 font-black px-4 py-2 rounded-xl shadow-lg">{t.plan2Day}</div>
               </div>
               <div className="p-8 flex flex-col flex-1">
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">{t.plan2Title}</h3>
-                <p className="text-gray-600 mb-6 flex-1">{t.plan2Desc}</p>
-                <Link href="/itineraries/2-days" className="flex items-center justify-center gap-2 w-full bg-yellow-500 hover:bg-yellow-400 text-black py-4 rounded-xl font-bold text-sm uppercase tracking-widest transition-all shadow-lg hover:shadow-yellow-500/30">
-                  {t.viewItinerary} <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                <h3 className="text-2xl font-black text-slate-900 mb-3">{t.plan2Title}</h3>
+                <p className="text-slate-500 mb-8 flex-1 text-sm leading-relaxed">{t.plan2Desc}</p>
+                <Link href="/itineraries/2-days" className="flex items-center justify-center gap-2 w-full bg-amber-400 hover:bg-amber-500 text-slate-900 py-4 rounded-xl font-black text-xs uppercase tracking-widest transition-all duration-300 shadow-md">
+                  {t.viewItinerary} <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" /></svg>
                 </Link>
               </div>
-            </div>
-            <div className="bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all hover:-translate-y-2 group flex flex-col border border-gray-100">
-              <div className="h-56 relative overflow-hidden bg-gray-300">
-                <img src="https://images.unsplash.com/photo-1527838832700-5059252407fa?q=80&w=800" alt="3 Days" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-gray-900 font-black px-4 py-2 rounded-xl shadow-lg">{t.plan3Day}</div>
+            </motion.div>
+            
+            <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.3, ease: customEase }} className="bg-white rounded-[2rem] overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 group flex flex-col border border-slate-100">
+              <div className="h-60 relative overflow-hidden bg-slate-300">
+                <img src="https://images.unsplash.com/photo-1527838832700-5059252407fa?q=80&w=800" alt="3 Days" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out" />
+                <div className="absolute top-5 left-5 bg-white/90 backdrop-blur-md text-slate-900 font-black px-4 py-2 rounded-xl shadow-lg">{t.plan3Day}</div>
               </div>
               <div className="p-8 flex flex-col flex-1">
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">{t.plan3Title}</h3>
-                <p className="text-gray-600 mb-6 flex-1">{t.plan3Desc}</p>
-                <Link href="/itineraries/3-days" className="flex items-center justify-center gap-2 w-full bg-gray-50 hover:bg-yellow-500 hover:text-black text-gray-900 py-4 rounded-xl font-bold text-sm uppercase tracking-widest transition-all border border-gray-200 hover:border-transparent">
-                  {t.viewItinerary} <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                <h3 className="text-2xl font-black text-slate-900 mb-3">{t.plan3Title}</h3>
+                <p className="text-slate-500 mb-8 flex-1 text-sm leading-relaxed">{t.plan3Desc}</p>
+                <Link href="/itineraries/3-days" className="flex items-center justify-center gap-2 w-full bg-[#F8FAFC] hover:bg-amber-400 hover:text-slate-900 text-slate-700 py-4 rounded-xl font-black text-xs uppercase tracking-widest transition-all duration-300 border border-slate-200 hover:border-transparent">
+                  {t.viewItinerary} <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" /></svg>
                 </Link>
               </div>
-            </div>
+            </motion.div>
           </div>
-          <div className="mt-12 text-center">
-            <Link href="/itineraries" className="inline-flex items-center gap-2 text-gray-900 font-bold hover:text-yellow-600 transition-colors">
-              {t.seeAllPlans} <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+          <div className="mt-16 text-center">
+            <Link href="/itineraries" className="inline-flex items-center gap-2 text-slate-900 font-bold uppercase tracking-widest text-sm hover:text-amber-500 transition-colors">
+              {t.seeAllPlans} <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
             </Link>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* WORKSHOPS */}
-      <div className="py-20 px-8 max-w-7xl mx-auto">
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={fadeInUp} className="text-center mb-12">
-          <span className="text-yellow-500 font-bold uppercase tracking-widest text-sm">{t.wsSub}</span>
-          <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mt-2">{t.wsTitle}</h2>
+      <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={fadeInUp} className="text-center mb-16">
+          <span className="text-amber-500 font-bold uppercase tracking-widest text-sm">{t.wsSub}</span>
+          <h2 className="text-4xl md:text-5xl font-black text-slate-900 mt-3 tracking-tight">{t.wsTitle}</h2>
         </motion.div>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.5, delay: 0.1 }} className="relative h-72 rounded-2xl overflow-hidden group shadow-lg">
-            <Link href="/book?package=pottery" className="block w-full h-full relative">
-              <img src="https://images.unsplash.com/photo-1516738778643-41ea3f60f089?q=80&w=600" className="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Pottery" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition duration-500"></div>
-              <div className="absolute bottom-0 left-0 p-5 w-full">
-                <h3 className="text-white font-bold text-xl drop-shadow-md mb-3">{t.ws1}</h3>
-                <span className="inline-flex items-center gap-2 text-yellow-500 font-bold text-sm uppercase tracking-widest group-hover:text-yellow-400 transition-colors">{t.bookBtn} <svg className="w-4 h-4 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg></span>
-              </div>
-            </Link>
-          </motion.div>
-          <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.5, delay: 0.2 }} className="relative h-72 rounded-2xl overflow-hidden group shadow-lg">
-            <Link href="/book?package=carpet" className="block w-full h-full relative">
-              <img src="https://images.unsplash.com/photo-1602934445884-da0fa1c9d3b3?q=80&w=600" className="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Carpet" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition duration-500"></div>
-              <div className="absolute bottom-0 left-0 p-5 w-full">
-                <h3 className="text-white font-bold text-xl drop-shadow-md mb-3">{t.ws2}</h3>
-                <span className="inline-flex items-center gap-2 text-yellow-500 font-bold text-sm uppercase tracking-widest group-hover:text-yellow-400 transition-colors">{t.bookBtn} <svg className="w-4 h-4 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg></span>
-              </div>
-            </Link>
-          </motion.div>
-          <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.5, delay: 0.3 }} className="relative h-72 rounded-2xl overflow-hidden group shadow-lg">
-            <Link href="/book?package=cooking" className="block w-full h-full relative">
-              <img src="https://images.unsplash.com/photo-1541534407338-02422e6f43e3?q=80&w=600" className="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Cooking" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition duration-500"></div>
-              <div className="absolute bottom-0 left-0 p-5 w-full">
-                <h3 className="text-white font-bold text-xl drop-shadow-md mb-3">{t.ws3}</h3>
-                <span className="inline-flex items-center gap-2 text-yellow-500 font-bold text-sm uppercase tracking-widest group-hover:text-yellow-400 transition-colors">{t.bookBtn} <svg className="w-4 h-4 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg></span>
-              </div>
-            </Link>
-          </motion.div>
-          <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.5, delay: 0.4 }} className="relative h-72 rounded-2xl overflow-hidden group shadow-lg">
-            <Link href="/book?package=wine" className="block w-full h-full relative">
-              <img src="https://images.unsplash.com/photo-1522850959516-58f958d88aca?q=80&w=600" className="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Wine" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition duration-500"></div>
-              <div className="absolute bottom-0 left-0 p-5 w-full">
-                <h3 className="text-white font-bold text-xl drop-shadow-md mb-3">{t.ws4}</h3>
-                <span className="inline-flex items-center gap-2 text-yellow-500 font-bold text-sm uppercase tracking-widest group-hover:text-yellow-400 transition-colors">{t.bookBtn} <svg className="w-4 h-4 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg></span>
-              </div>
-            </Link>
-          </motion.div>
+          {[
+            { img: "https://images.unsplash.com/photo-1516738778643-41ea3f60f089?q=80&w=600", title: t.ws1, link: "/book?package=pottery" },
+            { img: "https://images.unsplash.com/photo-1602934445884-da0fa1c9d3b3?q=80&w=600", title: t.ws2, link: "/book?package=carpet" },
+            { img: "https://images.unsplash.com/photo-1541534407338-02422e6f43e3?q=80&w=600", title: t.ws3, link: "/book?package=cooking" },
+            { img: "https://images.unsplash.com/photo-1522850959516-58f958d88aca?q=80&w=600", title: t.ws4, link: "/book?package=wine" }
+          ].map((ws, i) => (
+            <motion.div key={i} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.8, delay: i * 0.1, ease: customEase }} className="relative h-80 rounded-[2rem] overflow-hidden group shadow-lg">
+              <Link href={ws.link} className="block w-full h-full relative">
+                <img src={ws.img} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1.5s] ease-out" alt={ws.title} />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent transition duration-500"></div>
+                <div className="absolute bottom-0 left-0 p-6 w-full">
+                  <h3 className="text-white font-bold text-xl drop-shadow-md mb-3">{ws.title}</h3>
+                  <span className="inline-flex items-center gap-2 text-amber-400 font-bold text-xs uppercase tracking-widest group-hover:text-amber-300 transition-colors">{t.bookBtn} <svg className="w-4 h-4 group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg></span>
+                </div>
+              </Link>
+            </motion.div>
+          ))}
         </div>
-      </div>
+      </section>
 
       {/* INSTAGRAM */}
-      <div className="py-24 bg-white relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-12 relative z-10">
-          <span className="text-yellow-500 font-bold uppercase tracking-widest text-sm">{t.igSub}</span>
-          <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mt-2">{t.igTitle}</h2>
-          <p className="text-gray-500 mt-4 max-w-2xl mx-auto text-lg">{t.igDesc}</p>
+      <section className="py-24 bg-white relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-16 relative z-10">
+          <span className="text-amber-500 font-bold uppercase tracking-widest text-sm">{t.igSub}</span>
+          <h2 className="text-4xl md:text-5xl font-black text-slate-900 mt-3 tracking-tight">{t.igTitle}</h2>
+          <p className="text-slate-500 mt-5 max-w-2xl mx-auto text-lg">{t.igDesc}</p>
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <Instagram />
         </div>
-      </div>
+      </section>
 
-      {/* ======================================================= */}
-      {/* 🌟 YENİ: OKLU, KÜÇÜK KARTLI YATAY KAYDIRMALI BLOG BÖLÜMÜ */}
-      {/* ======================================================= */}
-      <div className="py-20 bg-white overflow-hidden border-t border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* BLOG SLIDER (Premium) */}
+      <section className="py-24 bg-[#F8FAFC] border-t border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           
-          {/* Başlık ve Yön Okları */}
-          <div className="flex justify-between items-end mb-10">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
             <div>
-              <span className="text-yellow-500 font-bold uppercase tracking-widest text-sm">Seyahat Rehberi</span>
-              <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mt-2">Kapadokya Blog</h2>
-              <p className="text-gray-500 mt-3 max-w-xl text-lg">Seyahatinizi planlamadan önce yerel rehberlerimizin sizin için hazırladığı ipuçlarına göz atın.</p>
+              <span className="text-amber-500 font-bold uppercase tracking-widest text-sm">{t.blogSub}</span>
+              <h2 className="text-4xl md:text-5xl font-black text-slate-900 mt-3 tracking-tight">{t.blogTitle}</h2>
+              <p className="text-slate-500 mt-4 max-w-xl text-lg">{t.blogDesc}</p>
             </div>
             
-            {/* Şık Yön Okları (Sadece bilgisayarda gözükür, mobilde elle kaydırılır) */}
-            <div className="hidden md:flex gap-3 mb-2">
-              <button onClick={scrollLeft} className="w-12 h-12 rounded-full border-2 border-gray-200 flex items-center justify-center text-gray-500 hover:bg-yellow-500 hover:text-white hover:border-yellow-500 transition-all duration-300 shadow-sm">
+            <div className="hidden md:flex gap-3">
+              <button onClick={scrollLeft} className="w-14 h-14 rounded-full border-2 border-slate-200 flex items-center justify-center text-slate-500 hover:bg-slate-900 hover:text-white hover:border-slate-900 transition-all duration-300 shadow-sm">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" /></svg>
               </button>
-              <button onClick={scrollRight} className="w-12 h-12 rounded-full border-2 border-gray-200 flex items-center justify-center text-gray-500 hover:bg-yellow-500 hover:text-white hover:border-yellow-500 transition-all duration-300 shadow-sm">
+              <button onClick={scrollRight} className="w-14 h-14 rounded-full border-2 border-slate-200 flex items-center justify-center text-slate-500 hover:bg-slate-900 hover:text-white hover:border-slate-900 transition-all duration-300 shadow-sm">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" /></svg>
               </button>
             </div>
           </div>
 
-          {/* Fare ve Oklarla Kaydırılabilir Alan (Slider) */}
-          <div ref={scrollRef} className="flex overflow-x-auto gap-5 pb-10 snap-x snap-mandatory cursor-grab active:cursor-grabbing [&::-webkit-scrollbar]:hidden -mx-4 px-4 sm:mx-0 sm:px-0">
-            
-            {/* KART 1: Balon */}
-            <Link href="/blog/balloon-tips" className="min-w-[280px] max-w-[280px] bg-gray-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 snap-start group border border-gray-200">
-              <div className="h-44 overflow-hidden relative">
-                <img src="https://images.unsplash.com/photo-1643208589889-0735ad621810?q=80&w=600" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Balon Turu" />
-                <div className="absolute top-3 left-3 bg-white/90 backdrop-blur text-slate-900 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">İpucu</div>
-              </div>
-              <div className="p-5">
-                <h3 className="text-lg font-bold text-slate-900 mb-2 line-clamp-2 group-hover:text-yellow-600 transition-colors">Balon Turuna Çıkmadan Önce Bilmeniz Gereken 10 Şey</h3>
-                <p className="text-sm text-gray-500 line-clamp-2 mb-4">Uçuş saatleri, ne giyilmeli ve sepet düzeni hakkında tüm gerçekler.</p>
-                <span className="text-yellow-600 text-xs font-bold uppercase tracking-widest flex items-center gap-1 group-hover:translate-x-2 transition-transform">Devamını Oku &rarr;</span>
-              </div>
-            </Link>
+          <div className="relative">
+            {/* Fade masks for elegant scroll feeling */}
+            <div className="absolute top-0 bottom-0 left-0 w-8 bg-gradient-to-r from-[#F8FAFC] to-transparent z-10 pointer-events-none hidden md:block"></div>
+            <div className="absolute top-0 bottom-0 right-0 w-16 bg-gradient-to-l from-[#F8FAFC] to-transparent z-10 pointer-events-none hidden md:block"></div>
 
-            {/* KART 2: Otel */}
-            <Link href="/blog/cave-hotels" className="min-w-[280px] max-w-[280px] bg-gray-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 snap-start group border border-gray-200">
-              <div className="h-44 overflow-hidden relative">
-                <img src="https://images.unsplash.com/photo-1574347775984-b003666d9255?q=80&w=600" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Mağara Oteller" />
-                <div className="absolute top-3 left-3 bg-white/90 backdrop-blur text-slate-900 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Konaklama</div>
-              </div>
-              <div className="p-5">
-                <h3 className="text-lg font-bold text-slate-900 mb-2 line-clamp-2 group-hover:text-yellow-600 transition-colors">En İyi Mağara Otelleri: Uzman Seçimleri</h3>
-                <p className="text-sm text-gray-500 line-clamp-2 mb-4">Göreme ve Uçhisar'da manzarasıyla büyüleyen en otantik mağara konaklamaları.</p>
-                <span className="text-yellow-600 text-xs font-bold uppercase tracking-widest flex items-center gap-1 group-hover:translate-x-2 transition-transform">Devamını Oku &rarr;</span>
-              </div>
-            </Link>
-
-            {/* KART 3: Yeraltı Şehri */}
-            <Link href="/blog/underground" className="min-w-[280px] max-w-[280px] bg-gray-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 snap-start group border border-gray-200">
-              <div className="h-44 overflow-hidden relative">
-                <img src="https://images.unsplash.com/photo-1569429593410-b498b3fb3387?q=80&w=600" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Yeraltı Şehirleri" />
-                <div className="absolute top-3 left-3 bg-white/90 backdrop-blur text-slate-900 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Tarih</div>
-              </div>
-              <div className="p-5">
-                <h3 className="text-lg font-bold text-slate-900 mb-2 line-clamp-2 group-hover:text-yellow-600 transition-colors">Derinkuyu Yeraltı Şehrinin Gizemli Katmanları</h3>
-                <p className="text-sm text-gray-500 line-clamp-2 mb-4">Binlerce yıl önce inşa edilen bu devasa şehrin bilinmeyen tarihi gerçekleri.</p>
-                <span className="text-yellow-600 text-xs font-bold uppercase tracking-widest flex items-center gap-1 group-hover:translate-x-2 transition-transform">Devamını Oku &rarr;</span>
-              </div>
-            </Link>
-
-            {/* KART 4: Günbatımı */}
-            <Link href="/blog/sunset" className="min-w-[280px] max-w-[280px] bg-gray-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 snap-start group border border-gray-200">
-              <div className="h-44 overflow-hidden relative">
-                <img src="https://images.unsplash.com/photo-1518182170546-076616fd61fd?q=80&w=600" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Günbatımı Noktaları" />
-                <div className="absolute top-3 left-3 bg-white/90 backdrop-blur text-slate-900 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Doğa</div>
-              </div>
-              <div className="p-5">
-                <h3 className="text-lg font-bold text-slate-900 mb-2 line-clamp-2 group-hover:text-yellow-600 transition-colors">Kızılçukur Vadisi'nde Kusursuz Bir Günbatımı</h3>
-                <p className="text-sm text-gray-500 line-clamp-2 mb-4">Yanınıza şarabınızı alın ve Kapadokya'nın en meşhur kızıl vadisinde güneşi batırın.</p>
-                <span className="text-yellow-600 text-xs font-bold uppercase tracking-widest flex items-center gap-1 group-hover:translate-x-2 transition-transform">Devamını Oku &rarr;</span>
-              </div>
-            </Link>
-
-            {/* KART 5: Yemek */}
-            <Link href="/blog/food" className="min-w-[280px] max-w-[280px] bg-gray-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 snap-start group border border-gray-200">
-              <div className="h-44 overflow-hidden relative">
-                <img src="https://images.unsplash.com/photo-1541534407338-02422e6f43e3?q=80&w=600" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Testi Kebabı" />
-                <div className="absolute top-3 left-3 bg-white/90 backdrop-blur text-slate-900 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Lezzet</div>
-              </div>
-              <div className="p-5">
-                <h3 className="text-lg font-bold text-slate-900 mb-2 line-clamp-2 group-hover:text-yellow-600 transition-colors">Orijinal Testi Kebabı Göreme'de Nerede Yenir?</h3>
-                <p className="text-sm text-gray-500 line-clamp-2 mb-4">Ateşin üzerinde kırılarak servis edilen bu meşhur lezzeti denemeden dönmeyin.</p>
-                <span className="text-yellow-600 text-xs font-bold uppercase tracking-widest flex items-center gap-1 group-hover:translate-x-2 transition-transform">Devamını Oku &rarr;</span>
-              </div>
-            </Link>
-
-            {/* KART 6: Avanos Çömlek */}
-            <Link href="/blog/pottery" className="min-w-[280px] max-w-[280px] bg-gray-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 snap-start group border border-gray-200">
-              <div className="h-44 overflow-hidden relative">
-                <img src="https://images.unsplash.com/photo-1516738778643-41ea3f60f089?q=80&w=600" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Avanos Çömlek" />
-                <div className="absolute top-3 left-3 bg-white/90 backdrop-blur text-slate-900 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Sanat</div>
-              </div>
-              <div className="p-5">
-                <h3 className="text-lg font-bold text-slate-900 mb-2 line-clamp-2 group-hover:text-yellow-600 transition-colors">Kızılırmak Çamuruyla Kendi Çömleğinizi Yapın</h3>
-                <p className="text-sm text-gray-500 line-clamp-2 mb-4">Avanos'un tarihi atölyelerinde ustalarla birlikte çarkın başına geçme deneyimi.</p>
-                <span className="text-yellow-600 text-xs font-bold uppercase tracking-widest flex items-center gap-1 group-hover:translate-x-2 transition-transform">Devamını Oku &rarr;</span>
-              </div>
-            </Link>
-
-            {/* KART 7: Ihlara Vadisi */}
-            <Link href="/blog/ihlara" className="min-w-[280px] max-w-[280px] bg-gray-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 snap-start group border border-gray-200">
-              <div className="h-44 overflow-hidden relative">
-                <img src="https://images.unsplash.com/photo-1527838832700-5059252407fa?q=80&w=600" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Ihlara Vadisi" />
-                <div className="absolute top-3 left-3 bg-white/90 backdrop-blur text-slate-900 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Yürüyüş</div>
-              </div>
-              <div className="p-5">
-                <h3 className="text-lg font-bold text-slate-900 mb-2 line-clamp-2 group-hover:text-yellow-600 transition-colors">Ihlara Vadisi'nde Gizli Kiliseler ve Yürüyüş Rotaları</h3>
-                <p className="text-sm text-gray-500 line-clamp-2 mb-4">Melendiz Çayı'nın serinliğinde 14 kilometrelik doğa ve tarih yolculuğu.</p>
-                <span className="text-yellow-600 text-xs font-bold uppercase tracking-widest flex items-center gap-1 group-hover:translate-x-2 transition-transform">Devamını Oku &rarr;</span>
-              </div>
-            </Link>
-
+            <div ref={scrollRef} className="flex overflow-x-auto gap-6 pb-10 snap-x snap-mandatory cursor-grab active:cursor-grabbing [&::-webkit-scrollbar]:hidden -mx-4 px-4 md:mx-0 md:px-0">
+              {[
+                { title: t.blog1Title, img: "https://images.unsplash.com/photo-1643208589889-0735ad621810?q=80&w=600", cat: t.blog1Category, link: "/blog/balloon-tips" },
+                { title: t.blog2Title, img: "https://images.unsplash.com/photo-1574347775984-b003666d9255?q=80&w=600", cat: t.blog2Category, link: "/blog/cave-hotels" },
+                { title: t.blog3Title, img: "https://images.unsplash.com/photo-1569429593410-b498b3fb3387?q=80&w=600", cat: t.blog3Category, link: "/blog/underground" },
+                { title: t.blog5Title, img: "https://images.unsplash.com/photo-1518182170546-076616fd61fd?q=80&w=600", cat: t.blog5Category, link: "/blog/sunset" },
+                { title: t.blog6Title, img: "https://images.unsplash.com/photo-1541534407338-02422e6f43e3?q=80&w=600", cat: t.blog6Category, link: "/blog/food" },
+                { title: "Kızılırmak Çamuruyla Kendi Çömleğinizi Yapın", img: "https://images.unsplash.com/photo-1516738778643-41ea3f60f089?q=80&w=600", cat: "Sanat", link: "/blog/pottery" },
+              ].map((blog, i) => (
+                <Link key={i} href={blog.link} className="min-w-[300px] max-w-[300px] bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 snap-start group border border-slate-100 flex flex-col">
+                  <div className="h-48 overflow-hidden relative bg-slate-100">
+                    <img src={blog.img} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out" alt={blog.title} />
+                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-slate-900 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider">{blog.cat}</div>
+                  </div>
+                  <div className="p-6 flex flex-col flex-1">
+                    <h3 className="text-lg font-bold text-slate-900 mb-4 line-clamp-2 group-hover:text-amber-500 transition-colors leading-snug">{blog.title}</h3>
+                    <div className="mt-auto">
+                      <span className="text-slate-400 text-xs font-bold uppercase tracking-widest flex items-center gap-2 group-hover:text-amber-500 transition-colors">
+                        {t.readMore} <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-      {/* ======================================================= */}
+      </section>
 
-      {/* WHY CHOOSE US */}
-      <div className="py-20 bg-slate-900 text-white">
-        <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      {/* WHY CHOOSE US (Dark Premium Section) */}
+      <section className="py-24 bg-slate-900 text-white relative overflow-hidden">
+        {/* Subtle background glow */}
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-16 items-center relative z-10">
           <div>
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={fadeInUp}>
-              <span className="text-yellow-500 font-bold uppercase tracking-widest text-sm">{t.whySub}</span>
-              <h2 className="text-4xl md:text-5xl font-extrabold mt-2 mb-6">{t.whyTitle}</h2>
+              <span className="text-amber-500 font-bold uppercase tracking-widest text-sm">{t.whySub}</span>
+              <h2 className="text-4xl md:text-5xl font-black mt-3 mb-10 tracking-tight leading-tight">{t.whyTitle}</h2>
             </motion.div>
-            <div className="space-y-6 mt-8">
-              <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.2 }} className="flex gap-4 items-start group">
-                <div className="bg-yellow-500 text-black p-3 rounded-xl text-xl group-hover:scale-110 transition-transform duration-300">🛡️</div>
-                <div>
-                  <h4 className="font-bold text-xl group-hover:text-yellow-400 transition-colors">{t.why1}</h4>
-                  <p className="text-gray-400 text-sm">{t.why1d}</p>
-                </div>
-              </motion.div>
-              <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.4 }} className="flex gap-4 items-start group">
-                <div className="bg-yellow-500 text-black p-3 rounded-xl text-xl group-hover:scale-110 transition-transform duration-300">🚙</div>
-                <div>
-                  <h4 className="font-bold text-xl group-hover:text-yellow-400 transition-colors">{t.why2}</h4>
-                  <p className="text-gray-400 text-sm">{t.why2d}</p>
-                </div>
-              </motion.div>
-              <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.6 }} className="flex gap-4 items-start group">
-                <div className="bg-yellow-500 text-black p-3 rounded-xl text-xl group-hover:scale-110 transition-transform duration-300">🥇</div>
-                <div>
-                  <h4 className="font-bold text-xl group-hover:text-yellow-400 transition-colors">{t.why3}</h4>
-                  <p className="text-gray-400 text-sm">{t.why3d}</p>
-                </div>
-              </motion.div>
+            <div className="space-y-8">
+              {[
+                { icon: "🛡️", title: t.why1, desc: t.why1d },
+                { icon: "🚙", title: t.why2, desc: t.why2d },
+                { icon: "🥇", title: t.why3, desc: t.why3d }
+              ].map((item, i) => (
+                <motion.div key={i} initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: i * 0.2, ease: customEase }} className="flex gap-5 items-start group">
+                  <div className="bg-white/5 border border-white/10 text-amber-400 p-4 rounded-2xl text-2xl group-hover:bg-amber-500 group-hover:text-slate-900 transition-all duration-500 shadow-lg group-hover:shadow-[0_0_20px_rgba(245,158,11,0.4)]">
+                    {item.icon}
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-xl mb-1 text-white group-hover:text-amber-400 transition-colors">{item.title}</h4>
+                    <p className="text-slate-400 text-sm leading-relaxed">{item.desc}</p>
+                  </div>
+                </motion.div>
+              ))}
             </div>
           </div>
-          <motion.div initial={{ opacity: 0, scale: 0.9, x: 50 }} whileInView={{ opacity: 1, scale: 1, x: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.7, delay: 0.3 }} className="relative h-[500px] rounded-3xl overflow-hidden shadow-2xl border-4 border-gray-800">
-            <img src="https://images.unsplash.com/photo-1527838832700-5059252407fa?q=80&w=800" alt="Guide" className="w-full h-full object-cover hover:scale-110 transition duration-700" />
+          <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 1, delay: 0.3, ease: customEase }} className="relative h-[600px] rounded-[3rem] overflow-hidden shadow-2xl border border-white/10">
+            <img src="https://images.unsplash.com/photo-1527838832700-5059252407fa?q=80&w=800" alt="CappaViva Quality" className="w-full h-full object-cover hover:scale-105 transition-transform duration-[2s] ease-out" />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60"></div>
           </motion.div>
         </div>
-      </div>
+      </section>
 
       {/* REVIEWS */}
-      <div className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-extrabold text-slate-900">{t.revTitle}</h2>
+      <section className="py-24 bg-white border-b border-slate-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">{t.revTitle}</h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-              <div className="text-yellow-500 text-xl mb-4">⭐⭐⭐⭐⭐</div>
-              <p className="text-gray-600 text-sm italic mb-4">{t.rev1}</p>
-              <div className="font-bold text-slate-900">- Sarah M. (UK)</div>
-            </div>
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-              <div className="text-yellow-500 text-xl mb-4">⭐⭐⭐⭐⭐</div>
-              <p className="text-gray-600 text-sm italic mb-4">{t.rev2}</p>
-              <div className="font-bold text-slate-900">- David L. (USA)</div>
-            </div>
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-              <div className="text-yellow-500 text-xl mb-4">⭐⭐⭐⭐⭐</div>
-              <p className="text-gray-600 text-sm italic mb-4">{t.rev3}</p>
-              <div className="font-bold text-slate-900">- Elena R. (Spain)</div>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              { review: t.rev1, author: "Sarah M. (UK)" },
+              { review: t.rev2, author: "David L. (USA)" },
+              { review: t.rev3, author: "Elena R. (Spain)" }
+            ].map((item, i) => (
+              <div key={i} className="bg-[#F8FAFC] p-8 rounded-[2rem] border border-slate-200">
+                <div className="text-amber-400 text-xl mb-6 tracking-widest">★★★★★</div>
+                <p className="text-slate-600 text-base italic mb-8 leading-relaxed">"{item.review.replace(/"/g, '')}"</p>
+                <div className="font-bold text-slate-900 text-sm uppercase tracking-wider">{item.author}</div>
+              </div>
+            ))}
           </div>
         </div>
-      </div>
+      </section>
 
       {/* FAQ */}
-      <div className="py-24 px-8 max-w-4xl mx-auto">
-        <div className="text-center mb-16">
-          <span className="text-yellow-500 font-bold uppercase tracking-widest text-sm">{t.faqSub}</span>
-          <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mt-2">{t.faqTitle}</h2>
-          <p className="text-gray-500 mt-4 text-lg">{t.faqDesc}</p>
+      <section className="py-32 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+        <div className="text-center mb-20">
+          <span className="text-amber-500 font-bold uppercase tracking-widest text-sm">{t.faqSub}</span>
+          <h2 className="text-4xl md:text-5xl font-black text-slate-900 mt-3 tracking-tight">{t.faqTitle}</h2>
+          <p className="text-slate-500 mt-5 text-lg">{t.faqDesc}</p>
         </div>
         <div className="space-y-6">
-          <details className="group bg-white border border-gray-200 rounded-2xl p-6 open:shadow-lg open:border-yellow-500 transition-all cursor-pointer">
-            <summary className="flex justify-between items-center font-bold text-lg text-gray-900 outline-none list-none">{t.q1}<span className="transition group-open:rotate-180"><svg className="w-6 h-6 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg></span></summary>
-            <p className="text-gray-600 mt-4 leading-relaxed font-medium">{t.a1}</p>
-          </details>
-          <details className="group bg-white border border-gray-200 rounded-2xl p-6 open:shadow-lg open:border-yellow-500 transition-all cursor-pointer">
-            <summary className="flex justify-between items-center font-bold text-lg text-gray-900 outline-none list-none">{t.q2}<span className="transition group-open:rotate-180"><svg className="w-6 h-6 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg></span></summary>
-            <p className="text-gray-600 mt-4 leading-relaxed font-medium">{t.a2}</p>
-          </details>
-          <details className="group bg-white border border-gray-200 rounded-2xl p-6 open:shadow-lg open:border-yellow-500 transition-all cursor-pointer">
-            <summary className="flex justify-between items-center font-bold text-lg text-gray-900 outline-none list-none">{t.q3}<span className="transition group-open:rotate-180"><svg className="w-6 h-6 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg></span></summary>
-            <p className="text-gray-600 mt-4 leading-relaxed font-medium">{t.a3}</p>
-          </details>
-          <details className="group bg-white border border-gray-200 rounded-2xl p-6 open:shadow-lg open:border-yellow-500 transition-all cursor-pointer">
-            <summary className="flex justify-between items-center font-bold text-lg text-gray-900 outline-none list-none">{t.q4}<span className="transition group-open:rotate-180"><svg className="w-6 h-6 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg></span></summary>
-            <p className="text-gray-600 mt-4 leading-relaxed font-medium">{t.a4}</p>
-          </details>
-          <details className="group bg-white border border-gray-200 rounded-2xl p-6 open:shadow-lg open:border-yellow-500 transition-all cursor-pointer">
-            <summary className="flex justify-between items-center font-bold text-lg text-gray-900 outline-none list-none">{t.q5}<span className="transition group-open:rotate-180"><svg className="w-6 h-6 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg></span></summary>
-            <p className="text-gray-600 mt-4 leading-relaxed font-medium">{t.a5}</p>
-          </details>
+          {[
+            { q: t.q1, a: t.a1 }, { q: t.q2, a: t.a2 }, { q: t.q3, a: t.a3 }, { q: t.q4, a: t.a4 }, { q: t.q5, a: t.a5 }
+          ].map((item, i) => (
+            <details key={i} className="group bg-white border border-slate-200 rounded-2xl p-6 open:shadow-xl open:border-amber-400 transition-all duration-300 cursor-pointer">
+              <summary className="flex justify-between items-center font-bold text-lg text-slate-900 outline-none list-none">
+                {item.q}
+                <span className="transition-transform duration-300 group-open:rotate-180 text-amber-500">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" /></svg>
+                </span>
+              </summary>
+              <p className="text-slate-500 mt-5 leading-relaxed">{item.a}</p>
+            </details>
+          ))}
         </div>
-      </div>
+      </section>
 
-      {/* HARİTA & İLETİŞİM */}
-      <div className="py-20 px-8 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      {/* CONTACT & MAP */}
+      <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-slate-200">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div>
-            <h2 className="text-4xl font-extrabold text-slate-900 mb-6">{t.contactTitle}</h2>
-            <p className="text-gray-600 text-lg mb-8 leading-relaxed">{t.contactDesc}</p>
-            <div className="flex items-center gap-4 bg-white p-4 rounded-xl shadow-sm border border-gray-100 mb-4">
-              <span className="text-3xl">📍</span>
+            <h2 className="text-4xl font-black text-slate-900 mb-6 tracking-tight">{t.contactTitle}</h2>
+            <p className="text-slate-500 text-lg mb-10 leading-relaxed">{t.contactDesc}</p>
+            
+            <div className="flex items-center gap-5 bg-white p-6 rounded-2xl shadow-sm border border-slate-100 mb-6 group hover:shadow-md transition-shadow">
+              <div className="w-14 h-14 bg-[#F8FAFC] rounded-full flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">📍</div>
               <div>
                 <h4 className="font-bold text-slate-900">{t.office}</h4>
-                <p className="text-gray-500 text-sm">{t.officeDesc}</p>
+                <p className="text-slate-500 text-sm mt-1">{t.officeDesc}</p>
               </div>
             </div>
-            <div className="flex items-center gap-4 bg-white p-4 rounded-xl shadow-sm border border-gray-100">
-              <span className="text-3xl">📞</span>
+            
+            <div className="flex items-center gap-5 bg-white p-6 rounded-2xl shadow-sm border border-slate-100 group hover:shadow-md transition-shadow">
+              <div className="w-14 h-14 bg-[#F8FAFC] rounded-full flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">📞</div>
               <div>
                 <h4 className="font-bold text-slate-900">{t.call}</h4>
-                <p className="text-gray-500 text-sm">+90 555 123 45 67</p>
+                <p className="text-slate-500 text-sm mt-1">+90 555 123 45 67</p>
               </div>
             </div>
           </div>
-          <div className="h-[300px] w-full rounded-3xl overflow-hidden shadow-xl">
+          <div className="h-[400px] w-full rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white">
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d49749.02058428383!2d34.7892305541604!3d38.6433215239922!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x152a68892f354783%3A0x6b4904125b29fc9f!2sG%C3%B6reme%2C%20Nev%C5%9Fehir!5e0!3m2!1str!2str!4v1700000000000!5m2!1str!2str" width="100%" height="100%" style={{ border: 0 }}></iframe>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* PARTNERLER */}
-      <div className="border-y border-gray-200 py-10 bg-white">
-        <div className="max-w-7xl mx-auto px-8 text-center">
-          <p className="text-sm text-gray-400 font-bold uppercase tracking-wider mb-6">{t.partners}</p>
-          <div className="flex flex-wrap justify-center gap-12 opacity-50 grayscale">
-            <h3 className="text-2xl font-bold">Turkish Airlines</h3>
-            <h3 className="text-2xl font-bold">TÜRSAB</h3>
-            <h3 className="text-2xl font-bold">Booking.com</h3>
-            <h3 className="text-2xl font-bold">Viator</h3>
-            <h3 className="text-2xl font-bold">GetYourGuide</h3>
+      {/* PARTNERS */}
+      <section className="border-y border-slate-200 py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-xs text-slate-400 font-black uppercase tracking-widest mb-10">{t.partners}</p>
+          <div className="flex flex-wrap justify-center gap-12 md:gap-20 opacity-40 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500">
+            <h3 className="text-2xl font-black text-slate-800">Turkish Airlines</h3>
+            <h3 className="text-2xl font-black text-slate-800">TÜRSAB</h3>
+            <h3 className="text-2xl font-black text-slate-800">Booking.com</h3>
+            <h3 className="text-2xl font-black text-slate-800">Viator</h3>
+            <h3 className="text-2xl font-black text-slate-800">GetYourGuide</h3>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* NEWSLETTER */}
-      <div className="bg-yellow-500 py-16">
-        <div className="max-w-3xl mx-auto px-6 text-center">
-          <h2 className="text-3xl font-extrabold text-black mb-4">{t.nlTitle}</h2>
-          <p className="text-slate-900 mb-8 font-medium">{t.nlDesc}</p>
-          <form onSubmit={handleSubscribe} className="relative max-w-lg mx-auto">
-            <div className="flex bg-white p-2 rounded-full shadow-lg">
-              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder={t.nlPlace} className="flex-1 px-4 md:px-6 rounded-l-full outline-none text-black bg-transparent placeholder-gray-500" required disabled={isLoading || isSubscribed} />
-              <button type="submit" disabled={isLoading || isSubscribed} className="bg-slate-900 text-white px-6 md:px-8 py-3 rounded-full font-bold hover:bg-slate-800 transition disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center min-w-[120px] md:min-w-[140px]">
+      <section className="bg-amber-400 py-24">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-4xl font-black text-slate-900 mb-5 tracking-tight">{t.nlTitle}</h2>
+          <p className="text-slate-800 mb-10 font-medium text-lg">{t.nlDesc}</p>
+          <form onSubmit={handleSubscribe} className="relative max-w-xl mx-auto">
+            <div className="flex bg-white p-2 rounded-full shadow-2xl">
+              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder={t.nlPlace} className="flex-1 px-6 rounded-l-full outline-none text-slate-900 bg-transparent placeholder-slate-400 font-medium" required disabled={isLoading || isSubscribed} />
+              <button type="submit" disabled={isLoading || isSubscribed} className="bg-slate-900 text-white px-8 py-4 rounded-full font-black text-sm uppercase tracking-widest hover:bg-slate-800 transition-colors disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center min-w-[140px]">
                 {isLoading ? ( <svg className="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> ) : isSubscribed ? ( t.nlJoined ) : ( t.nlBtn )}
               </button>
             </div>
             {isSubscribed && (
-              <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="absolute -bottom-10 left-0 w-full text-green-900 font-bold text-sm">
+              <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="absolute -bottom-10 left-0 w-full text-slate-900 font-bold text-sm">
                 {t.nlSuccess}
               </motion.p>
             )}
           </form>
         </div>
-      </div>
+      </section>
 
     </main>
   );

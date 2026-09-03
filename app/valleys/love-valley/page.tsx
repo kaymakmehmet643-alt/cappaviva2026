@@ -176,7 +176,7 @@ const LOVE_VALLEY_DICT: any = {
     // 2. ABOUT
     aboutTitle: "Aşk Vadisi Hakkında",
     aboutTags: ["📍 Göreme Sınırlarında", "🎈 En İyi Balon İzleme Noktası", "⛰️ İkonik Peribacaları", "🥾 Bağlıdere Yürüyüş Rotası", "🏍️ ATV Safari Parkuru", "📸 Aşıklar Tepesi", "🌅 Gün Doğumu"],
-    aboutText1: "Aşk Vadisi (resmi adıyla Bağlıdere Vadisi), Kapadokya'nın açık ara en ünlü ve en çok fotoğrafı çekilen vadisidir. Adını, vadi tabanından yükselen ve boyları 40 metreyi bulan son derece belirgin (fallik) şekilli peribacalarından alır.",
+    aboutText1: "Aşk Vadisi (resmi adıyla Bağlıdere Vadisi), Kapadokya'nın açık ara en ünlü ve en çok fotoğrafı çekilen vadisidir. Adını, vadi tabanından yükselen ve boyları 40 metreyi bulan son derece belirgin şekilli peribacalarından alır.",
     aboutText2: "Vadi iki tamamen farklı deneyim sunar: Ya vadi tabanına inip bu devasa sütunların hemen dibinde doğa yürüyüşü (trekking) yapabilirsiniz, ya da kanyonun en üst noktasında bulunan 'Aşıklar Tepesi'ne (Panorama) çıkarak vadinin üzerinden süzülen yüzlerce sıcak hava balonunu kuşbakışı izleyebilirsiniz.",
 
     // 3. MUST SEE
@@ -274,7 +274,7 @@ const LOVE_VALLEY_DICT: any = {
     // 16. FAQ
     faqTitle: "Sık Sorulan Sorular",
     faqs: [
-      { q: "Neden Aşk Vadisi (Love Valley) deniyor?", a: "Vadide yer alan devasa peribacalarının oldukça belirgin olan (fallik) yapısından dolayı hem yereller hem de turistler buraya mizahi bir şekilde Aşk Vadisi adını takmıştır." },
+      { q: "Neden Aşk Vadisi (Love Valley) deniyor?", a: "Vadide yer alan devasa peribacalarının oldukça belirgin olan yapısından dolayı hem yereller hem de turistler buraya mizahi bir şekilde Aşk Vadisi adını takmıştır." },
       { q: "Vadi yürüyüşü zor mu?", a: "Vadi tabanındaki yürüyüş rotası genel olarak düz ve oldukça kolaydır. Başlangıç seviyesindeki yürüyüşçüler için uygundur. Tüm parkuru yürümek yaklaşık 2 saat sürer." },
       { q: "Buradan sıcak hava balonları izlenir mi?", a: "Kesinlikle! Aşk Vadisi'nin tepesindeki seyir alanı (Aşıklar Tepesi), Kapadokya'da balonları izlemek ve fotoğraflamak için açık ara en popüler ve en iyi konumdur." }
     ],
@@ -420,7 +420,7 @@ export default function LoveValleyPage() {
             <a href="#about" className="bg-yellow-500 text-black px-8 py-4 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-yellow-400 hover:scale-105 transition-all shadow-xl shadow-yellow-500/20">
               {t.btnExplore}
             </a>
-            <Link href="/book" className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-4 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-white hover:text-black hover:scale-105 transition-all">
+            <Link href="/book?package=atv" className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-4 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-white hover:text-black hover:scale-105 transition-all">
               {t.btnBookHero}
             </Link>
           </div>
@@ -631,8 +631,8 @@ export default function LoveValleyPage() {
                 <div key={i} className="bg-white p-4 rounded-2xl shadow-sm font-bold text-slate-700">{item}</div>
               ))}
             </div>
-            <Link href="/transfer" className="bg-slate-900 text-white px-8 py-4 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-slate-800 transition-all">
-              Book VIP Transfer &rarr;
+            <Link href="/tours/atv" className="bg-slate-900 text-white px-8 py-4 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-slate-800 transition-all">
+              Book ATV Safari &rarr;
             </Link>
           </RevealOnScroll>
         </div>
@@ -758,7 +758,7 @@ export default function LoveValleyPage() {
           <h2 className="text-4xl md:text-5xl font-black text-yellow-400 mb-6 tracking-tighter">{t.ctaTitle}</h2>
           <p className="text-xl font-medium text-slate-300 mb-10">{t.ctaDesc}</p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link href="/book" className="bg-yellow-500 text-black px-8 py-4 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-yellow-400 transition-all shadow-xl">
+            <Link href="/book?package=atv" className="bg-yellow-500 text-black px-8 py-4 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-yellow-400 transition-all shadow-xl">
               {t.btnPlan}
             </Link>
           </div>

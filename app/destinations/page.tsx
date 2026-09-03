@@ -80,7 +80,6 @@ const locationsData = [
   { category: 'valley', href: '/valleys/meskendir', image: '/images/valleys/meskendir.jpg', title: { tr: 'Meskendir Vadisi', en: 'Meskendir Valley', es: 'Valle de Meskendir' } },
   { category: 'valley', href: '/valleys/kiliclar', image: '/images/valleys/kiliclar.jpg', title: { tr: 'Kılıçlar Vadisi', en: 'Sword Valley', es: 'Valle de las Espadas' } },
   { category: 'valley', href: '/valleys/white-valley', image: '/images/valleys/white.jpg', title: { tr: 'Beyaz Vadi', en: 'White Valley', es: 'Valle Blanco' } },
-  { category: 'valley', href: '/valleys/baglidere', image: '/images/valleys/baglidere.jpg', title: { tr: 'Bağlıdere Vadisi', en: 'Baglidere Valley', es: 'Valle de Baglidere' } },
   { category: 'valley', href: '/valleys/gomeda', image: '/images/valleys/gomeda.jpg', title: { tr: 'Gomeda Vadisi', en: 'Gomeda Valley', es: 'Valle de Gomeda' } },
   { category: 'valley', href: '/valleys/soganli', image: '/images/valleys/soganli.jpg', title: { tr: 'Soğanlı Vadisi', en: 'Soganli Valley', es: 'Valle de Soganli' } },
   { category: 'valley', href: '/valleys/ihlara', image: '/images/valleys/ihlara.jpg', title: { tr: 'Ihlara Vadisi', en: 'Ihlara Valley', es: 'Valle de Ihlara' } },
@@ -88,7 +87,6 @@ const locationsData = [
   { category: 'valley', href: '/valleys/pancarlik', image: '/images/valleys/pancarlik.jpg', title: { tr: 'Pancarlık Vadisi', en: 'Pancarlik Valley', es: 'Valle de Pancarlik' } },
   { category: 'valley', href: '/valleys/love-valley-2', image: '/images/valleys/love-panorama.jpg', title: { tr: 'Aşk Vadisi (Panorama)', en: 'Love Valley Panorama', es: 'Panorama del Valle del Amor' } },
   { category: 'valley', href: '/valleys/cat-valley', image: '/images/valleys/cat.jpg', title: { tr: 'Çat Vadisi', en: 'Cat Valley', es: 'Valle de Cat' } },
-  { category: 'valley', href: '/valleys/gulludere', image: '/images/valleys/gulludere.jpg', title: { tr: 'Güllüdere Vadisi', en: 'Gulludere Valley', es: 'Valle de Gulludere' } },
   { category: 'valley', href: '/valleys/kizilcukur', image: '/images/valleys/kizilcukur.jpg', title: { tr: 'Kızılçukur Vadisi', en: 'Red Valley Sunset Point', es: 'Punto de Atardecer Valle Rojo' } },
 
   // --- MÜZELER ---
@@ -138,6 +136,9 @@ const locationsData = [
   // --- YERALTI ŞEHİRLERİ ---
   { category: 'underground', href: '/destinations/derinkuyu', image: '/images/underground/derinkuyu.jpg', title: { tr: 'Derinkuyu Yeraltı Şehri', en: 'Derinkuyu Underground', es: 'Ciudad Subterránea Derinkuyu' } },
   { category: 'underground', href: '/destinations/kaymakli', image: '/images/underground/kaymakli.jpg', title: { tr: 'Kaymaklı Yeraltı Şehri', en: 'Kaymakli Underground', es: 'Ciudad Subterránea Kaymakli' } },
+  { category: 'underground', href: '/destinations/ozkonak', image: '/images/underground/ozkonak.jpg', title: { tr: 'Özkonak Yeraltı Şehri', en: 'Ozkonak Underground', es: 'Ciudad Subterránea Ozkonak' } },
+  { category: 'underground', href: '/destinations/mazi', image: '/images/underground/mazi.jpg', title: { tr: 'Mazı Yeraltı Şehri', en: 'Mazi Underground', es: 'Ciudad Subterránea Mazi' } },
+  { category: 'underground', href: '/museums/kayasehir', image: '/images/museums/kayasehir.jpg', title: { tr: 'Kayaşehir (Nevşehir)', en: 'Kayasehir Rock City', es: 'Ciudad Roca Kayasehir' } },
 ];
 
 export default function Destinations() {

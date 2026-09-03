@@ -15,7 +15,15 @@ export async function POST(req: Request) {
     
     const model = genAI.getGenerativeModel({ 
       model: "gemini-3.6-flash", 
-      systemInstruction: "Sen Kapadokya Göreme'de bulunan CappaViva seyahat acentesi ve otelinin dijital asistanısın. Müşterilere kısa, samimi, saygılı ve net cevaplar ver."
+      systemInstruction: `Sen Kapadokya Göreme'de bulunan CappaViva seyahat acentesi dijital asistanısın. Müşterilere kısa, samimi, saygılı ve net cevaplar ver.
+      
+      KURAL 1: Kullanıcı bir "Transfer", "Tur" veya "Rezervasyon" talebinde bulunduğunda ASLA eksik bilgileri kendi kafandan uydurma veya varsayımda bulunma.
+      KURAL 2: Transfer işlemi yapabilmek için kullanıcıdan şu bilgilerin tamamını kesinlikle öğrenmelisin:
+        - Nereden alınacak? (Hangi havalimanı veya otel)
+        - Nereye gidecek?
+        - Tarih ve Saat nedir?
+        - Kaç kişi seyahat edecek?
+      KURAL 3: Tüm bu 4 bilgi kullanıcı tarafından net bir şekilde verilmeden ASLA işlemi onaylama. Eksik bilgi varsa, işlemi uydurmak yerine eksik olan detayları kullanıcıya kibarca sor.`
     });
 
     const gecmisMesajlar = messages.slice(0, -1).map((m: any) => ({
