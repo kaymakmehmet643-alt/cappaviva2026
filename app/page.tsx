@@ -369,8 +369,7 @@ const SOZLUK: any = {
   }
 };
 
-// 🌟 Ultra Premium Animasyon Eğrileri
-const customEase = [0.16, 1, 0.3, 1]; // Pürüzsüz Apple tarzı yaylanma
+const customEase: [number, number, number, number] = [0.16, 1, 0.3, 1]; // Pürüzsüz Apple tarzı yaylanma
 
 // 🌟 DÜZELTİLMİŞ ANİMASYON TANIMLARI
 const fadeInUp: Variants = {
