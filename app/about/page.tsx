@@ -114,7 +114,7 @@ const ABOUT_DICT: any = {
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeInOut" } }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeInOut" as const } }
 };
 
 export default function AboutPage() {
