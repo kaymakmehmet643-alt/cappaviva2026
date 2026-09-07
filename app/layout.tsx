@@ -55,12 +55,7 @@ export default function RootLayout({
           {/* 3. En Alt Bilgi Alanı (Footer) */}
           <Footer />
 
-          {/* 4. AI Canlı Destek Botumuz */}
-          <AiChatbot />
 
-          {/* 5. WhatsApp Butonu */}
-          <WhatsAppButton />
-          
         </SiteProvider>
         
       </body>
