@@ -2,7 +2,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import Link from "next/link";
-import Instagram from "../components/instagram"; 
 import Price from "../components/Price";
 import { useSite } from "../app/context/SiteContext";
 
@@ -16,7 +15,7 @@ const SOZLUK: any = {
     heroTitle2: "Like Never Before.",
     heroDesc: "Award-winning tours, VIP transfers, and unforgettable experiences.",
     bookBtn: "Book Now",
-    exploreBtn: "Explore",
+    exploreBtn: "Explore Region",
     planBtn: "Ready Travel Plans",
     popularSearch: "Popular Searches:",
     trust1: "Certificate of Excellence",
@@ -163,7 +162,8 @@ const SOZLUK: any = {
     waHello: "Hello! 👋",
     waMsg: "How can we help you plan your Cappadocia trip today?",
     waInput: "Type your question here...",
-    waDefaultMsg: "Hello, I want to get information about Cappadocia tours."
+    waDefaultMsg: "Hello CappaViva! I am reaching out from your website. I would like to get information and plan a VIP trip for Cappadocia. Can you help me?",
+    reserveNowText: "Reserve Now"
   },
   tr: {
     chatWUs: "Sorularınız mı var? Bize yazın! 👋",
@@ -171,7 +171,7 @@ const SOZLUK: any = {
     heroTitle2: "Hiç Olmadığı Gibi.",
     heroDesc: "Ödüllü turlar, VIP transferler ve unutulmaz deneyimler.",
     bookBtn: "Hemen Rezervasyon",
-    exploreBtn: "Keşfet",
+    exploreBtn: "Bölgeyi İncele",
     planBtn: "Hazır Gezi Planları",
     popularSearch: "Popüler Aramalar:",
     trust1: "Mükemmellik Sertifikası",
@@ -197,7 +197,7 @@ const SOZLUK: any = {
     atvTitle: "Günbatımı ATV Turu",
     atvDesc: "Güneş eşsiz kaya oluşumlarının üzerinde batarken Kılıçlar, Aşk ve Güllüdere Vadilerinin tozlu parkurlarında sürüş yapın.",
     payLater: "Sonra Öde",
-    reserveNow: "Yerini Ayırt",
+    reserveNow: "Hemen Rezervasyon",
     redTitle: "Kapadokya Kırmızı Tur",
     redDesc: "Göreme Açık Hava Müzesi'ni, Uçhisar Kalesi'ni ve Avanos'un çömlekçi kasabasını tek bir günde keşfedin.",
     museumInc: "Müze Biletleri Dahil",
@@ -318,7 +318,8 @@ const SOZLUK: any = {
     waHello: "Merhaba! 👋",
     waMsg: "Kapadokya seyahatinizi planlamanıza nasıl yardımcı olabiliriz?",
     waInput: "Sorunuzu buraya yazın...",
-    waDefaultMsg: "Merhaba, turlar hakkında bilgi almak istiyorum."
+    waDefaultMsg: "Merhaba CappaViva! Web sitenizden ulaşıyorum, Kapadokya seyahati için VIP bir planlama yapmak ve bilgi almak istiyorum. Yardımcı olabilir misiniz?",
+    reserveNowText: "Hemen Rezervasyon"
   },
   es: {
     chatWUs: "¡Chatea con nosotros! 👋",
@@ -446,7 +447,7 @@ const SOZLUK: any = {
     office: "Oficina",
     officeDesc: "Pueblo de Göreme, Nevşehir / Turquía",
     call: "WhatsApp / Llamar",
-    partners: "Nuestros Socios de Confianza",
+    partners: "Nuestros Trusted Partners",
     nlTitle: "¡No Te Pierdas Las Ofertas!",
     nlDesc: "Únete a nuestro boletín para descuentos, nuevos tours y consejos de viaje a Capadocia.",
     nlPlace: "Tu dirección de correo...",
@@ -473,7 +474,8 @@ const SOZLUK: any = {
     waHello: "¡Hola! 👋",
     waMsg: "¿Cómo podemos ayudarte a planificar tu viaje a Capadocia hoy?",
     waInput: "Escribe tu pregunta...",
-    waDefaultMsg: "Hola, me gustaría obtener información sobre los tours."
+    waDefaultMsg: "¡Hola CappaViva! Me comunico desde su sitio web. Me gustaría obtener información y hacer un plan VIP para Capadocia. ¿Pueden ayudarme?",
+    reserveNowText: "Reserva Ahora"
   }
 };
 
@@ -498,7 +500,10 @@ export default function Home() {
   const scrollRefWs = useRef<HTMLDivElement>(null);
   const scrollRefBlog = useRef<HTMLDivElement>(null);
   
-  // YARISI GİZLİ OKLARLA KAYDIRMA FONKSİYONU (TYPE ERROR ÇÖZÜLDÜ)
+  // SIKÇA SORULAN SORULAR İÇİN STATE
+  const [activeFaq, setActiveFaq] = useState<number | null>(1);
+
+  // YARISI GİZLİ OKLARLA KAYDIRMA FONKSİYONU 
   const scroll = (ref: React.RefObject<HTMLDivElement | null>, direction: 'left' | 'right') => {
     if (ref.current) {
       const { scrollLeft, scrollWidth, clientWidth } = ref.current;
@@ -517,11 +522,10 @@ export default function Home() {
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isWhatsAppOpen, setIsWhatsAppOpen] = useState(false);
-  const [waMessage, setWaMessage] = useState(""); 
 
   const { dil } = useSite();
-  const aktifDil = dil ? String(dil).toLowerCase() : 'en';
-  const t = SOZLUK[aktifDil] || SOZLUK['en'];
+  const aktifDil = dil ? String(dil).toLowerCase() : 'tr';
+  const t = SOZLUK[aktifDil] || SOZLUK['tr'];
 
   // OTOMATİK CANLI KAYDIRMA (AUTO-PLAY)
   useEffect(() => {
@@ -561,21 +565,20 @@ export default function Home() {
     }, 1500);
   };
 
-  const handleWaSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const text = encodeURIComponent(waMessage || t.waDefaultMsg);
-    window.open(`https://wa.me/905354322782?text=${text}`, '_blank');
-    setWaMessage("");
-    setIsWhatsAppOpen(false);
-  };
-
   return (
     <main className="w-full min-h-screen bg-[#F8FAFC] overflow-x-hidden relative font-sans selection:bg-amber-500 selection:text-white pb-20 md:pb-0">
       
-      {/* HAREKET ÇUBUĞUNU YOK EDEN CSS */}
+      {/* CSS: KAYDIRMA ÇUBUĞUNU GİZLEME VE MARQUEE (KAYAN ŞERİT) ANİMASYONU */}
       <style dangerouslySetInnerHTML={{__html: `
         .hide-scroll::-webkit-scrollbar { display: none !important; }
         .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+        @keyframes scroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .animate-scroll {
+          animation: scroll 25s linear infinite;
+        }
       `}} />
 
       {/* 🌟 WHATSAPP WIDGET (SABİT DURACAK - YAZIŞMASIZ DİREKT BUTONLU) */}
@@ -614,7 +617,8 @@ export default function Home() {
                   <p className="font-bold mb-1">{t.waHello}</p>
                   <p className="text-slate-600 leading-relaxed text-xs">{t.waMsg}</p>
                 </div>
-                <a href="https://wa.me/905354322782" target="_blank" rel="noopener noreferrer" className="w-full bg-[#25D366] text-white py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 transition-all duration-300 shadow-[0_4px_15px_rgba(37,211,102,0.3)] hover:shadow-[0_8px_25px_rgba(37,211,102,0.5)] hover:-translate-y-0.5 border border-[#1ebd56]">
+                {/* WHATSAPP GÖNDER BUTONU - OTO MESAJ EKLENDİ */}
+                <a href={`https://wa.me/905354322782?text=${encodeURIComponent(t.waDefaultMsg)}`} target="_blank" rel="noopener noreferrer" className="w-full bg-[#25D366] text-white py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 transition-all duration-300 shadow-[0_4px_15px_rgba(37,211,102,0.3)] hover:shadow-[0_8px_25px_rgba(37,211,102,0.5)] hover:-translate-y-0.5 border border-[#1ebd56]">
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.012c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                   </svg>
@@ -695,7 +699,6 @@ export default function Home() {
       {/* 🌟 DESTINATIONS (Şeffaf Filigranlı ve Mavi Butonlu Lüks Kartlar) */}
       <section className="pt-20 md:pt-32 pb-16 bg-[#F8FAFC] text-slate-900 overflow-hidden relative">
         
-        {/* Dev Arka Plan Filigranı (Pusula) */}
         <svg className="absolute -top-10 -right-20 w-[400px] h-[400px] md:w-[600px] md:h-[600px] text-slate-200/40 pointer-events-none" fill="none" stroke="currentColor" strokeWidth="1" viewBox="0 0 24 24">
           <circle cx="12" cy="12" r="10" />
           <path d="M12 2v2M12 20v2M2 12h2M20 12h2" />
@@ -704,8 +707,8 @@ export default function Home() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           
-          <div className="flex flex-col md:flex-row justify-between items-end mb-8 gap-4">
-            <div>
+          <div className="flex flex-col md:flex-row justify-between items-center md:items-end text-center md:text-left mb-8 md:mb-10 gap-4">
+            <div className="w-full flex flex-col items-center md:items-start">
               <span className="text-amber-500 font-bold uppercase tracking-widest text-xs md:text-sm">{t.regionTitle}</span>
               <h2 className="text-3xl md:text-4xl font-black mt-1 md:mt-2 text-slate-900 tracking-tight">{t.regionSub}</h2>
             </div>
@@ -771,8 +774,8 @@ export default function Home() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           
-          <div className="flex flex-col md:flex-row justify-between items-end mb-8 gap-4">
-            <div>
+          <div className="flex flex-col md:flex-row justify-between items-center md:items-end text-center md:text-left mb-8 md:mb-10 gap-4">
+            <div className="w-full flex flex-col items-center md:items-start">
               <span className="text-amber-500 font-bold uppercase tracking-widest text-xs md:text-sm">Explore</span>
               <h2 className="text-3xl md:text-4xl font-black mt-1 md:mt-2 text-slate-900 tracking-tight">{t.toursTitle}</h2>
             </div>
@@ -809,8 +812,9 @@ export default function Home() {
                     <h3 className="text-lg font-black text-slate-900 mb-2">{t.hotAirTitle}</h3>
                     <p className="text-slate-500 mb-4 line-clamp-2 text-xs leading-relaxed">{t.hotAirDesc}</p>
                     <div className="mt-auto">
+                      {/* TÜM TRANSFER & TOUR BUTONLARI ARTIK "SARI + RESERVE NOW" */}
                       <span className="flex items-center justify-center w-full bg-gradient-to-r from-amber-400 to-amber-500 text-slate-900 py-2.5 rounded-xl font-bold text-[11px] uppercase tracking-widest shadow-[0_2px_10px_rgba(245,158,11,0.3)] group-hover/card:shadow-[0_4px_15px_rgba(245,158,11,0.5)] transition-all">
-                        {t.reserveNow}
+                        {t.reserveNowText}
                       </span>
                     </div>
                   </div>
@@ -836,7 +840,7 @@ export default function Home() {
                     <p className="text-slate-500 mb-4 line-clamp-2 text-xs leading-relaxed">{t.atvDesc}</p>
                     <div className="mt-auto">
                       <span className="flex items-center justify-center w-full bg-gradient-to-r from-amber-400 to-amber-500 text-slate-900 py-2.5 rounded-xl font-bold text-[11px] uppercase tracking-widest shadow-[0_2px_10px_rgba(245,158,11,0.3)] group-hover/card:shadow-[0_4px_15px_rgba(245,158,11,0.5)] transition-all">
-                        {t.reserveNow}
+                        {t.reserveNowText}
                       </span>
                     </div>
                   </div>
@@ -862,7 +866,7 @@ export default function Home() {
                     <p className="text-slate-500 mb-4 line-clamp-2 text-xs leading-relaxed">{t.redDesc}</p>
                     <div className="mt-auto">
                       <span className="flex items-center justify-center w-full bg-gradient-to-r from-amber-400 to-amber-500 text-slate-900 py-2.5 rounded-xl font-bold text-[11px] uppercase tracking-widest shadow-[0_2px_10px_rgba(245,158,11,0.3)] group-hover/card:shadow-[0_4px_15px_rgba(245,158,11,0.5)] transition-all">
-                        {t.reserveNow}
+                        {t.reserveNowText}
                       </span>
                     </div>
                   </div>
@@ -885,7 +889,9 @@ export default function Home() {
                     <h3 className="text-lg font-black text-slate-900 mb-2">Jeep Safari Tour</h3>
                     <p className="text-slate-500 mb-4 line-clamp-2 text-xs leading-relaxed">Off-road adventure through the hidden valleys of Cappadocia.</p>
                     <div className="mt-auto">
-                      <span className="flex items-center justify-center w-full bg-gradient-to-r from-amber-400 to-amber-500 text-slate-900 py-2.5 rounded-xl font-bold text-[11px] uppercase tracking-widest shadow-[0_2px_10px_rgba(245,158,11,0.3)] group-hover/card:shadow-[0_4px_15px_rgba(245,158,11,0.5)] transition-all">{t.reserveNow}</span>
+                      <span className="flex items-center justify-center w-full bg-gradient-to-r from-amber-400 to-amber-500 text-slate-900 py-2.5 rounded-xl font-bold text-[11px] uppercase tracking-widest shadow-[0_2px_10px_rgba(245,158,11,0.3)] group-hover/card:shadow-[0_4px_15px_rgba(245,158,11,0.5)] transition-all">
+                        {t.reserveNowText}
+                      </span>
                     </div>
                   </div>
                 </Link>
@@ -988,7 +994,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 🌟 TRANSFER BÖLÜMÜ (Uçak Filigranlı ve Sarı Butonlu) */}
+      {/* 🌟 TRANSFER BÖLÜMÜ (Uçak Filigranlı ve Tıklanabilir Kartlar) */}
       <section className="py-16 md:py-20 bg-gradient-to-b from-[#F8FAFC] to-slate-100 text-slate-900 border-y border-slate-200 overflow-hidden relative">
         
         {/* Dev Arka Plan Filigranı (Uçak) */}
@@ -997,8 +1003,8 @@ export default function Home() {
         </svg>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-8 gap-4">
-            <div>
+          <div className="flex flex-col md:flex-row justify-between items-center md:items-end text-center md:text-left mb-8 md:mb-10 gap-4">
+            <div className="w-full flex flex-col items-center md:items-start">
               <span className="text-amber-500 font-bold uppercase tracking-widest text-xs md:text-sm">{t.trfSub}</span>
               <h2 className="text-3xl md:text-4xl font-black mt-1 md:mt-2 tracking-tight">{t.trfTitle}</h2>
             </div>
@@ -1029,7 +1035,7 @@ export default function Home() {
                     <p className="text-slate-500 mb-4 flex-1 text-xs leading-relaxed line-clamp-3">{t.trf1Desc}</p>
                     <div className="mt-auto">
                       <span className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-amber-400 to-amber-500 text-slate-900 py-2.5 rounded-xl font-bold text-[10px] uppercase tracking-widest shadow-[0_2px_10px_rgba(245,158,11,0.3)] group-hover/card:shadow-[0_4px_15px_rgba(245,158,11,0.5)] transition-colors">
-                        {t.reserveNow}
+                        {t.reserveNowText}
                       </span>
                     </div>
                   </div>
@@ -1048,7 +1054,7 @@ export default function Home() {
                     <p className="text-slate-500 mb-4 flex-1 text-xs leading-relaxed line-clamp-3">{t.trf2Desc}</p>
                     <div className="mt-auto">
                       <span className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-amber-400 to-amber-500 text-slate-900 py-2.5 rounded-xl font-bold text-[10px] uppercase tracking-widest shadow-[0_2px_10px_rgba(245,158,11,0.3)] group-hover/card:shadow-[0_4px_15px_rgba(245,158,11,0.5)] transition-colors">
-                        {t.reserveNow}
+                        {t.reserveNowText}
                       </span>
                     </div>
                   </div>
@@ -1066,8 +1072,8 @@ export default function Home() {
                     <h3 className="text-lg font-black text-slate-900 mb-2">{t.trf3Title}</h3>
                     <p className="text-slate-500 mb-4 flex-1 text-xs leading-relaxed line-clamp-3">{t.trf3Desc}</p>
                     <div className="mt-auto">
-                      <span className="flex items-center justify-center gap-2 w-full bg-slate-50 text-slate-900 border border-slate-300 py-2.5 rounded-xl font-bold text-[10px] uppercase tracking-widest group-hover/card:border-slate-400 group-hover/card:bg-slate-100 transition-colors">
-                        {t.reserveNow}
+                      <span className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-amber-400 to-amber-500 text-slate-900 py-2.5 rounded-xl font-bold text-[10px] uppercase tracking-widest shadow-[0_2px_10px_rgba(245,158,11,0.3)] group-hover/card:shadow-[0_4px_15px_rgba(245,158,11,0.5)] transition-colors">
+                        {t.reserveNowText}
                       </span>
                     </div>
                   </div>
@@ -1085,8 +1091,8 @@ export default function Home() {
                     <h3 className="text-lg font-black text-slate-900 mb-2">{t.trf4Title}</h3>
                     <p className="text-slate-500 mb-4 flex-1 text-xs leading-relaxed line-clamp-3">{t.trf4Desc}</p>
                     <div className="mt-auto">
-                      <span className="flex items-center justify-center gap-2 w-full bg-slate-900 text-white border border-slate-800 py-2.5 rounded-xl font-bold text-[10px] uppercase tracking-widest hover:bg-slate-800 transition-colors">
-                        {t.reserveNow}
+                      <span className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-amber-400 to-amber-500 text-slate-900 py-2.5 rounded-xl font-bold text-[10px] uppercase tracking-widest shadow-[0_2px_10px_rgba(245,158,11,0.3)] group-hover/card:shadow-[0_4px_15px_rgba(245,158,11,0.5)] transition-colors">
+                        {t.reserveNowText}
                       </span>
                     </div>
                   </div>
@@ -1108,8 +1114,8 @@ export default function Home() {
       <section className="py-16 md:py-20 bg-slate-50 border-y border-slate-200 overflow-hidden relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           
-          <div className="flex flex-col md:flex-row justify-between items-end mb-8 gap-4">
-            <div>
+          <div className="flex flex-col md:flex-row justify-between items-center md:items-end text-center md:text-left mb-8 md:mb-10 gap-4">
+            <div className="w-full flex flex-col items-center md:items-start">
               <span className="text-amber-500 font-bold uppercase tracking-widest text-xs md:text-sm">{t.planSub}</span>
               <h2 className="text-3xl md:text-4xl font-black mt-1 md:mt-2 text-slate-900 tracking-tight">{t.planTitle}</h2>
             </div>
@@ -1232,8 +1238,8 @@ export default function Home() {
       {/* 🌟 WORKSHOPS (Sarı Butonlu) */}
       <section className="py-16 md:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
         
-        <div className="flex flex-col md:flex-row justify-between items-end mb-8 gap-4">
-          <div>
+        <div className="flex flex-col md:flex-row justify-between items-center md:items-end text-center md:text-left mb-8 md:mb-10 gap-4">
+          <div className="w-full flex flex-col items-center md:items-start">
             <span className="text-amber-500 font-bold uppercase tracking-widest text-xs md:text-sm">{t.wsSub}</span>
             <h2 className="text-3xl md:text-4xl font-black mt-1 md:mt-2 tracking-tight text-slate-900">{t.wsTitle}</h2>
           </div>
@@ -1263,7 +1269,7 @@ export default function Home() {
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent transition duration-500"></div>
                   <div className="absolute bottom-0 left-0 p-5 w-full flex flex-col items-center justify-center text-center">
                     <h3 className="text-white font-black text-lg drop-shadow-md mb-3">{ws.title}</h3>
-                    <span className="inline-flex items-center gap-1.5 bg-gradient-to-r from-amber-400 to-amber-500 text-slate-900 px-5 py-2 rounded-full font-bold text-[10px] uppercase tracking-widest shadow-[0_4px_10px_rgba(245,158,11,0.4)] group-hover:shadow-[0_6px_15px_rgba(245,158,11,0.6)] transition-all">{t.reserveNow}</span>
+                    <span className="inline-flex items-center gap-1.5 bg-gradient-to-r from-amber-400 to-amber-500 text-slate-900 px-5 py-2 rounded-full font-bold text-[10px] uppercase tracking-widest shadow-[0_4px_10px_rgba(245,158,11,0.4)] group-hover:shadow-[0_6px_15px_rgba(245,158,11,0.6)] transition-all">{t.reserveNowText}</span>
                   </div>
                 </Link>
               </motion.div>
@@ -1283,7 +1289,7 @@ export default function Home() {
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-[100px] pointer-events-none"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 items-center relative z-10">
           <div>
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={fadeInUp}>
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={fadeInUp} className="text-center md:text-left">
               <span className="text-amber-500 font-bold uppercase tracking-widest text-xs">{t.whySub}</span>
               <h2 className="text-3xl md:text-4xl font-black mt-1 mb-6 tracking-tight leading-tight">{t.whyTitle}</h2>
             </motion.div>
@@ -1316,8 +1322,8 @@ export default function Home() {
       <section className="py-16 md:py-20 bg-[#F8FAFC] border-y border-slate-200 overflow-hidden relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           
-          <div className="flex flex-col md:flex-row justify-between items-end mb-8 gap-4">
-            <div>
+          <div className="flex flex-col md:flex-row justify-between items-center md:items-end text-center md:text-left mb-8 md:mb-10 gap-4">
+            <div className="w-full flex flex-col items-center md:items-start">
               <span className="text-amber-500 font-bold uppercase tracking-widest text-xs md:text-sm">{t.blogSub}</span>
               <h2 className="text-3xl md:text-4xl font-black mt-1 md:mt-2 text-slate-900 tracking-tight">{t.blogTitle}</h2>
             </div>
@@ -1368,6 +1374,124 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 🌟 YENİ: MISAFIR YORUMLARI (TESTIMONIALS) */}
+      <section className="py-16 md:py-20 bg-white relative overflow-hidden border-b border-slate-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-12">
+            <span className="text-amber-500 font-bold uppercase tracking-widest text-xs md:text-sm">TripAdvisor & Google</span>
+            <h2 className="text-3xl md:text-4xl font-black mt-1 md:mt-2 text-slate-900 tracking-tight">{t.revTitle}</h2>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }} className="bg-[#F8FAFC] p-8 rounded-[2rem] shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-slate-100 flex flex-col">
+              <div className="flex text-amber-400 text-xl mb-4">★★★★★</div>
+              <p className="text-slate-600 italic leading-relaxed flex-1 text-sm md:text-base">"{t.rev1.replace(/"/g, '')}"</p>
+              <div className="mt-6 flex items-center gap-3">
+                <div className="w-10 h-10 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full flex items-center justify-center text-white font-bold">SM</div>
+                <div><h4 className="font-bold text-slate-900 text-sm">Sarah M.</h4><p className="text-xs text-slate-500">United Kingdom</p></div>
+              </div>
+            </motion.div>
+            
+            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }} className="bg-[#F8FAFC] p-8 rounded-[2rem] shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-slate-100 flex flex-col">
+              <div className="flex text-amber-400 text-xl mb-4">★★★★★</div>
+              <p className="text-slate-600 italic leading-relaxed flex-1 text-sm md:text-base">"{t.rev2.replace(/"/g, '')}"</p>
+              <div className="mt-6 flex items-center gap-3">
+                <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white font-bold">DK</div>
+                <div><h4 className="font-bold text-slate-900 text-sm">David K.</h4><p className="text-xs text-slate-500">USA</p></div>
+              </div>
+            </motion.div>
+
+            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.3 }} className="bg-[#F8FAFC] p-8 rounded-[2rem] shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-slate-100 flex flex-col">
+              <div className="flex text-amber-400 text-xl mb-4">★★★★★</div>
+              <p className="text-slate-600 italic leading-relaxed flex-1 text-sm md:text-base">"{t.rev3.replace(/"/g, '')}"</p>
+              <div className="mt-6 flex items-center gap-3">
+                <div className="w-10 h-10 bg-gradient-to-br from-rose-400 to-rose-600 rounded-full flex items-center justify-center text-white font-bold">EV</div>
+                <div><h4 className="font-bold text-slate-900 text-sm">Elena V.</h4><p className="text-xs text-slate-500">Spain</p></div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* 🌟 YENİ: SIKÇA SORULAN SORULAR (FAQ) */}
+      <section className="py-16 md:py-20 bg-[#F8FAFC] border-b border-slate-200">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10 md:mb-14">
+            <span className="text-amber-500 font-bold uppercase tracking-widest text-xs md:text-sm">{t.faqSub}</span>
+            <h2 className="text-3xl md:text-4xl font-black mt-1 md:mt-2 text-slate-900 tracking-tight">{t.faqTitle}</h2>
+            <p className="text-slate-500 mt-4 max-w-2xl mx-auto">{t.faqDesc}</p>
+          </div>
+
+          <div className="space-y-4">
+            {[1, 2, 3, 4, 5].map((item) => (
+              <div key={item} className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                <button 
+                  onClick={() => setActiveFaq(activeFaq === item ? null : item)} 
+                  className="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none"
+                >
+                  <span className="font-bold text-slate-900 pr-4">{t[`q${item}`]}</span>
+                  <span className={`w-8 h-8 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center text-amber-500 shrink-0 transition-transform duration-300 ${activeFaq === item ? 'rotate-180' : ''}`}>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" /></svg>
+                  </span>
+                </button>
+                <div className={`overflow-hidden transition-all duration-300 ease-in-out ${activeFaq === item ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+                  <div className="px-6 pb-5 text-slate-500 text-sm leading-relaxed border-t border-slate-50 pt-4">
+                    {t[`a${item}`]}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 🌟 YENİ: İLETİŞİM & HARİTA BÖLÜMÜ */}
+      <section className="py-16 md:py-24 bg-white relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="bg-slate-900 rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl flex flex-col md:flex-row border border-slate-800">
+            
+            <div className="w-full md:w-1/2 p-8 md:p-16 flex flex-col justify-center relative">
+              <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-amber-500/10 to-transparent pointer-events-none"></div>
+              <span className="text-amber-500 font-bold uppercase tracking-widest text-xs mb-2">Location</span>
+              <h2 className="text-3xl md:text-5xl font-black text-white leading-tight mb-4 tracking-tight">{t.contactTitle}</h2>
+              <p className="text-slate-400 mb-8 max-w-sm">{t.contactDesc}</p>
+              
+              <div className="space-y-6">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-amber-400 shrink-0">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.242-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                  </div>
+                  <div>
+                    <h4 className="text-white font-bold">{t.office}</h4>
+                    <p className="text-slate-400 text-sm mt-1">{t.officeDesc}</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-green-400 shrink-0">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+                  </div>
+                  <div>
+                    <h4 className="text-white font-bold">{t.call}</h4>
+                    <a href="https://wa.me/905354322782" className="text-slate-400 text-sm mt-1 hover:text-amber-400 transition-colors block">+90 535 432 27 82</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Gerçek Google Maps İframe'i */}
+            <div className="w-full md:w-1/2 h-[350px] md:h-auto relative bg-slate-800">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d25164.218335969567!2d34.80521404172421!3d38.643265557762696!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x152a67e81ea1eb0b%3A0xe54e606001a1c97a!2zR8O2cmVtZSwgTmV2xZ9laGlyIE1lcmtlei9OZXZxZWhpcg!5e0!3m2!1str!2str!4v1700000000000!5m2!1str!2str"
+                width="100%" height="100%" style={{ border: 0 }} allowFullScreen={false} loading="lazy" referrerPolicy="no-referrer-when-downgrade"
+                className="absolute inset-0 grayscale-[15%] contrast-[110%]"
+              ></iframe>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       {/* 🌟 KENDİ SEYAHATİNİ PLANLA ŞERİDİ */}
       <section className="py-10 bg-[#F8FAFC]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1389,6 +1513,26 @@ export default function Home() {
               </div>
             </div>
           </Link>
+        </div>
+      </section>
+
+      {/* 🌟 YENİ: PARTNERLER BÖLÜMÜ (SCROLLING MARQUEE) */}
+      <section className="py-8 bg-[#F8FAFC] border-b border-slate-200 overflow-hidden relative">
+        <div className="absolute left-0 top-0 w-16 md:w-32 h-full bg-gradient-to-r from-[#F8FAFC] to-transparent z-10 pointer-events-none"></div>
+        <div className="absolute right-0 top-0 w-16 md:w-32 h-full bg-gradient-to-l from-[#F8FAFC] to-transparent z-10 pointer-events-none"></div>
+        
+        <div className="flex w-[200%] animate-scroll items-center">
+          {/* Logo Listesi (İki kez tekrar ediyor ki sonsuz döngü olsun) */}
+          {[1, 2].map((groupIndex) => (
+            <div key={groupIndex} className="flex w-1/2 items-center justify-around">
+              <span className="text-xl md:text-3xl font-black text-slate-300 mx-8 whitespace-nowrap">Tripadvisor</span>
+              <span className="text-xl md:text-3xl font-black text-slate-300 mx-8 whitespace-nowrap">TÜRSAB</span>
+              <span className="text-xl md:text-3xl font-black text-slate-300 mx-8 whitespace-nowrap">Booking.com</span>
+              <span className="text-xl md:text-3xl font-black text-slate-300 mx-8 whitespace-nowrap">Viator</span>
+              <span className="text-xl md:text-3xl font-black text-slate-300 mx-8 whitespace-nowrap">GetYourGuide</span>
+              <span className="text-xl md:text-3xl font-black text-slate-300 mx-8 whitespace-nowrap">Turkish Airlines</span>
+            </div>
+          ))}
         </div>
       </section>
 

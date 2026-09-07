@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useSite } from '@/app/context/SiteContext';
 
 // =======================================================
-// 📚 WIDGET İÇİN ÇOKLU DİL SÖZLÜĞÜ
+// 📚 WIDGET İÇİN ÇOKLU DİL SÖZLÜĞÜ (Bilgiler KESİNLİKLE aynı!)
 // =======================================================
 const WIDGET_DICT: any = {
   en: {
@@ -57,110 +57,170 @@ const WIDGET_DICT: any = {
   }
 };
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.2 }
+  }
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 40, scale: 0.95 },
+  show: { 
+    opacity: 1, 
+    y: 0, 
+    scale: 1, 
+    transition: { type: "spring", stiffness: 100, damping: 15 } 
+  }
+};
+
+const floatAnimation = {
+  y: [0, -8, 0],
+  transition: { duration: 4, repeat: Infinity, ease: "easeInOut" }
+};
+
 export default function LocalGuideWidgets() {
-  // Navbar'dan gelen dil bilgisini çekiyoruz 🌍
   const { dil } = useSite();
   const aktifDil = (dil ? String(dil).toLowerCase() : 'tr') as 'tr' | 'en' | 'es';
   const t = WIDGET_DICT[aktifDil] || WIDGET_DICT['tr'];
 
   return (
     <motion.div 
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-      className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16"
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.2 }}
+      className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-16 relative"
     >
       
-      {/* 1. Balon & Hava Durumu Kartı (SHGM Linkli) */}
-      <Link 
-        href="https://shgm.kapadokya.edu.tr/" 
-        target="_blank" 
-        rel="noopener noreferrer"
-        className="group bg-white border border-slate-100 hover:border-green-300 rounded-[2rem] p-6 transition-all duration-500 relative overflow-hidden flex flex-col justify-between shadow-sm hover:shadow-[0_0_30px_rgba(34,197,94,0.25)] hover:-translate-y-2 z-10"
-      >
-        <div className="absolute top-[-20%] right-[-20%] w-40 h-40 bg-green-400/10 rounded-full blur-3xl group-hover:bg-green-400/20 transition-all duration-700"></div>
-        
-        <div className="relative z-10">
-          <div className="flex items-center justify-between mb-4">
-            <span className="text-[11px] font-extrabold uppercase tracking-widest text-green-700 bg-green-100 border border-green-200 px-3 py-1 rounded-full flex items-center gap-1.5 shadow-sm">
-              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> {t.balloonStatus}
-            </span>
-            <span className="text-2xl transform group-hover:scale-110 transition-transform duration-300">🎈</span>
-          </div>
-          <h3 className="text-xl font-black text-slate-900 mb-2 leading-tight">{t.balloonTitle}</h3>
-          <p className="text-xs text-slate-500 font-medium leading-relaxed">
-            {t.balloonDesc}
-          </p>
-        </div>
-        
-        <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-slate-400 relative z-10">
-          <span className="flex items-center gap-1.5">
-            <svg className="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"/></svg>
-            {t.weather}
-          </span>
-          <span className="text-green-600 group-hover:translate-x-1 transition-transform flex items-center gap-1 uppercase tracking-wider">
-            {t.shgmBtn}
-          </span>
-        </div>
-      </Link>
+      {/* 🌟 1. BALON & HAVA DURUMU KARTI (Bembeyaz + Mavi Işıklı) */}
+      <motion.div variants={cardVariants} className="h-full">
+        <Link 
+          href="https://shgm.kapadokya.edu.tr/" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="relative flex flex-col justify-between h-full bg-white rounded-[2.5rem] p-8 overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-blue-50 hover:border-blue-300 hover:shadow-[0_20px_50px_rgba(59,130,246,0.15)] hover:-translate-y-2 transition-all duration-500 group z-10 block"
+        >
+          {/* İç Mavi Işık (Glow) */}
+          <div className="absolute -top-24 -right-24 w-64 h-64 bg-blue-400/10 rounded-full blur-[60px] group-hover:bg-blue-400/20 transition-colors duration-700 pointer-events-none"></div>
+          
+          {/* Balon Çizimi Filigranı */}
+          <svg className="absolute -bottom-10 -right-10 w-64 h-64 text-blue-50/50 -rotate-12 group-hover:scale-110 group-hover:text-blue-100/60 transition-all duration-700 pointer-events-none z-0" fill="none" stroke="currentColor" strokeWidth="1" viewBox="0 0 24 24">
+            <path d="M12 2C8.13 2 5 5.5 5 9.5c0 3.32 2.18 6.13 5 7.15v2.85a2 2 0 004 0v-2.85c2.82-1.02 5-3.83 5-7.15C19 5.5 15.87 2 12 2zM9 22h6" />
+            <path d="M12 2v14.5M8.5 3.5v11M15.5 3.5v11M5.5 8.5h13M6.5 12.5h11" />
+          </svg>
 
-      {/* 2. Gündoğumu & Günbatımı Saatleri */}
-      <div className="bg-white border border-slate-100 rounded-[2rem] p-6 transition-all duration-500 flex flex-col justify-between relative overflow-hidden group shadow-sm hover:shadow-[0_0_30px_rgba(234,179,8,0.2)] hover:-translate-y-2 z-10">
-        <div className="absolute top-[-20%] right-[-20%] w-40 h-40 bg-yellow-400/10 rounded-full blur-3xl group-hover:bg-yellow-400/20 transition-all duration-700"></div>
-        
-        <div className="relative z-10">
-          <div className="flex items-center justify-between mb-4">
-            <span className="text-[11px] font-extrabold uppercase tracking-widest text-yellow-700 bg-yellow-100 border border-yellow-200 px-3 py-1 rounded-full shadow-sm">
-              {t.sunTitle}
-            </span>
-            <span className="text-2xl transform group-hover:scale-110 transition-transform duration-300">🌅</span>
+          <div className="relative z-10">
+            <div className="flex justify-between items-start mb-6">
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-xs font-black uppercase tracking-widest shadow-sm">
+                <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse shadow-[0_0_8px_rgba(59,130,246,0.8)]"></span>
+                {t.balloonStatus}
+              </span>
+              <motion.span animate={floatAnimation} className="text-4xl drop-shadow-sm group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500">🎈</motion.span>
+            </div>
+            <h3 className="text-2xl font-black text-slate-900 mb-3 tracking-tight leading-tight group-hover:text-blue-600 transition-colors">{t.balloonTitle}</h3>
+            <p className="text-sm text-slate-500 font-medium leading-relaxed mb-6 group-hover:text-slate-700 transition-colors">
+              {t.balloonDesc}
+            </p>
           </div>
           
-          <div className="grid grid-cols-2 gap-3 my-2">
-            <div className="bg-slate-50 border border-slate-100 rounded-2xl p-3 text-center group-hover:bg-yellow-50/50 transition-colors duration-300">
-              <div className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-1">{t.sunrise}</div>
-              <div className="text-lg font-black text-slate-900">05:25</div>
-            </div>
-            <div className="bg-slate-50 border border-slate-100 rounded-2xl p-3 text-center group-hover:bg-rose-50/50 transition-colors duration-300">
-              <div className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-1">{t.sunset}</div>
-              <div className="text-lg font-black text-slate-900">19:42</div>
-            </div>
+          <div className="mt-auto pt-5 border-t border-slate-100 flex items-center justify-between relative z-10">
+            <span className="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-widest">
+              <span className="text-amber-400 text-base drop-shadow-sm">☀️</span> {t.weather}
+            </span>
+            <span className="text-blue-600 font-black text-xs uppercase tracking-widest group-hover:translate-x-2 transition-transform flex items-center gap-1">
+              {t.shgmBtn}
+            </span>
           </div>
-        </div>
-        
-        <div className="mt-4 text-[11px] text-slate-500 font-medium relative z-10">
-          <span className="text-yellow-600 font-bold">*</span> {t.sunTip}
-        </div>
-      </div>
+        </Link>
+      </motion.div>
 
-      {/* 3. Mehmet'in Bugünün Önerisi & Acil Hat */}
-      <div className="bg-gradient-to-br from-yellow-50 to-white border border-yellow-200 rounded-[2rem] p-6 transition-all duration-500 flex flex-col justify-between relative overflow-hidden group shadow-sm hover:shadow-[0_0_30px_rgba(234,179,8,0.25)] hover:-translate-y-2 z-10">
-        <div className="relative z-10">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-white shadow-md">
-                <img src="/mehmet-profil.jpg" alt="Mehmet" className="w-full h-full object-cover" />
-              </div>
-              <span className="text-yellow-700 font-black text-[10px] uppercase tracking-widest bg-white px-2 py-1 rounded-lg shadow-sm">
-                {t.mehmetTitle}
+      {/* 🌟 2. GÜNDOĞUMU & GÜNBATIMI SAATLERİ (Bembeyaz + Mavi Işıklı) */}
+      <motion.div variants={cardVariants} className="h-full">
+        <div className="relative flex flex-col justify-between h-full bg-white rounded-[2.5rem] p-8 overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-blue-50 hover:border-blue-300 hover:shadow-[0_20px_50px_rgba(59,130,246,0.15)] hover:-translate-y-2 transition-all duration-500 group z-10">
+          
+          <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-blue-400/10 rounded-full blur-[60px] group-hover:bg-blue-400/20 transition-colors duration-700 pointer-events-none"></div>
+          
+          {/* Pusula Çizimi Filigranı */}
+          <svg className="absolute -top-16 -right-16 w-64 h-64 text-blue-50/50 group-hover:rotate-45 group-hover:text-blue-100/60 transition-all duration-1000 pointer-events-none z-0" fill="none" stroke="currentColor" strokeWidth="1" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 2v2M12 20v2M2 12h2M20 12h2" />
+            <path d="M10.5 10.5L16 8l-2.5 5.5L8 16l2.5-5.5z" />
+          </svg>
+
+          <div className="relative z-10">
+            <div className="flex justify-between items-start mb-6">
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-xs font-black uppercase tracking-widest shadow-sm">
+                {t.sunTitle}
               </span>
+              <motion.span animate={floatAnimation} className="text-4xl drop-shadow-sm group-hover:scale-125 group-hover:-rotate-12 transition-transform duration-500">🌅</motion.span>
             </div>
-            <span className="text-xl transform group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300">🍷</span>
+            
+            <div className="grid grid-cols-2 gap-4 mb-6">
+              <div className="bg-slate-50 border border-slate-100 group-hover:border-blue-200 group-hover:bg-blue-50/50 transition-all duration-500 rounded-2xl p-4 text-center shadow-sm">
+                <span className="block text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-1 group-hover:text-blue-600 transition-colors">{t.sunrise}</span>
+                <span className="block text-2xl font-black text-slate-900 drop-shadow-sm">05:25</span>
+              </div>
+              <div className="bg-slate-50 border border-slate-100 group-hover:border-blue-200 group-hover:bg-blue-50/50 transition-all duration-500 rounded-2xl p-4 text-center shadow-sm">
+                <span className="block text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-1 group-hover:text-blue-600 transition-colors">{t.sunset}</span>
+                <span className="block text-2xl font-black text-slate-900 drop-shadow-sm">19:42</span>
+              </div>
+            </div>
           </div>
-          <h3 className="text-lg font-black text-slate-900 mb-2 leading-tight">{t.mehmetHeader}</h3>
-          <p className="text-xs text-slate-600 leading-relaxed italic font-medium">
-            {t.mehmetDesc}
-          </p>
+          
+          <div className="mt-auto pt-5 border-t border-slate-100 relative z-10">
+            <p className="text-[11px] text-slate-500 font-medium leading-relaxed flex items-start gap-1.5 group-hover:text-slate-700 transition-colors">
+              <span className="text-blue-500 font-black text-sm leading-none mt-0.5 animate-pulse">*</span>
+              <span className="flex-1">{t.sunTip.replace('*', '').trim()}</span>
+            </p>
+          </div>
         </div>
-        
-        <div className="mt-4 pt-4 border-t border-yellow-200/50 flex items-center justify-between relative z-10">
-          <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">{t.emergency}</span>
-          <a href="https://wa.me/905354322782" target="_blank" rel="noopener noreferrer" className="text-xs font-black text-[#25D366] hover:text-[#1ebe57] flex items-center gap-1.5 bg-white px-3 py-1.5 rounded-full shadow-sm hover:shadow-md transition-all">
-            <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.012c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
-            {t.whatsapp}
-          </a>
+      </motion.div>
+
+      {/* 🌟 3. MEHMET'İN ÖNERİSİ (Aydınlık MAVİMSİ Özel Kutu) */}
+      <motion.div variants={cardVariants} className="h-full">
+        <div className="relative flex flex-col justify-between h-full bg-gradient-to-br from-[#EBF5FF] via-white to-[#EBF5FF] rounded-[2.5rem] p-8 overflow-hidden shadow-[0_10px_30px_rgba(59,130,246,0.08)] border border-blue-200 hover:border-blue-400 hover:shadow-[0_20px_50px_rgba(59,130,246,0.2)] hover:-translate-y-2 transition-all duration-500 group z-10">
+          
+          {/* Hareketli Işık Geçişi */}
+          <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/80 to-transparent group-hover:animate-[shimmer_2s_infinite]"></div>
+          
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-blue-400/10 blur-[80px] group-hover:bg-blue-400/20 transition-all duration-700 pointer-events-none"></div>
+
+          {/* Yıldız/Parlama Çizimi Filigranı */}
+          <svg className="absolute -bottom-10 -right-4 w-56 h-56 text-blue-200/40 group-hover:text-blue-300/50 group-hover:scale-110 group-hover:rotate-[20deg] transition-all duration-1000 pointer-events-none z-0" fill="none" stroke="currentColor" strokeWidth="1" viewBox="0 0 24 24">
+             <path strokeLinecap="round" strokeLinejoin="round" d="M12 2l3 6 6 3-6 3-3 6-3-6-6-3 6-3 3-6z" />
+          </svg>
+          
+          <div className="relative z-10">
+            <div className="flex justify-between items-start mb-6">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-blue-400 shadow-[0_0_15px_rgba(59,130,246,0.3)] shrink-0">
+                  <img src="/mehmet-profil.jpg" alt="Mehmet" className="w-full h-full object-cover" />
+                </div>
+                <span className="inline-flex items-center px-3 py-1.5 rounded-full bg-blue-500 text-white text-[10px] font-black uppercase tracking-widest shadow-md">
+                  {t.mehmetTitle}
+                </span>
+              </div>
+              <motion.span animate={floatAnimation} className="text-3xl drop-shadow-md group-hover:scale-125 group-hover:rotate-[15deg] transition-transform duration-500">🍷</motion.span>
+            </div>
+            <h3 className="text-xl md:text-2xl font-black text-slate-900 mb-3 tracking-tight leading-tight">{t.mehmetHeader}</h3>
+            <p className="text-xs md:text-sm text-slate-600 font-medium leading-relaxed italic border-l-2 border-blue-500 pl-4 py-1 mb-6">
+              {t.mehmetDesc}
+            </p>
+          </div>
+          
+          <div className="mt-auto pt-5 border-t border-blue-200/50 flex items-center justify-between relative z-10">
+            <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{t.emergency}</span>
+            <a href="https://wa.me/905354322782" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-white border border-[#25D366]/30 text-[#25D366] px-4 py-2 rounded-full text-[11px] font-black uppercase tracking-widest hover:bg-[#25D366] hover:text-white transition-all duration-300 shadow-sm hover:shadow-[0_4px_15px_rgba(37,211,102,0.3)]">
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.012c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+              {t.whatsapp}
+            </a>
+          </div>
         </div>
-      </div>
+      </motion.div>
 
     </motion.div>
   );
