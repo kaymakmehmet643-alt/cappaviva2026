@@ -6,6 +6,24 @@ import Link from "next/link";
 import { useSite } from "../context/SiteContext";
 
 // =======================================================
+// 📚 TYPESCRIPT TİP TANIMLAMALARI (HATA ÇÖZÜCÜ)
+// =======================================================
+type WizardOption = {
+  value: string;
+  label: string;
+  desc?: string; // Soru işareti (?) bunun opsiyonel olduğunu belirtir, hatayı çözer!
+  icon: string;
+};
+
+type WizardStep = {
+  id: string;
+  question: string;
+  subtitle: string;
+  type: "single" | "multiple";
+  options: WizardOption[];
+};
+
+// =======================================================
 // 📚 WIZARD İÇİN ÇOKLU DİL SÖZLÜĞÜ (Asla Dokunulmadı)
 // =======================================================
 const DICT: any = {
@@ -118,7 +136,8 @@ export default function TailorMadeWizard() {
   const aktifDil = (dil ? String(dil).toLowerCase() : 'tr') as 'tr' | 'en' | 'es';
   const t = DICT[aktifDil] || DICT['tr'];
 
-  const WIZARD_STEPS = [
+  // 🌟 TİPLİ WIZARD_STEPS (Hata Çözüldü)
+  const WIZARD_STEPS: WizardStep[] = [
     {
       id: "duration", question: t.q1, subtitle: t.s1, type: "single",
       options: [
@@ -209,7 +228,6 @@ export default function TailorMadeWizard() {
     const acts = answers.activities as string[];
     const transferName = t[answers.transfer] || "";
     
-    // 1. GÜN
     const day1Events = [
       t.d1Air + transferName,
       t.d1Hot
@@ -219,7 +237,6 @@ export default function TailorMadeWizard() {
     else day1Events.push(t.d1Win);
     plan.push({ day: 1, title: t.d1t, events: day1Events });
 
-    // 2. GÜN
     const day2Events = [];
     if (acts.includes("act1")) day2Events.push(t.d2Bal);
     if (acts.includes("act4")) day2Events.push(t.d2Pho);
@@ -229,7 +246,6 @@ export default function TailorMadeWizard() {
     else day2Events.push(t.d2Fre);
     plan.push({ day: 2, title: t.d2t, events: day2Events });
 
-    // 3. GÜN
     if (days >= 3) {
       const day3Events = [t.d3Und, t.d3Pot];
       if (answers.vibe === "vib3") day3Events.push(t.d3Fam);
@@ -237,7 +253,6 @@ export default function TailorMadeWizard() {
       plan.push({ day: 3, title: t.d3t, events: day3Events });
     }
 
-    // 4. GÜN
     if (days >= 4) {
       const day4Events = [t.d4Hik, t.d4Sho, answers.transfer === "trf3" ? t.d4EndS : t.d4EndV];
       plan.push({ day: 4, title: t.d4t, events: day4Events });
@@ -286,7 +301,6 @@ export default function TailorMadeWizard() {
   };
 
   return (
-    // 🌟 BEMBEYAZ, AYDINLIK VE LÜKS ANA KASA
     <main className="min-h-[100svh] bg-[#F8FAFC] py-24 md:py-32 relative overflow-hidden flex flex-col items-center selection:bg-blue-500 selection:text-white">
       
       {/* Hafif Izgara ve Aydınlık Mavi Parlamalar */}
@@ -296,9 +310,6 @@ export default function TailorMadeWizard() {
 
       <div className="max-w-4xl w-full px-4 sm:px-6 relative z-10">
         
-        {/* ======================================= */}
-        {/* ÜST BAŞLIK VE PROGRESS BAR */}
-        {/* ======================================= */}
         {!isAnalyzing && !isFinished && (
           <div className="mb-10 text-center">
             <Link href="/" className="inline-block mb-6 text-sm font-bold text-slate-400 hover:text-blue-500 transition-colors uppercase tracking-widest">
@@ -325,14 +336,10 @@ export default function TailorMadeWizard() {
           </div>
         )}
 
-        {/* ======================================= */}
-        {/* ANA KART ALANI */}
-        {/* ======================================= */}
-        <div className={`bg-white rounded-[2.5rem] shadow-[0_20px_60px_rgba(0,0,0,0.05)] border border-slate-100 overflow-hidden relative transition-all duration-500 ${isFinished ? "min-h-[auto]" : "min-h-[450px] flex flex-col justify-center"}`}>
+        <div className={`bg-white/80 backdrop-blur-2xl rounded-[2.5rem] shadow-[0_20px_80px_rgba(59,130,246,0.08)] border border-white overflow-hidden relative transition-all duration-500 ${isFinished ? "min-h-[auto]" : "min-h-[450px] flex flex-col justify-center"}`}>
           
           <AnimatePresence mode="wait">
             
-            {/* 🌟 1. DURUM: SORULAR (WIZARD) */}
             {!isAnalyzing && !isFinished && (
               <motion.div
                 key={currentStep}
@@ -365,7 +372,6 @@ export default function TailorMadeWizard() {
                             : "border-slate-100 hover:border-blue-200 hover:shadow-[0_10px_30px_rgba(59,130,246,0.08)] bg-white"}
                         `}
                       >
-                        {/* Hover Gradient */}
                         <div className={`absolute inset-0 bg-gradient-to-br from-transparent to-blue-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${isSelected ? "opacity-100" : ""}`}></div>
 
                         <div className="relative z-10">
@@ -377,7 +383,6 @@ export default function TailorMadeWizard() {
                           </h4>
                           {opt.desc && <p className="text-[11px] text-slate-500 font-medium leading-relaxed mt-2">{opt.desc}</p>}
                           
-                          {/* Seçili İkonu (Mavi Check) */}
                           {isSelected && (
                             <div className="absolute top-5 right-5 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white shadow-md">
                               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={4} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
@@ -389,7 +394,6 @@ export default function TailorMadeWizard() {
                   })}
                 </div>
 
-                {/* Alt Navigasyon Butonları */}
                 <div className="mt-12 flex items-center justify-between pt-6 border-t border-slate-100/50">
                   <button 
                     onClick={handleBack} 
@@ -411,7 +415,6 @@ export default function TailorMadeWizard() {
               </motion.div>
             )}
 
-            {/* 🌟 2. DURUM: YAPAY ZEKA ANALİZİ (Yükleme Ekranı) */}
             {isAnalyzing && (
               <motion.div
                 key="analyzing"
@@ -439,7 +442,6 @@ export default function TailorMadeWizard() {
               </motion.div>
             )}
 
-            {/* 🌟 3. SONUÇ: LÜKS MAVİ KUTU İÇİNDE BEMBEYAZ PLANLAR */}
             {isFinished && (
               <motion.div
                 key="finished"
@@ -448,7 +450,6 @@ export default function TailorMadeWizard() {
                 transition={{ duration: 0.6, ease: "easeOut" }}
                 className="w-full relative overflow-hidden bg-white flex flex-col"
               >
-                {/* Sonuç Ekranı Üst Kısım (Header) */}
                 <div className="bg-white px-8 pt-12 pb-8 text-center relative overflow-hidden">
                   <div className="w-20 h-20 bg-green-50 border border-green-100 text-green-500 rounded-full flex items-center justify-center text-4xl mx-auto mb-6 shadow-sm">
                     🎉
@@ -461,24 +462,19 @@ export default function TailorMadeWizard() {
                   </p>
                 </div>
 
-                {/* 🌟 YENİ: MAVİMSİ ŞABLON KUTUSU (İçi bembeyaz kartlar) */}
                 <div className="px-4 md:px-8 pb-8">
                   <div className="bg-gradient-to-br from-[#E6F0FD] to-[#F3F8FF] border-2 border-blue-100 rounded-[2.5rem] p-6 md:p-12 shadow-[0_20px_50px_rgba(59,130,246,0.1)] relative overflow-hidden">
                     
-                    {/* Arka Plan Dekoratif Mavi Dalgalar */}
                     <div className="absolute top-0 right-0 w-64 h-64 bg-blue-300/20 rounded-full blur-[80px] pointer-events-none"></div>
                     <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-400/10 rounded-full blur-[80px] pointer-events-none"></div>
 
-                    {/* Lüks Rozet Özetleri */}
                     <div className="flex flex-wrap gap-3 justify-center mb-12 relative z-10">
                       <span className="bg-white border border-blue-100 shadow-sm px-4 py-2 rounded-full text-xs font-bold text-slate-600"><span className="text-blue-500 font-black mr-1">{t.summaryDuration}</span> {t[answers.duration]}</span>
                       <span className="bg-white border border-blue-100 shadow-sm px-4 py-2 rounded-full text-xs font-bold text-slate-600"><span className="text-blue-500 font-black mr-1">{t.summaryHotel}</span> {t[answers.hotel]}</span>
                       <span className="bg-white border border-blue-100 shadow-sm px-4 py-2 rounded-full text-xs font-bold text-slate-600"><span className="text-blue-500 font-black mr-1">{t.summaryVibe}</span> {t[answers.vibe]}</span>
                     </div>
 
-                    {/* Dinamik Gün Gün Zaman Çizelgesi (Timeline) */}
                     <div className="max-w-2xl mx-auto relative z-10">
-                      {/* Parlayan Mavi Çizgi */}
                       <div className="absolute left-[22px] top-4 bottom-4 w-1 bg-gradient-to-b from-blue-400 via-blue-300 to-transparent rounded-full"></div>
 
                       {generatedPlan.map((dayPlan, index) => (
@@ -489,10 +485,8 @@ export default function TailorMadeWizard() {
                           transition={{ delay: index * 0.2 }}
                           className="relative pl-14 mb-10 last:mb-0 group"
                         >
-                          {/* Çizgi Üzerindeki Parlayan Nokta */}
                           <div className="absolute left-[15px] top-1.5 w-4 h-4 rounded-full bg-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.5)] group-hover:scale-125 group-hover:bg-amber-400 transition-all duration-300 border-4 border-white"></div>
                           
-                          {/* Bembeyaz Günlük Plan Kartı */}
                           <div className="bg-white p-6 md:p-8 rounded-[2rem] shadow-sm border border-white hover:shadow-[0_15px_30px_rgba(59,130,246,0.1)] hover:border-blue-200 transition-all duration-300">
                             <h4 className="text-lg font-black text-slate-800 mb-4 flex items-center gap-3">
                               <span className="text-blue-600 bg-blue-50 border border-blue-100 px-3 py-1 rounded-xl text-[10px] tracking-widest uppercase">{dayPlan.day}. {t.dayPrefix}</span>
@@ -517,7 +511,6 @@ export default function TailorMadeWizard() {
                   </div>
                 </div>
 
-                {/* Lüks WhatsApp Butonu Alanı */}
                 <div className="p-8 md:p-12 text-center bg-white border-t border-slate-100 relative overflow-hidden">
                   <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-48 h-48 bg-green-500/10 rounded-full blur-[60px] pointer-events-none"></div>
                   
